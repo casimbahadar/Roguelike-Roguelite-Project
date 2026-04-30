@@ -78,16 +78,20 @@ func _on_run_format_chosen(format_id: StringName) -> void:
 	_run_state = RunState.new(config, seed, party)
 	_map.bind_run(_run_state)
 	_show_only(_map)
+	# Node 0 is always BATTLE per MapGenerator; trigger the opening
+	# fight so the player isn't given a free pass past it.
+	if _is_combat_kind(_run_state.current_node().kind):
+		_start_battle_for_current_node()
 
 func _on_node_advanced(_idx: int) -> void:
-	var node: MapNode = _run_state.current_node()
-	match node.kind:
-		MapNode.Kind.BATTLE, MapNode.Kind.ELITE, MapNode.Kind.BOSS:
-			_start_battle_for_current_node()
-		_:
-			# Non-combat nodes are placeholder no-ops in the slice; the
-			# Map screen already updated state, so just keep showing it.
-			pass
+	if _is_combat_kind(_run_state.current_node().kind):
+		_start_battle_for_current_node()
+	# Non-combat nodes (SHOP/CAMP/EVENT/SHRINE) are placeholder no-ops
+	# in the slice; the Map screen already updated state, so just keep
+	# showing it.
+
+func _is_combat_kind(k: int) -> bool:
+	return k == MapNode.Kind.BATTLE or k == MapNode.Kind.ELITE or k == MapNode.Kind.BOSS
 
 func _start_battle_for_current_node() -> void:
 	var grid: CombatGrid = CombatGrid.new(6, 6)
