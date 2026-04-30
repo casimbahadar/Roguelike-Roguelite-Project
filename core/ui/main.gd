@@ -20,6 +20,7 @@ const PLAYER_CLASS_PATH := "res://games/sengoku/data/classes/samurai.tres"
 const ENEMY_CLASS_PATH := "res://games/sengoku/data/classes/ashigaru.tres"
 const ENCOUNTER_POOL_PATH := "res://games/sengoku/data/encounters/sengoku_pool.tres"
 const EVENT_POOL_PATH := "res://games/sengoku/data/events/sengoku_event_pool.tres"
+const RELIC_POOL_PATH := "res://games/sengoku/data/relics/sengoku_relic_pool.tres"
 
 var _meta: MetaState
 var _run_configs: Array[RunConfig] = []
@@ -28,6 +29,7 @@ var _player_class: ClassDef
 var _enemy_class: ClassDef
 var _encounter_pool: EncounterPool
 var _event_pool: EventPool
+var _relic_pool: RelicPool
 var _battle_rng: RandomNumberGenerator
 
 @onready var _hub: HubScreen = $Hub
@@ -55,6 +57,7 @@ func _load_data() -> void:
 	_enemy_class = load(ENEMY_CLASS_PATH)
 	_encounter_pool = load(ENCOUNTER_POOL_PATH)
 	_event_pool = load(EVENT_POOL_PATH)
+	_relic_pool = load(RELIC_POOL_PATH)
 	_battle_rng = RandomNumberGenerator.new()
 	_battle_rng.randomize()
 
@@ -135,10 +138,26 @@ func _is_combat_kind(k: int) -> bool:
 func _start_battle_for_current_node() -> void:
 	var grid: CombatGrid = CombatGrid.new(6, 6)
 	var hero: CombatUnit = CombatUnit.new(_make_player_unit_def(), Vector2i(0, 0))
+	_apply_relic_buffs(hero)
 	var players: Array[CombatUnit] = [hero]
 	var enemies: Array[CombatUnit] = _spawn_enemies_for_current_node()
 	_battle.bind_battle(grid, players, enemies)
 	_show_only(_battle)
+
+func _apply_relic_buffs(unit: CombatUnit) -> void:
+	var atk_b: int = 0
+	var def_b: int = 0
+	var hp_b: int = 0
+	for r in _run_state.relics:
+		match r.kind:
+			RelicDef.Kind.ATK_BONUS:
+				atk_b += r.value
+			RelicDef.Kind.DEFENSE_BONUS:
+				def_b += r.value
+			RelicDef.Kind.MAX_HP_BONUS:
+				hp_b += r.value
+			# GOLD_PER_VICTORY is applied at battle end, not here.
+	unit.apply_buffs(atk_b, def_b, hp_b)
 
 func _spawn_enemies_for_current_node() -> Array[CombatUnit]:
 	var enemies: Array[CombatUnit] = []
@@ -162,11 +181,23 @@ func _on_battle_resolved(winning_side: int) -> void:
 	if winning_side != 0:
 		_finish_run(ResultScreen.Outcome.DEFEAT)
 		return
-	# Won. If that was the final-act boss, finish the run.
+	# Won. Award gold from any GOLD_PER_VICTORY relics held.
+	for r in _run_state.relics:
+		if r.kind == RelicDef.Kind.GOLD_PER_VICTORY:
+			_run_state.gold += r.value
+	# Boss victory: pull a fresh relic into the run before
+	# resolving the screen so the player feels the upgrade
+	# immediately if they hit a follow-up battle.
+	if _run_state.current_node().kind == MapNode.Kind.BOSS and _relic_pool != null:
+		var picked: RelicDef = _relic_pool.pick(_battle_rng)
+		if picked != null:
+			_run_state.relics.append(picked)
+	# If that was the final-act boss, finish the run.
 	if _run_state.is_run_complete():
 		_finish_run(ResultScreen.Outcome.VICTORY)
 		return
 	_show_only(_map)
+	_map.bind_run(_run_state)  # refresh status line (gold may have changed)
 
 func _finish_run(outcome: ResultScreen.Outcome) -> void:
 	var newly: Array[StringName] = []

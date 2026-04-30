@@ -14,6 +14,7 @@ var current_node_index: int = 0
 var party: Array[UnitDef] = []
 var revive_tokens: int = 0
 var gold: int = 0
+var relics: Array[RelicDef] = []
 
 func _init(p_config: RunConfig, p_seed: int, p_party: Array[UnitDef]) -> void:
 	run_config = p_config
