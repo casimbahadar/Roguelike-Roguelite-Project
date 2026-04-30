@@ -9,6 +9,7 @@ display_name = "Onmyoji"
 theme = &"sengoku"
 movement_type = "foot"
 move_range = 5
+weapon_type = "MAGIC"
 base_hp = 14
 base_atk = 8
 base_defense = 2

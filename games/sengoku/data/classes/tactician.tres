@@ -9,6 +9,7 @@ display_name = "Tactician"
 theme = &"sengoku"
 movement_type = "foot"
 move_range = 5
+weapon_type = "NONE"
 base_hp = 14
 base_atk = 3
 base_defense = 3

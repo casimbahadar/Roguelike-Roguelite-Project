@@ -9,6 +9,7 @@ display_name = "Shinobi"
 theme = &"sengoku"
 movement_type = "foot"
 move_range = 6
+weapon_type = "SWORD"
 base_hp = 16
 base_atk = 6
 base_defense = 2

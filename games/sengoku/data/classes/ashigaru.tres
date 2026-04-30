@@ -9,6 +9,7 @@ display_name = "Ashigaru"
 theme = &"sengoku"
 movement_type = "foot"
 move_range = 4
+weapon_type = "LANCE"
 base_hp = 16
 base_atk = 4
 base_defense = 3

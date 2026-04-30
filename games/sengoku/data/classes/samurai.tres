@@ -9,6 +9,7 @@ display_name = "Samurai"
 theme = &"sengoku"
 movement_type = "foot"
 move_range = 5
+weapon_type = "SWORD"
 base_hp = 22
 base_atk = 7
 base_defense = 5

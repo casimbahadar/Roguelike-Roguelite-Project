@@ -9,6 +9,7 @@ display_name = "Yari Cavalry"
 theme = &"sengoku"
 movement_type = "mounted"
 move_range = 8
+weapon_type = "LANCE"
 base_hp = 20
 base_atk = 8
 base_defense = 4

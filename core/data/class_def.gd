@@ -13,6 +13,9 @@ extends Resource
 @export_enum("foot", "mounted", "flying", "transforming") var movement_type: String = "foot"
 @export var move_range: int = 5
 
+@export_group("Combat")
+@export_enum("NONE", "SWORD", "LANCE", "AXE", "BOW", "MAGIC") var weapon_type: String = "NONE"
+
 @export_group("Base stats (level 1)")
 @export var base_hp: int = 20
 @export var base_atk: int = 5
