@@ -18,12 +18,15 @@ const RUN_CONFIG_PATHS: Array[String] = [
 ]
 const PLAYER_CLASS_PATH := "res://games/sengoku/data/classes/samurai.tres"
 const ENEMY_CLASS_PATH := "res://games/sengoku/data/classes/ashigaru.tres"
+const ENCOUNTER_POOL_PATH := "res://games/sengoku/data/encounters/sengoku_pool.tres"
 
 var _meta: MetaState
 var _run_configs: Array[RunConfig] = []
 var _run_state: RunState
 var _player_class: ClassDef
 var _enemy_class: ClassDef
+var _encounter_pool: EncounterPool
+var _battle_rng: RandomNumberGenerator
 
 @onready var _hub: HubScreen = $Hub
 @onready var _map: MapScreen = $MapScreen
@@ -47,6 +50,9 @@ func _load_data() -> void:
 
 	_player_class = load(PLAYER_CLASS_PATH)
 	_enemy_class = load(ENEMY_CLASS_PATH)
+	_encounter_pool = load(ENCOUNTER_POOL_PATH)
+	_battle_rng = RandomNumberGenerator.new()
+	_battle_rng.randomize()
 
 func _wire_signals() -> void:
 	_hub.run_format_chosen.connect(_on_run_format_chosen)
@@ -96,11 +102,28 @@ func _is_combat_kind(k: int) -> bool:
 func _start_battle_for_current_node() -> void:
 	var grid: CombatGrid = CombatGrid.new(6, 6)
 	var hero: CombatUnit = CombatUnit.new(_make_player_unit_def(), Vector2i(0, 0))
-	var foe: CombatUnit = CombatUnit.new(_make_enemy_unit_def(), Vector2i(5, 5))
 	var players: Array[CombatUnit] = [hero]
-	var enemies: Array[CombatUnit] = [foe]
+	var enemies: Array[CombatUnit] = _spawn_enemies_for_current_node()
 	_battle.bind_battle(grid, players, enemies)
 	_show_only(_battle)
+
+func _spawn_enemies_for_current_node() -> Array[CombatUnit]:
+	var enemies: Array[CombatUnit] = []
+	var encounter: EncounterDef = null
+	if _encounter_pool != null:
+		encounter = _encounter_pool.pick(_battle_rng, _run_state.current_node().kind, _run_state.current_act())
+	if encounter == null or encounter.enemies.is_empty():
+		# Fallback: a single ashigaru-class bandit so the run never hits a
+		# dead battle node. Designers should add encounters covering every
+		# combat kind for every act.
+		enemies.append(CombatUnit.new(_make_enemy_unit_def(), Vector2i(5, 5)))
+		return enemies
+	# Spread enemies across the right column so they don't pile on one tile.
+	var positions: Array[Vector2i] = [Vector2i(5, 5), Vector2i(5, 4), Vector2i(5, 3), Vector2i(4, 5)]
+	for i in encounter.enemies.size():
+		var pos: Vector2i = positions[i % positions.size()]
+		enemies.append(CombatUnit.new(encounter.enemies[i], pos))
+	return enemies
 
 func _on_battle_resolved(winning_side: int) -> void:
 	if winning_side != 0:
