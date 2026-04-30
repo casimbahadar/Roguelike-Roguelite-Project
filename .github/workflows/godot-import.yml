@@ -141,3 +141,12 @@ jobs:
             echo "Godot reported errors during platform smoke test."
             exit 1
           fi
+
+      - name: Smoke test — Branching map structural invariants
+        run: |
+          set -euo pipefail
+          ~/godot/godot --headless --script res://tests/smoke_branching_map.gd 2>&1 | tee smoke_branching.log
+          if grep -E "^(SCRIPT ERROR|ERROR:)" smoke_branching.log; then
+            echo "Godot reported errors during branching map smoke test."
+            exit 1
+          fi
