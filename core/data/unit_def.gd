@@ -17,6 +17,7 @@ extends Resource
 @export var class_def: ClassDef
 @export var level: int = 1
 @export var side: int = 0  # 0 = player, 1+ = enemy factions
+@export_enum("aggressive", "defensive", "ranged") var ai_kind: String = "aggressive"
 
 @export_group("Per-level growths (added per level past 1)")
 @export var hp_growth: int = 2

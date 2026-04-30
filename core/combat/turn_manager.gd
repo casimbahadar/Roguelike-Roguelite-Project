@@ -45,7 +45,13 @@ func run_turn() -> void:
 	for actor in living_units(current_side):
 		if not actor.is_alive():
 			continue
-		AiAggressive.take_turn(actor, self)
+		match actor.unit_def.ai_kind:
+			"defensive":
+				AiDefensive.take_turn(actor, self)
+			"ranged":
+				AiRanged.take_turn(actor, self)
+			_:
+				AiAggressive.take_turn(actor, self)
 	current_side = 1 - current_side
 
 func resolve(turn_cap: int = 100) -> int:
@@ -79,6 +85,20 @@ func _step_toward(actor: CombatUnit, target_pos: Vector2i) -> void:
 			continue
 		var d: int = grid.distance(n, target_pos)
 		if d < best_dist:
+			best_dist = d
+			best_pos = n
+	actor.pos = best_pos
+
+func _step_away(actor: CombatUnit, target_pos: Vector2i) -> void:
+	var occ: Dictionary = _occupied_positions()
+	occ.erase(actor.pos)
+	var best_pos: Vector2i = actor.pos
+	var best_dist: int = grid.distance(actor.pos, target_pos)
+	for n in grid.neighbors(actor.pos):
+		if occ.has(n):
+			continue
+		var d: int = grid.distance(n, target_pos)
+		if d > best_dist:
 			best_dist = d
 			best_pos = n
 	actor.pos = best_pos

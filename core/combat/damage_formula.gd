@@ -12,6 +12,21 @@ extends RefCounted
 
 const TRIANGLE_BONUS: int = 2
 
+# Returns (min, max) Manhattan attack range for a weapon.
+# Melee weapons can only strike adjacent (1..1). FE archers
+# attack at 2..3 — they can't shoot point-blank. Magic is 1..2.
+# A NONE weapon has no offensive range; we mark that with (0, 0).
+static func weapon_range(weapon: String) -> Vector2i:
+	match weapon:
+		"BOW":
+			return Vector2i(2, 3)
+		"MAGIC":
+			return Vector2i(1, 2)
+		"SWORD", "LANCE", "AXE":
+			return Vector2i(1, 1)
+		_:
+			return Vector2i(0, 0)
+
 # Returns +TRIANGLE_BONUS if attacker_weapon beats defender_weapon,
 # -TRIANGLE_BONUS if it's the other way around, 0 otherwise.
 static func triangle_modifier(attacker_weapon: String, defender_weapon: String) -> int:
