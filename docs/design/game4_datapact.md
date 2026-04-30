@@ -87,16 +87,44 @@ See `run_formats.md` for run lengths.
 - **Vessel = a paired companion class.** Mechanically a unit
   that occupies a tile and acts on the lord's side, but with
   three distinguishing traits:
-  1. **Cannot die mid-battle.** Once HP hits 0, the vessel
-     reverts to fledgling form and is sidelined for the
-     remainder of the battle. Its resurrection happens at the
-     next camp node.
+  1. **Mortality is a per-run player choice** (see *Vessel
+     mortality* section below).
   2. **Multi-stage promotions** triggered by story flags, not
      XP thresholds. Each stage replaces the vessel's class
      wholesale (new sprite, new stat block, new ability set).
   3. **Pact bond** — the vessel-lord pair has a permanent
      support rank that can never be reset. High bond unlocks
      paired arts (lord-vessel combo attacks).
+
+## Vessel mortality (player choice at run start)
+
+Every run prompts the player to pick how their vessel handles
+death. The choice is per-run, not per-format — Skirmish,
+Standard, Long, and Saga all offer both modes. The choice goes
+into the run save record and surfaces on the post-run summary.
+
+- **Restored Pact** (default, narrative-focused). Vessels
+  cannot die mid-battle. When HP hits 0, the vessel reverts to
+  its fledgling form and is sidelined for the remainder of the
+  battle; the next camp node restores it. The campaign reads
+  as the planned emotional through-line — the partner is
+  always there for the next chapter.
+- **Permabond** (challenge-focused). Full FE-style permadeath
+  for the vessel. When HP hits 0, the vessel dies for real;
+  the lord can fight on for the remainder of the run, but the
+  Pact is severed and lord-vessel combo arts are no longer
+  available. Recruited secondary units already had FE
+  permadeath; this just extends it to the partner.
+  Permabond runs grant a small permanent meta-currency bonus
+  on completion to acknowledge the higher stakes.
+
+Both modes share the same `RunState` data and run loop; the
+mortality choice is one boolean on the run save. Permabond
+defeat doesn't auto-end the run — losing the vessel is a
+narrative gut-punch but the lord may yet succeed. (Iron Run as
+a *run format* further removes the lord's revive token; the
+two settings stack: Permabond + Iron Run = a fully ironclad
+expedition.)
 - **Stage names — neutral and made-up.** Fledgling, bonded,
   sworn, ascendant. Note that *none of those four are
   Digimon's tier names* (which are *baby / in-training / rookie
