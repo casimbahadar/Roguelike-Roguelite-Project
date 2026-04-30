@@ -30,11 +30,14 @@ this list as new decisions land — never silently override.
   Nothing in `core/` may import from `games/*` — the dependency
   arrow is one-way.
 - **Sequencing**: Game 1 vertical slice ships first. Game 2
-  begins after Game 1's slice is internally validated. Games 3
-  and 4 enter pre-production only after Game 1 or Game 2 has
-  shipped — they reuse the same core/ and benefit from a
-  hardened combat / run / meta layer. No parallel full-team work
-  on more than one game at a time.
+  begins after Game 1's slice is internally validated. **Games
+  3 and 4 may be developed in parallel** once Game 2 has
+  shipped — by that point the engine is double-validated (G1
+  proved it works for one theme; G2 proved it re-skins to a
+  second), and Games 3 and 4 are mostly content authoring on
+  top of the shared `core/`. Until G2 ships, the rule stays
+  strict-sequential — no parallel full-team work on more than
+  one game at a time.
 - **Game 1 — Sengoku**: original characters plus public-domain
   historical warlords. No Koei Tecmo IP, art look-alikes, or music
   motifs.

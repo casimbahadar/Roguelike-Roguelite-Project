@@ -37,9 +37,11 @@ dominated by entrenched franchises.
 
 **Sequencing** (locked in `CLAUDE.md`): Game 1 ships first.
 Game 2 begins after Game 1's slice is internally validated.
-Games 3 and 4 enter pre-production only after Game 1 or Game 2
-has shipped — they reuse a hardened combat / run / meta layer.
-No parallel full-team work on more than one game at a time.
+Once Game 2 has shipped, Games 3 and 4 may be developed in
+parallel — by then the engine is double-validated and the
+remaining work is mostly content authoring on top of the
+shared `core/`. Strict-sequential through G1 → G2 (engine
+risk); loose-parallel for G3 and G4 (content risk).
 
 Active development happens on
 `claude/fire-emblem-roguelike-games-FadWA`. See `CLAUDE.md` for

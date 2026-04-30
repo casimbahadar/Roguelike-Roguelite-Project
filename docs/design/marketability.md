@@ -107,9 +107,13 @@ ceiling shifts, or a marketing channel flips.
   by name. "For fans of monster-taming RPGs" is fine; naming a
   trademarked franchise in the storefront copy is not.
 - **Scope creep.** The fastest path to revenue is *one shipped
-  game*, not four unfinished ones. Sequencing is locked: G1 →
-  G2 → G3 → G4. Each game starts only after the previous one's
-  slice (or full release) is validated.
+  game*, not four unfinished ones. Sequencing is locked: G1
+  ships first, G2 begins once G1's slice validates, and Games
+  3 and 4 may run in parallel once G2 ships (by then the
+  engine is double-validated and remaining work is mostly
+  content authoring). Strict-sequential through G1 → G2 absorbs
+  the engine risk; loose-parallel for G3 / G4 absorbs the
+  content risk and shortens the overall schedule.
 - **Mobile balance.** Touch UI for grid tactics is hard. Budget at
   least 2 weeks of input/UX polish per game on mobile specifically.
 - **Live-ops cost.** Cosmetic IAP requires a content cadence.
