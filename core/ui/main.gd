@@ -97,7 +97,9 @@ func _start_battle_for_current_node() -> void:
 	var grid: CombatGrid = CombatGrid.new(6, 6)
 	var hero: CombatUnit = CombatUnit.new(_make_player_unit_def(), Vector2i(0, 0))
 	var foe: CombatUnit = CombatUnit.new(_make_enemy_unit_def(), Vector2i(5, 5))
-	_battle.bind_battle(grid, [hero], [foe])
+	var players: Array[CombatUnit] = [hero]
+	var enemies: Array[CombatUnit] = [foe]
+	_battle.bind_battle(grid, players, enemies)
 	_show_only(_battle)
 
 func _on_battle_resolved(winning_side: int) -> void:
