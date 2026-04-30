@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3]
+[gd_scene load_steps=7 format=3]
 
 [ext_resource type="Script" path="res://core/ui/main.gd" id="1_main"]
 [ext_resource type="PackedScene" path="res://core/ui/hub.tscn" id="2_hub"]
 [ext_resource type="PackedScene" path="res://core/ui/map_screen.tscn" id="3_map"]
 [ext_resource type="PackedScene" path="res://core/ui/battle_screen.tscn" id="4_battle"]
 [ext_resource type="PackedScene" path="res://core/ui/result_screen.tscn" id="5_result"]
+[ext_resource type="PackedScene" path="res://core/ui/event_screen.tscn" id="6_event"]
 
 [node name="Main" type="Node"]
 script = ExtResource("1_main")
@@ -18,4 +19,7 @@ visible = false
 visible = false
 
 [node name="ResultScreen" parent="." instance=ExtResource("5_result")]
+visible = false
+
+[node name="EventScreen" parent="." instance=ExtResource("6_event")]
 visible = false

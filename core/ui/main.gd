@@ -19,6 +19,7 @@ const RUN_CONFIG_PATHS: Array[String] = [
 const PLAYER_CLASS_PATH := "res://games/sengoku/data/classes/samurai.tres"
 const ENEMY_CLASS_PATH := "res://games/sengoku/data/classes/ashigaru.tres"
 const ENCOUNTER_POOL_PATH := "res://games/sengoku/data/encounters/sengoku_pool.tres"
+const EVENT_POOL_PATH := "res://games/sengoku/data/events/sengoku_event_pool.tres"
 
 var _meta: MetaState
 var _run_configs: Array[RunConfig] = []
@@ -26,12 +27,14 @@ var _run_state: RunState
 var _player_class: ClassDef
 var _enemy_class: ClassDef
 var _encounter_pool: EncounterPool
+var _event_pool: EventPool
 var _battle_rng: RandomNumberGenerator
 
 @onready var _hub: HubScreen = $Hub
 @onready var _map: MapScreen = $MapScreen
 @onready var _battle: BattleScreen = $BattleScreen
 @onready var _result: ResultScreen = $ResultScreen
+@onready var _event: EventScreen = $EventScreen
 
 func _ready() -> void:
 	_load_data()
@@ -51,6 +54,7 @@ func _load_data() -> void:
 	_player_class = load(PLAYER_CLASS_PATH)
 	_enemy_class = load(ENEMY_CLASS_PATH)
 	_encounter_pool = load(ENCOUNTER_POOL_PATH)
+	_event_pool = load(EVENT_POOL_PATH)
 	_battle_rng = RandomNumberGenerator.new()
 	_battle_rng.randomize()
 
@@ -64,10 +68,11 @@ func _wire_signals() -> void:
 	# fight happens. Run completion is decided in _on_battle_resolved
 	# instead.
 	_battle.battle_resolved.connect(_on_battle_resolved)
+	_event.event_resolved.connect(_on_event_resolved)
 	_result.continue_pressed.connect(_show_hub)
 
 func _show_only(node: Control) -> void:
-	for child in [_hub, _map, _battle, _result]:
+	for child in [_hub, _map, _battle, _result, _event]:
 		child.visible = (child == node)
 
 func _show_hub() -> void:
@@ -90,11 +95,39 @@ func _on_run_format_chosen(format_id: StringName) -> void:
 		_start_battle_for_current_node()
 
 func _on_node_advanced(_idx: int) -> void:
-	if _is_combat_kind(_run_state.current_node().kind):
+	var kind: int = _run_state.current_node().kind
+	if _is_combat_kind(kind):
 		_start_battle_for_current_node()
-	# Non-combat nodes (SHOP/CAMP/EVENT/SHRINE) are placeholder no-ops
-	# in the slice; the Map screen already updated state, so just keep
+		return
+	if kind == MapNode.Kind.EVENT:
+		_start_event_for_current_node()
+		return
+	# SHOP / CAMP / SHRINE remain placeholder no-ops in the slice;
+	# their UIs land alongside the relic, ability, and recruit
+	# systems. Map screen already updated state, so just keep
 	# showing it.
+
+func _start_event_for_current_node() -> void:
+	if _event_pool == null:
+		return
+	var picked: EventDef = _event_pool.pick(_battle_rng, _run_state.current_act())
+	if picked == null:
+		return
+	_event.bind_event(picked)
+	_show_only(_event)
+
+func _on_event_resolved(chosen: EventChoice) -> void:
+	# Apply effects to the active run / meta state.
+	_run_state.gold += chosen.gold_delta
+	if _run_state.gold < 0:
+		_run_state.gold = 0
+	_meta.meta_currency += chosen.meta_currency_delta
+	if _meta.meta_currency < 0:
+		_meta.meta_currency = 0
+	# party_hp_delta is a future hook (party isn't yet a persistent
+	# CombatUnit roster across nodes); apply it once that lands.
+	_show_only(_map)
+	_map.bind_run(_run_state)  # refresh status line
 
 func _is_combat_kind(k: int) -> bool:
 	return k == MapNode.Kind.BATTLE or k == MapNode.Kind.ELITE or k == MapNode.Kind.BOSS
