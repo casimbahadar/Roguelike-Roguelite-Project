@@ -37,6 +37,9 @@ var _battle_rng: RandomNumberGenerator
 @onready var _battle: BattleScreen = $BattleScreen
 @onready var _result: ResultScreen = $ResultScreen
 @onready var _event: EventScreen = $EventScreen
+@onready var _shop: ShopScreen = $ShopScreen
+@onready var _camp: CampScreen = $CampScreen
+@onready var _shrine: ShrineScreen = $ShrineScreen
 
 func _ready() -> void:
 	_load_data()
@@ -72,10 +75,13 @@ func _wire_signals() -> void:
 	# instead.
 	_battle.battle_resolved.connect(_on_battle_resolved)
 	_event.event_resolved.connect(_on_event_resolved)
+	_shop.shop_left.connect(_on_node_screen_left)
+	_camp.camp_left.connect(_on_node_screen_left)
+	_shrine.shrine_left.connect(_on_node_screen_left)
 	_result.continue_pressed.connect(_show_hub)
 
 func _show_only(node: Control) -> void:
-	for child in [_hub, _map, _battle, _result, _event]:
+	for child in [_hub, _map, _battle, _result, _event, _shop, _camp, _shrine]:
 		child.visible = (child == node)
 
 func _show_hub() -> void:
@@ -105,10 +111,47 @@ func _on_node_advanced(_idx: int) -> void:
 	if kind == MapNode.Kind.EVENT:
 		_start_event_for_current_node()
 		return
-	# SHOP / CAMP / SHRINE remain placeholder no-ops in the slice;
-	# their UIs land alongside the relic, ability, and recruit
-	# systems. Map screen already updated state, so just keep
-	# showing it.
+	if kind == MapNode.Kind.SHOP:
+		_start_shop_for_current_node()
+		return
+	if kind == MapNode.Kind.CAMP:
+		_start_camp_for_current_node()
+		return
+	if kind == MapNode.Kind.SHRINE:
+		_start_shrine_for_current_node()
+		return
+	# Unknown node kind — keep the map showing and let the player
+	# advance manually.
+
+func _start_shop_for_current_node() -> void:
+	if _relic_pool == null:
+		return
+	var offered: Array[RelicDef] = []
+	for i in 3:
+		var picked: RelicDef = _relic_pool.pick(_battle_rng)
+		if picked != null:
+			offered.append(picked)
+	_shop.bind_shop(_run_state, offered)
+	_show_only(_shop)
+
+func _start_camp_for_current_node() -> void:
+	_camp.bind_camp(_run_state)
+	_show_only(_camp)
+
+func _start_shrine_for_current_node() -> void:
+	if _relic_pool == null:
+		return
+	var picked: RelicDef = _relic_pool.pick(_battle_rng, RelicDef.Rarity.UNCOMMON)
+	if picked == null:
+		return
+	_shrine.bind_shrine(_run_state, picked)
+	_show_only(_shrine)
+
+func _on_node_screen_left() -> void:
+	# After Shop / Camp / Shrine, return to the map and refresh
+	# the status line so any gold / relic changes show up.
+	_show_only(_map)
+	_map.bind_run(_run_state)
 
 func _start_event_for_current_node() -> void:
 	if _event_pool == null:

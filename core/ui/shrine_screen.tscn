@@ -1,0 +1,61 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://core/ui/shrine_screen.gd" id="1_shrine"]
+
+[node name="ShrineScreen" type="Control"]
+script = ExtResource("1_shrine")
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Margin" type="MarginContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 24
+
+[node name="VBox" type="VBoxContainer" parent="Margin"]
+
+[node name="Title" type="Label" parent="Margin/VBox"]
+text = "A Roadside Shrine"
+theme_override_font_sizes/font_size = 24
+
+[node name="Gold" type="Label" parent="Margin/VBox"]
+text = "Gold: 0"
+theme_override_font_sizes/font_size = 16
+
+[node name="Spacer1" type="Control" parent="Margin/VBox"]
+custom_minimum_size = Vector2(0, 12)
+
+[node name="Body" type="Label" parent="Margin/VBox"]
+text = "A small shrine of stacked stone stands beside the road. Coins crusted with red moss litter the offering bowl. Something here is listening."
+autowrap_mode = 2
+
+[node name="Spacer2" type="Control" parent="Margin/VBox"]
+custom_minimum_size = Vector2(0, 12)
+
+[node name="Offer" type="Label" parent="Margin/VBox"]
+text = ""
+autowrap_mode = 2
+
+[node name="Spacer3" type="Control" parent="Margin/VBox"]
+custom_minimum_size = Vector2(0, 16)
+
+[node name="AcceptBtn" type="Button" parent="Margin/VBox"]
+text = "Sacrifice gold"
+custom_minimum_size = Vector2(0, 56)
+
+[node name="DeclineBtn" type="Button" parent="Margin/VBox"]
+text = "Walk away"
+custom_minimum_size = Vector2(0, 56)
+
+[node name="Outcome" type="Label" parent="Margin/VBox"]
+text = ""
+autowrap_mode = 2
+visible = false
+
+[node name="ContinueBtn" type="Button" parent="Margin/VBox"]
+text = "Continue"
+custom_minimum_size = Vector2(0, 56)
+visible = false
