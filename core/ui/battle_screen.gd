@@ -28,9 +28,13 @@ func bind_battle(grid: CombatGrid, player_units: Array[CombatUnit], enemy_units:
 		_resolve_btn.pressed.connect(_on_resolve_pressed)
 	_refresh()
 
+const PLAYER_BAR_COLOR := Color(0.40, 0.78, 0.50)  # green
+const ENEMY_BAR_COLOR := Color(0.85, 0.42, 0.42)   # red
+const DOWN_TINT := Color(0.6, 0.6, 0.6, 0.55)
+
 func _refresh() -> void:
-	_populate_unit_list(_player_list, _player_units)
-	_populate_unit_list(_enemy_list, _enemy_units)
+	_populate_unit_list(_player_list, _player_units, PLAYER_BAR_COLOR)
+	_populate_unit_list(_enemy_list, _enemy_units, ENEMY_BAR_COLOR)
 	if _resolved:
 		_resolve_btn.disabled = true
 		_resolve_btn.text = "Battle complete"
@@ -38,18 +42,46 @@ func _refresh() -> void:
 		_resolve_btn.disabled = false
 		_resolve_btn.text = "Resolve battle"
 
-func _populate_unit_list(list: VBoxContainer, units: Array[CombatUnit]) -> void:
+func _populate_unit_list(list: VBoxContainer, units: Array[CombatUnit], bar_color: Color) -> void:
 	for child in list.get_children():
 		child.queue_free()
 	for u in units:
-		var lbl: Label = Label.new()
-		lbl.custom_minimum_size = Vector2(0, 32)
-		var status: String = "alive"
-		if not u.is_alive():
-			status = "DOWN"
-			lbl.modulate = Color(1, 0.4, 0.4)
-		lbl.text = "%s  hp %d/%d  (%s)" % [u.unit_name(), u.hp, u.max_hp(), status]
-		list.add_child(lbl)
+		list.add_child(_build_unit_row(u, bar_color))
+
+func _build_unit_row(u: CombatUnit, bar_color: Color) -> HBoxContainer:
+	var row: HBoxContainer = HBoxContainer.new()
+	row.custom_minimum_size = Vector2(0, 36)
+	row.add_theme_constant_override("separation", 8)
+
+	var name_lbl: Label = Label.new()
+	name_lbl.text = u.unit_name()
+	name_lbl.custom_minimum_size = Vector2(110, 0)
+	row.add_child(name_lbl)
+
+	var hp_bar: ProgressBar = ProgressBar.new()
+	hp_bar.min_value = 0
+	hp_bar.max_value = max(1, u.max_hp())
+	hp_bar.value = u.hp
+	hp_bar.show_percentage = false
+	hp_bar.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	hp_bar.custom_minimum_size = Vector2(0, 22)
+	hp_bar.modulate = bar_color
+	row.add_child(hp_bar)
+
+	var hp_lbl: Label = Label.new()
+	hp_lbl.text = "%d/%d" % [u.hp, u.max_hp()]
+	hp_lbl.custom_minimum_size = Vector2(64, 0)
+	hp_lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+	row.add_child(hp_lbl)
+
+	if not u.is_alive():
+		row.modulate = DOWN_TINT
+		var down_lbl: Label = Label.new()
+		down_lbl.text = "DOWN"
+		down_lbl.custom_minimum_size = Vector2(56, 0)
+		row.add_child(down_lbl)
+
+	return row
 
 func _on_resolve_pressed() -> void:
 	if _resolved:
