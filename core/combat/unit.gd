@@ -1,33 +1,33 @@
 class_name CombatUnit
 extends RefCounted
 
-# Minimal unit: identity, allegiance, three combat stats, and a tile.
-# Stats are intentionally bare — no growths, no weapon triangle, no
-# class system here. Those layer on later via .tres Resources.
+# Runtime combat instance built from a UnitDef. The UnitDef is the
+# data (identity, class, growths); the CombatUnit holds the live
+# state for a battle (hp, position). Side is taken from the def
+# but can be overridden — useful for charm / recruit / persuade.
 
-var unit_name: String
+var unit_def: UnitDef
 var side: int
-var max_hp: int
 var hp: int
-var atk: int
-var defense: int
 var pos: Vector2i
 
-func _init(
-	p_name: String,
-	p_side: int,
-	p_hp: int,
-	p_atk: int,
-	p_defense: int,
-	p_pos: Vector2i
-) -> void:
-	unit_name = p_name
-	side = p_side
-	max_hp = p_hp
-	hp = p_hp
-	atk = p_atk
-	defense = p_defense
+func _init(p_def: UnitDef, p_pos: Vector2i, p_side_override: int = -1) -> void:
+	unit_def = p_def
+	side = p_side_override if p_side_override >= 0 else p_def.side
+	hp = p_def.max_hp()
 	pos = p_pos
+
+func unit_name() -> String:
+	return unit_def.display_name
+
+func max_hp() -> int:
+	return unit_def.max_hp()
+
+func atk() -> int:
+	return unit_def.atk()
+
+func defense() -> int:
+	return unit_def.defense()
 
 func is_alive() -> bool:
 	return hp > 0

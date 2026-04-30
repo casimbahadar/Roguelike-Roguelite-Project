@@ -92,7 +92,7 @@ func _step_toward(actor: CombatUnit, target_pos: Vector2i) -> void:
 	actor.pos = best_pos
 
 func _attack(attacker: CombatUnit, defender: CombatUnit) -> void:
-	var dmg: int = maxi(1, attacker.atk - defender.defense)
+	var dmg: int = maxi(1, attacker.atk() - defender.defense())
 	defender.take_damage(dmg)
 
 func _occupied_positions() -> Dictionary:
