@@ -8,6 +8,7 @@ config/name="Roguelike Roguelite Project"
 config/description="Two FE-inspired tactics roguelites sharing a Godot 4 core: Game 1 Sengoku, Game 2 FE-foundation high fantasy."
 config/features=PackedStringArray("4.3", "Forward Plus")
 config/icon="res://icon.svg"
+run/main_scene="res://core/ui/main.tscn"
 
 [display]
 
