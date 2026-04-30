@@ -1,0 +1,38 @@
+[gd_resource type="Resource" script_class="EventDef" load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://core/data/event_def.gd" id="1_def"]
+[ext_resource type="Script" path="res://core/data/event_choice.gd" id="2_choice"]
+
+[sub_resource type="Resource" id="ChoiceMend"]
+script = ExtResource("2_choice")
+label = "Mend it"
+outcome_text = "Your captain splints its wing with a strip of cloth. It blinks once, then is gone in a flick of grey. The omen is taken."
+gold_delta = 0
+meta_currency_delta = 4
+party_hp_delta = 0
+
+[sub_resource type="Resource" id="ChoiceCookIt"]
+script = ExtResource("2_choice")
+label = "Cook it"
+outcome_text = "It is barely a mouthful. A retainer, who reads omens, will not look at you for a watch."
+gold_delta = 1
+meta_currency_delta = -3
+party_hp_delta = 0
+
+[sub_resource type="Resource" id="ChoiceLeave"]
+script = ExtResource("2_choice")
+label = "Leave it"
+outcome_text = "You set the bird gently on a stone and move on. Whatever brought it here is not your problem."
+gold_delta = 0
+meta_currency_delta = 0
+party_hp_delta = 0
+
+[resource]
+script = ExtResource("1_def")
+id = &"sparrow_omen"
+display_name = "An Injured Sparrow"
+body = "A grey sparrow lies in the road with a broken wing. It does not panic when your captain kneels. The retainers behind him stop talking."
+choices = [SubResource("ChoiceMend"), SubResource("ChoiceCookIt"), SubResource("ChoiceLeave")]
+act_min = 0
+act_max = 99
+weight = 8

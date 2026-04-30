@@ -1,0 +1,30 @@
+[gd_resource type="Resource" script_class="EventDef" load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://core/data/event_def.gd" id="1_def"]
+[ext_resource type="Script" path="res://core/data/event_choice.gd" id="2_choice"]
+
+[sub_resource type="Resource" id="ChoiceAcceptBlessing"]
+script = ExtResource("2_choice")
+label = "Accept her blessing"
+outcome_text = "She traces a sigil on the captain's brow. The wind shifts. Whatever she has called down has come."
+gold_delta = 0
+meta_currency_delta = 6
+party_hp_delta = 0
+
+[sub_resource type="Resource" id="ChoiceWardOff"]
+script = ExtResource("2_choice")
+label = "Ward her off"
+outcome_text = "Your retainers cross fingers and march on. None of them speak for the next league."
+gold_delta = 0
+meta_currency_delta = -2
+party_hp_delta = 0
+
+[resource]
+script = ExtResource("1_def")
+id = &"battlefield_priestess"
+display_name = "The Battlefield Priestess"
+body = "A miko in a blood-stained shrine-coat steps from the trees. She is barefoot. The mud does not seem to touch her. She offers a blessing — for a clan whose banner you do not bear."
+choices = [SubResource("ChoiceAcceptBlessing"), SubResource("ChoiceWardOff")]
+act_min = 0
+act_max = 99
+weight = 7
