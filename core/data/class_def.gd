@@ -24,3 +24,10 @@ extends Resource
 
 @export_group("Promotion")
 @export var promotes_to: ClassDef
+
+@export_group("Signature ability")
+# The class's defining active. Optional — many starter classes
+# will have null and just use basic attacks. Slice goal is one
+# signature per class; full launch will add personal abilities
+# on top.
+@export var signature_ability: AbilityDef
