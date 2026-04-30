@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="ClassDef" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://core/data/class_def.gd" id="1_class_def"]
+
+[resource]
+script = ExtResource("1_class_def")
+id = &"yari_cavalry"
+display_name = "Yari Cavalry"
+theme = &"sengoku"
+movement_type = "mounted"
+move_range = 8
+base_hp = 20
+base_atk = 8
+base_defense = 4
+base_speed = 7

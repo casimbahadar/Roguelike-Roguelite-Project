@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="ClassDef" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://core/data/class_def.gd" id="1_class_def"]
+
+[resource]
+script = ExtResource("1_class_def")
+id = &"samurai"
+display_name = "Samurai"
+theme = &"sengoku"
+movement_type = "foot"
+move_range = 5
+base_hp = 22
+base_atk = 7
+base_defense = 5
+base_speed = 6
