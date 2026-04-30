@@ -159,3 +159,12 @@ jobs:
             echo "Godot reported errors during event screen smoke test."
             exit 1
           fi
+
+      - name: Smoke test — Relic buffs apply to CombatUnit stats
+        run: |
+          set -euo pipefail
+          ~/godot/godot --headless --script res://tests/smoke_relics.gd 2>&1 | tee smoke_relics.log
+          if grep -E "^(SCRIPT ERROR|ERROR:)" smoke_relics.log; then
+            echo "Godot reported errors during relic smoke test."
+            exit 1
+          fi
