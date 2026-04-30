@@ -1,0 +1,103 @@
+class_name TurnManager
+extends RefCounted
+
+# Drives the per-side turn loop. Each turn, every living unit on the
+# active side takes one action: if an enemy is adjacent, attack it;
+# otherwise step one tile toward the nearest enemy and, if that step
+# made the unit adjacent, attack — FE-style move-then-attack.
+#
+# This is the smallest thing that resolves a battle. Initiative,
+# weapon triangle, abilities, supports, terrain effects, and proper
+# AI archetypes all layer on later.
+
+var grid: CombatGrid
+var units: Array[CombatUnit] = []
+var current_side: int = 0
+
+func _init(p_grid: CombatGrid, p_units: Array[CombatUnit]) -> void:
+	grid = p_grid
+	units = p_units
+
+func living_units(side: int) -> Array[CombatUnit]:
+	var out: Array[CombatUnit] = []
+	for u in units:
+		if u.side == side and u.is_alive():
+			out.append(u)
+	return out
+
+func is_battle_over() -> bool:
+	var sides_with_living: Dictionary = {}
+	for u in units:
+		if u.is_alive():
+			sides_with_living[u.side] = true
+	return sides_with_living.size() <= 1
+
+func winning_side() -> int:
+	# -1 = no winner yet, or mutual KO.
+	if not is_battle_over():
+		return -1
+	for u in units:
+		if u.is_alive():
+			return u.side
+	return -1
+
+func run_turn() -> void:
+	for actor in living_units(current_side):
+		if not actor.is_alive():
+			continue
+		var target: CombatUnit = _nearest_enemy(actor)
+		if target == null:
+			continue
+		if grid.distance(actor.pos, target.pos) == 1:
+			_attack(actor, target)
+			continue
+		_step_toward(actor, target.pos)
+		if grid.distance(actor.pos, target.pos) == 1:
+			_attack(actor, target)
+	current_side = 1 - current_side
+
+func resolve(turn_cap: int = 100) -> int:
+	# Returns the winning side, or -1 if the cap was hit without a winner.
+	# Cap prevents an infinite loop if AI ever stalemates.
+	var turns: int = 0
+	while not is_battle_over() and turns < turn_cap:
+		run_turn()
+		turns += 1
+	return winning_side()
+
+func _nearest_enemy(actor: CombatUnit) -> CombatUnit:
+	var best: CombatUnit = null
+	var best_dist: int = 1 << 30
+	for u in units:
+		if u.side == actor.side or not u.is_alive():
+			continue
+		var d: int = grid.distance(actor.pos, u.pos)
+		if d < best_dist:
+			best_dist = d
+			best = u
+	return best
+
+func _step_toward(actor: CombatUnit, target_pos: Vector2i) -> void:
+	var occ: Dictionary = _occupied_positions()
+	occ.erase(actor.pos)
+	var best_pos: Vector2i = actor.pos
+	var best_dist: int = grid.distance(actor.pos, target_pos)
+	for n in grid.neighbors(actor.pos):
+		if occ.has(n):
+			continue
+		var d: int = grid.distance(n, target_pos)
+		if d < best_dist:
+			best_dist = d
+			best_pos = n
+	actor.pos = best_pos
+
+func _attack(attacker: CombatUnit, defender: CombatUnit) -> void:
+	var dmg: int = maxi(1, attacker.atk - defender.defense)
+	defender.take_damage(dmg)
+
+func _occupied_positions() -> Dictionary:
+	var occ: Dictionary = {}
+	for u in units:
+		if u.is_alive():
+			occ[u.pos] = u
+	return occ
