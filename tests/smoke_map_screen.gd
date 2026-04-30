@@ -1,14 +1,13 @@
 extends SceneTree
 
-# Headless smoke test for MapScreen. Builds a RunState from
-# skirmish.tres with a fixed seed, instances MapScreen.tscn,
-# binds the run, and:
+# Headless smoke test for MapScreen with the branching picker.
+# Builds a RunState from skirmish.tres with a fixed seed,
+# instances MapScreen.tscn, binds the run, and:
 #
 #   * asserts the row count matches map.size()
-#   * presses the Continue button programmatically and verifies
-#     run_state.current_node_index advances
-#   * walks to the end and verifies the button disables on
-#     run_complete
+#   * presses the first choice button and verifies advance
+#   * walks to the end pressing the first choice each step,
+#     verifies the picker empties on run completion
 #
 # Run: godot --headless --script res://tests/smoke_map_screen.gd
 
@@ -37,27 +36,38 @@ func _initialize() -> void:
 		_fail("expected %d list rows, got %d" % [run.map.size(), screen._list.get_child_count()])
 		return
 
-	# Press Continue once and verify advance.
-	var before: int = run.current_node_index
-	screen._continue_btn.emit_signal("pressed")
-	if run.current_node_index != before + 1:
-		_fail("Continue should have advanced from %d to %d, got %d" % [before, before + 1, run.current_node_index])
+	if screen._choices.get_child_count() < 1:
+		_fail("expected at least one choice button at start, got 0")
 		return
 
-	# Walk to the end.
+	# Press the first choice once and verify advance.
+	var before: int = run.current_node_index
+	_press_first_choice(screen)
+	if run.current_node_index == before:
+		_fail("first choice should have advanced from %d, still there" % before)
+		return
+
+	# Walk to the end always taking the first choice.
 	var safety: int = 200
 	while not run.is_run_complete() and safety > 0:
-		screen._continue_btn.emit_signal("pressed")
+		if screen._choices.get_child_count() < 1:
+			_fail("no choice buttons mid-walk at node %d" % run.current_node_index)
+			return
+		_press_first_choice(screen)
 		safety -= 1
 	if not run.is_run_complete():
 		_fail("never reached run completion within safety cap")
 		return
-	if not screen._continue_btn.disabled:
-		_fail("ContinueBtn should be disabled after run completion")
+	if screen._choices.get_child_count() != 0:
+		_fail("Choices should be empty after run completion, got %d" % screen._choices.get_child_count())
 		return
 
 	print("smoke_map_screen: ok. walked %d nodes." % run.map.size())
 	quit(0)
+
+func _press_first_choice(screen: MapScreen) -> void:
+	var btn: Node = screen._choices.get_child(0)
+	btn.emit_signal("pressed")
 
 func _fail(msg: String) -> void:
 	push_error("smoke_map_screen: %s" % msg)

@@ -33,6 +33,7 @@ size_flags_vertical = 3
 [node name="List" type="VBoxContainer" parent="Margin/VBox/Scroll"]
 size_flags_horizontal = 3
 
-[node name="ContinueBtn" type="Button" parent="Margin/VBox"]
-text = "Continue"
-custom_minimum_size = Vector2(0, 56)
+[node name="ChoicesLabel" type="Label" parent="Margin/VBox"]
+text = "Next path"
+
+[node name="Choices" type="VBoxContainer" parent="Margin/VBox"]
