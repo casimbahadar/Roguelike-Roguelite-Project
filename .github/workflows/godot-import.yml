@@ -1,4 +1,4 @@
-name: Godot import check
+name: Godot import + smoke tests
 
 on:
   push:
@@ -51,5 +51,16 @@ jobs:
           # Godot writes script/parse errors to stdout; --import alone may exit 0.
           if grep -E "^(SCRIPT ERROR|ERROR:|At:.*\.gd:)" import.log; then
             echo "Godot reported errors during import."
+            exit 1
+          fi
+
+      - name: Smoke test — combat resolves
+        run: |
+          set -euo pipefail
+          # The script extends SceneTree and calls quit(0) on a clean
+          # win, quit(1) on stalemate. Bash inherits that exit code.
+          ~/godot/godot --headless --script res://tests/smoke_combat.gd 2>&1 | tee smoke.log
+          if grep -E "^(SCRIPT ERROR|ERROR:)" smoke.log; then
+            echo "Godot reported errors during smoke test."
             exit 1
           fi
