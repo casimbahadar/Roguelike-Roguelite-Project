@@ -51,7 +51,12 @@ func _load_data() -> void:
 func _wire_signals() -> void:
 	_hub.run_format_chosen.connect(_on_run_format_chosen)
 	_map.node_advanced.connect(_on_node_advanced)
-	_map.run_complete.connect(_on_run_complete)
+	# Note: we deliberately don't connect _map.run_complete. The
+	# Map emits it during _refresh — i.e. inside _on_continue_pressed,
+	# *before* the boss battle even starts — so wiring it would race
+	# the battle screen and end the run with a victory before the
+	# fight happens. Run completion is decided in _on_battle_resolved
+	# instead.
 	_battle.battle_resolved.connect(_on_battle_resolved)
 	_result.continue_pressed.connect(_show_hub)
 
@@ -92,14 +97,14 @@ func _start_battle_for_current_node() -> void:
 	_show_only(_battle)
 
 func _on_battle_resolved(winning_side: int) -> void:
-	if winning_side == 0:
-		# Player won — back to the map.
-		_show_only(_map)
-	else:
+	if winning_side != 0:
 		_finish_run(ResultScreen.Outcome.DEFEAT)
-
-func _on_run_complete() -> void:
-	_finish_run(ResultScreen.Outcome.VICTORY)
+		return
+	# Won. If that was the final-act boss, finish the run.
+	if _run_state.is_run_complete():
+		_finish_run(ResultScreen.Outcome.VICTORY)
+		return
+	_show_only(_map)
 
 func _finish_run(outcome: ResultScreen.Outcome) -> void:
 	var newly: Array[StringName] = []
