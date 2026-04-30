@@ -29,6 +29,9 @@ func atk() -> int:
 func defense() -> int:
 	return unit_def.defense()
 
+func weapon_type() -> String:
+	return unit_def.class_def.weapon_type
+
 func is_alive() -> bool:
 	return hp > 0
 
