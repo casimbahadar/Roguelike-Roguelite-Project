@@ -11,12 +11,17 @@ signal continue_pressed
 
 enum Outcome { VICTORY, DEFEAT, ABANDONED }
 
+const VICTORY_COLOR := Color(0.55, 0.90, 0.60)
+const DEFEAT_COLOR := Color(0.95, 0.45, 0.45)
+const ABANDONED_COLOR := Color(0.78, 0.78, 0.78)
+
 @onready var _outcome_label: Label = $Margin/VBox/Outcome
 @onready var _details_label: Label = $Margin/VBox/Details
 @onready var _continue_btn: Button = $Margin/VBox/ContinueBtn
 
 func bind_result(outcome: Outcome, run_state: RunState, newly_unlocked: Array[StringName]) -> void:
 	_outcome_label.text = _outcome_text(outcome)
+	_outcome_label.modulate = _outcome_color(outcome)
 	_details_label.text = _build_details(run_state, newly_unlocked)
 	if not _continue_btn.pressed.is_connected(_on_continue_pressed):
 		_continue_btn.pressed.connect(_on_continue_pressed)
@@ -32,6 +37,17 @@ func _outcome_text(o: Outcome) -> String:
 			return "Run abandoned"
 		_:
 			return "?"
+
+func _outcome_color(o: Outcome) -> Color:
+	match o:
+		Outcome.VICTORY:
+			return VICTORY_COLOR
+		Outcome.DEFEAT:
+			return DEFEAT_COLOR
+		Outcome.ABANDONED:
+			return ABANDONED_COLOR
+		_:
+			return Color.WHITE
 
 func _build_details(run_state: RunState, newly_unlocked: Array[StringName]) -> String:
 	var lines: Array[String] = []
