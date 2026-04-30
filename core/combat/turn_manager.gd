@@ -45,15 +45,7 @@ func run_turn() -> void:
 	for actor in living_units(current_side):
 		if not actor.is_alive():
 			continue
-		var target: CombatUnit = _nearest_enemy(actor)
-		if target == null:
-			continue
-		if grid.distance(actor.pos, target.pos) == 1:
-			_attack(actor, target)
-			continue
-		_step_toward(actor, target.pos)
-		if grid.distance(actor.pos, target.pos) == 1:
-			_attack(actor, target)
+		AiAggressive.take_turn(actor, self)
 	current_side = 1 - current_side
 
 func resolve(turn_cap: int = 100) -> int:
