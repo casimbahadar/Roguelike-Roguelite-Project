@@ -132,3 +132,12 @@ jobs:
       #       echo "Godot reported errors during Main glue scene smoke test."
       #       exit 1
       #     fi
+
+      - name: Smoke test — Platform IAP and Ads stub contracts
+        run: |
+          set -euo pipefail
+          ~/godot/godot --headless --script res://tests/smoke_platform.gd 2>&1 | tee smoke_platform.log
+          if grep -E "^(SCRIPT ERROR|ERROR:)" smoke_platform.log; then
+            echo "Godot reported errors during platform smoke test."
+            exit 1
+          fi
