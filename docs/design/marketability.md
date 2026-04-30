@@ -16,8 +16,20 @@ ceiling shifts, or a marketing channel flips.
 - **FF-tactics nostalgia equity is unclaimed at AAA.** No major
   publisher has a current FF-Tactics-flavored mobile tactics game.
   Game 2 walks straight into that gap with a fully original IP.
-- **Two games sharing one engine** lets us double the market
-  surface for ~1.5× the build cost.
+- **Creature-collection + true tactics is a thin field.** Pokemon
+  itself rarely steps into grid tactics; SMT does, but at a
+  darker, mature register. Game 3 (Beastfold Tactics) targets
+  the gap with a warm expedition tone, FE depth, and an original
+  beast roster.
+- **Partner-bond + true tactics is even thinner.** The
+  mass-market partner-bond games (Pokemon, Digimon, Yokai
+  Watch) are all 1v1 turn-based JRPGs, not grid tactics. Game 4
+  (Vessel Pact) targets tactics-RPG fans who want a deeper
+  emotional through-line than FE typically delivers.
+- **Four games sharing one engine** lets us 4× the market
+  surface for far less than 4× the build cost — combat, run,
+  and meta layers are all shared. Sequenced (G1 → G2 → G3 → G4)
+  rather than parallel, so each ship derisks the next.
 
 ## Audience targeting
 
@@ -30,6 +42,13 @@ ceiling shifts, or a marketing channel flips.
   want a proper tactics experience on the go.
 - **Tertiary (Game 1)**: Sengoku/samurai-history fans (Total War:
   Shogun, Ghost of Tsushima, *Shogun* TV remake audience).
+- **Tertiary (Game 3)**: creature-collection-curious adults who
+  loved Pokemon as kids and now want depth on top of the
+  collection loop. Discovery: r/MonsterTaming,
+  r/PokemonTabletop, Persona / SMT communities.
+- **Tertiary (Game 4)**: narrative-RPG fans drawn by the
+  partner-bond emotional arc. Discovery: r/JRPG,
+  r/ShinMegamiTensei, FE Fates / Three Houses communities.
 
 ## Pricing comparables
 
@@ -67,17 +86,29 @@ ceiling shifts, or a marketing channel flips.
 
 ## Risks
 
-- **Trademark.** "Banner of Ashes" and "Crystalfall Tactics" are
-  placeholders. Run them and any backups through USPTO TESS and
-  EUIPO before any marketing.
-- **Asset look-alikes.** Art must not visually clone Koei Tecmo or
-  Square Enix character designs. No Cloud-coded silver-hair +
-  buster-sword silhouettes; no Lu-Bu-coded red-armor + halberd
-  silhouettes. The style guide must call this out explicitly when
-  it's written.
+- **Trademark.** "Banner of Ashes", "Crystalfall Tactics",
+  "Beastfold Tactics", and "Vessel Pact" are placeholders. Run
+  them and any backups through USPTO TESS and EUIPO before any
+  marketing. Beastfold and Vessel need *heightened* TESS work
+  because Pokemon (Nintendo / Game Freak / Creatures Inc.) and
+  Digimon (Bandai Namco) both monitor their categories
+  aggressively for confusingly similar marks.
+- **Asset look-alikes.** Art must not visually clone Koei Tecmo,
+  Square Enix, Pokemon, or Digimon character designs. No
+  Cloud-coded silver-hair + buster-sword silhouettes; no
+  Lu-Bu-coded red-armor + halberd silhouettes; no
+  yellow-electric-rodent-with-cheek-pouches; no Agumon-coded
+  yellow-T-rex bosses. The style guide must call all four out
+  explicitly when it's written.
+- **Genre-IP confusion (G3, G4 specifically).** Storefront copy
+  must position the games as *creature-collection tactics* and
+  *partner-bond tactics*, never as "Pokemon-like" or "Digimon-like"
+  by name. "For fans of monster-taming RPGs" is fine; naming a
+  trademarked franchise in the storefront copy is not.
 - **Scope creep.** The fastest path to revenue is *one shipped
-  game*, not two unfinished ones. Game 2 starts only after Game 1
-  vertical slice is internally validated.
+  game*, not four unfinished ones. Sequencing is locked: G1 →
+  G2 → G3 → G4. Each game starts only after the previous one's
+  slice (or full release) is validated.
 - **Mobile balance.** Touch UI for grid tactics is hard. Budget at
   least 2 weeks of input/UX polish per game on mobile specifically.
 - **Live-ops cost.** Cosmetic IAP requires a content cadence.
