@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="EncounterDef" load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://core/data/encounter_def.gd" id="1_def"]
+[ext_resource type="Resource" path="res://games/sengoku/data/units/enemies/blackrobe_onmyoji.tres" id="2_onmyoji"]
+[ext_resource type="Resource" path="res://games/sengoku/data/units/enemies/sohei_fanatic.tres" id="3_sohei"]
+[ext_resource type="Resource" path="res://games/sengoku/data/units/enemies/turncoat_captain.tres" id="4_captain"]
+
+[resource]
+script = ExtResource("1_def")
+id = &"elite_sages_circle"
+display_name = "The Sage's Circle"
+encounter_kind = "ELITE"
+enemies = [ExtResource("2_onmyoji"), ExtResource("3_sohei"), ExtResource("4_captain")]
+act_min = 1
+act_max = 99
+weight = 8
