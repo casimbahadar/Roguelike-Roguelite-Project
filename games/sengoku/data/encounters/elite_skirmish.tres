@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="EncounterDef" load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://core/data/encounter_def.gd" id="1_def"]
+[ext_resource type="Resource" path="res://games/sengoku/data/units/enemies/renegade_ronin.tres" id="2_ronin"]
+[ext_resource type="Resource" path="res://games/sengoku/data/units/enemies/yamadachi_horseman.tres" id="3_horseman"]
+[ext_resource type="Resource" path="res://games/sengoku/data/units/enemies/sohei_fanatic.tres" id="4_sohei"]
+
+[resource]
+script = ExtResource("1_def")
+id = &"elite_renegade_warband"
+display_name = "Renegade Warband"
+encounter_kind = "ELITE"
+enemies = [ExtResource("2_ronin"), ExtResource("3_horseman"), ExtResource("4_sohei")]
+act_min = 0
+act_max = 99
+weight = 10
