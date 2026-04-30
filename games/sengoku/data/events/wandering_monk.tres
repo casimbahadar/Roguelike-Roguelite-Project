@@ -1,0 +1,30 @@
+[gd_resource type="Resource" script_class="EventDef" load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://core/data/event_def.gd" id="1_def"]
+[ext_resource type="Script" path="res://core/data/event_choice.gd" id="2_choice"]
+
+[sub_resource type="Resource" id="ChoiceOfferRice"]
+script = ExtResource("2_choice")
+label = "Offer rice"
+outcome_text = "The monk bows low and presses a tarnished bell into your captain's hand. Old steel — but it sings true."
+gold_delta = -5
+meta_currency_delta = 6
+party_hp_delta = 0
+
+[sub_resource type="Resource" id="ChoicePass"]
+script = ExtResource("2_choice")
+label = "Pass without speaking"
+outcome_text = "The monk lifts his blind face to the sun and says nothing as your column fades into the dust."
+gold_delta = 0
+meta_currency_delta = 0
+party_hp_delta = 0
+
+[resource]
+script = ExtResource("1_def")
+id = &"wandering_monk"
+display_name = "The Wandering Monk"
+body = "A wandering biwa-monk crosses the path, his blind eyes turned toward the dust. His begging-bowl is empty. The wind catches at his prayer beads."
+choices = [SubResource("ChoiceOfferRice"), SubResource("ChoicePass")]
+act_min = 0
+act_max = 99
+weight = 10
