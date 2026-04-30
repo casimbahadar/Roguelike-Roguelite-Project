@@ -1,6 +1,7 @@
-[gd_resource type="Resource" script_class="ClassDef" load_steps=2 format=3]
+[gd_resource type="Resource" script_class="ClassDef" load_steps=3 format=3]
 
 [ext_resource type="Script" path="res://core/data/class_def.gd" id="1_class_def"]
+[ext_resource type="Resource" path="res://games/sengoku/data/abilities/longshot.tres" id="2_ability"]
 
 [resource]
 script = ExtResource("1_class_def")
@@ -14,3 +15,4 @@ base_hp = 18
 base_atk = 6
 base_defense = 3
 base_speed = 5
+signature_ability = ExtResource("2_ability")
