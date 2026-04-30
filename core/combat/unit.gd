@@ -19,11 +19,50 @@ var buff_atk: int = 0
 var buff_defense: int = 0
 var buff_max_hp: int = 0
 
+# Per-battle ability use tracking. Keyed by AbilityDef.id
+# (StringName). uses_per_battle of -1 on the AbilityDef means
+# unlimited and is never tracked here. Reset between battles
+# by re-binding the unit (CombatUnits don't persist across
+# nodes in the slice).
+var _ability_uses: Dictionary = {}
+
 func _init(p_def: UnitDef, p_pos: Vector2i, p_side_override: int = -1) -> void:
 	unit_def = p_def
 	side = p_side_override if p_side_override >= 0 else p_def.side
 	hp = p_def.max_hp()
 	pos = p_pos
+	_seed_ability_uses()
+
+# Initialize ability use counters from the class's signature
+# ability. Class-level for now; UnitDef-level personal abilities
+# can layer on with the same dict.
+func _seed_ability_uses() -> void:
+	var signature: AbilityDef = unit_def.class_def.signature_ability
+	if signature != null and signature.uses_per_battle > 0:
+		_ability_uses[signature.id] = signature.uses_per_battle
+
+func signature_ability() -> AbilityDef:
+	return unit_def.class_def.signature_ability
+
+func ability_uses_remaining(ability: AbilityDef) -> int:
+	if ability == null:
+		return 0
+	if ability.uses_per_battle < 0:
+		return 1 << 30  # treat unlimited as effectively infinite
+	return _ability_uses.get(ability.id, 0)
+
+# Returns true if the ability had a remaining use and was
+# consumed. Returns false (no decrement) if no uses left.
+func try_consume_ability_use(ability: AbilityDef) -> bool:
+	if ability == null:
+		return false
+	if ability.uses_per_battle < 0:
+		return true
+	var remaining: int = _ability_uses.get(ability.id, 0)
+	if remaining <= 0:
+		return false
+	_ability_uses[ability.id] = remaining - 1
+	return true
 
 # Apply party-level stat buffs and refill HP to the new max.
 # Idempotent: calling twice with the same values yields the same

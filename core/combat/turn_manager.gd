@@ -110,6 +110,23 @@ func _attack(attacker: CombatUnit, defender: CombatUnit) -> void:
 	)
 	defender.take_damage(dmg)
 
+# Casts an ability; assumes the caller already verified the
+# target is in range and the attacker has remaining uses. Damage
+# resolution lives in DamageFormula; HEAL / BUFF kinds are no-ops
+# in the slice (their support systems aren't wired yet — they'll
+# fire here once the supporting hooks land).
+func _cast_ability(attacker: CombatUnit, defender: CombatUnit, ability: AbilityDef) -> void:
+	if not attacker.try_consume_ability_use(ability):
+		return
+	if ability.kind == "PHYSICAL" or ability.kind == "MAGICAL":
+		var dmg: int = DamageFormula.resolve_ability_damage(
+			attacker.atk(), attacker.weapon_type(),
+			defender.defense(), defender.weapon_type(),
+			ability.kind, ability.power
+		)
+		defender.take_damage(dmg)
+	# HEAL / BUFF intentionally fall through as no-ops for now.
+
 func _occupied_positions() -> Dictionary:
 	var occ: Dictionary = {}
 	for u in units:

@@ -55,3 +55,20 @@ static func resolve_damage(
 ) -> int:
 	var modded_atk: int = attacker_atk + triangle_modifier(attacker_weapon, defender_weapon)
 	return maxi(1, modded_atk - defender_defense)
+
+# Ability damage. Layers ability.power on top of attacker.atk.
+# PHYSICAL abilities still get the weapon-triangle modifier;
+# MAGICAL abilities sit outside the triangle (matches FE: tomes
+# vs swords doesn't read off the weapon triangle).
+static func resolve_ability_damage(
+	attacker_atk: int,
+	attacker_weapon: String,
+	defender_defense: int,
+	defender_weapon: String,
+	ability_kind: String,
+	ability_power: int
+) -> int:
+	var modded_atk: int = attacker_atk + ability_power
+	if ability_kind == "PHYSICAL":
+		modded_atk += triangle_modifier(attacker_weapon, defender_weapon)
+	return maxi(1, modded_atk - defender_defense)
