@@ -1,4 +1,13 @@
-# Game 4 — FE-foundation partner-bond (working title: Vessel Pact)
+# Game 4 — FE-foundation partner-bond (working title: Datapact Tactics)
+
+The placeholder title uses *Data* to nod at the Digimon
+*digital monster* genre and *pact* to telegraph the FE-flavored
+lord-vessel bond at the heart of the campaign. Both halves are
+genre-generic words; the combination needs heightened USPTO
+TESS / EUIPO clearance before any marketing — and the
+in-fiction terminology stays away from "digital", "code", and
+"cyber" so the gameplay tone reads as high fantasy rather than
+sci-fi (the inspiration is genre-shape, not aesthetic).
 
 ## Pitch
 
@@ -29,7 +38,7 @@ mecha-organic-monster body language, no
 horns-and-belt-buckles design tropes), pointedly NOT
 shounen-anime-styled.
 
-## Setting hook: the Vessel Pact
+## Setting hook: the Pact
 
 The Pact is an ancient covenant by which a high-born or chosen
 mortal binds a wandering soul into a paired form. The vessel

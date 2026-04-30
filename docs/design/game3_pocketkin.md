@@ -1,4 +1,10 @@
-## Game 3 — FE-foundation creature collection (working title: Beastfold Tactics)
+# Game 3 — FE-foundation creature collection (working title: Pocketkin Tactics)
+
+The placeholder title uses *Pocket* to nod at the Pokemon
+creature-collection genre and *kin* to telegraph the FE-flavored
+trainer-companion partnership. Both halves are genre-generic
+words; the combination needs heightened USPTO TESS / EUIPO
+clearance before any marketing.
 
 ## Pitch
 
@@ -28,14 +34,21 @@ palette, original creature designs grounded in real-world
 zoology + folklore (corvids, megafauna, deep-sea life,
 northern-myth ungulates) rather than franchise tropes.
 
-## Setting hook: the Beastfold
+## Setting hook: the Pocketkin
 
-The Beastfold is the term in this world for the migratory bands
-of wild beasts that emerge across the continent at the change of
-each season. Wardens — the player's corps — track, tame, and
-sometimes fight Beastfold members. A run is one season's
-expedition; a recruited beast travels with the party, fights,
-and (if it survives) ranks up at camp nodes between battles.
+The *pocketkin* are the wild creatures of this world — the term
+covers everything from a sparrow-sized cinder fox to a
+truck-sized aurochs. They live in seasonal migrations across
+the continent. Wardens — the player's corps — track them, tame
+some, and sometimes fight the rest. A run is one season's
+expedition; a recruited pocketkin travels with the party,
+fights, and (if it survives) ranks up at camp nodes between
+battles.
+
+The name leans into the Pokemon-genre phrase *pocket monsters*
+without copying it: pocketkin are *kin* (companions), not
+property. Wardens carry no capture device — see the bond-sigil
+mechanic below.
 
 In-fiction this gives us:
 
@@ -104,7 +117,7 @@ A Lord-Warden has:
 - A bond mesh covering 8-12 specific beast archetypes with
   faster recruit and stronger arts when paired.
 - A unique passive describing how their corps approaches the
-  Beastfold (Beastrider's *Trail-Marked* gives faster movement
+  Pocketkin (Beastrider's *Trail-Marked* gives faster movement
   on rough terrain; Hawkmaster's *Skybond* lets one flying
   beast warp once per battle; etc.).
 
@@ -182,5 +195,5 @@ adding the element field is a one-line ClassDef extension.
 
 Creature collection + true tactics is a thin field. Pokemon
 itself rarely steps into grid tactics; SMT does, but at a
-darker, mature register. Beastfold targets the gap: warm
+darker, mature register. Pocketkin targets the gap: warm
 expedition tone, FE depth, original creature roster.

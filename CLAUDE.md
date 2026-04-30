@@ -26,7 +26,7 @@ this list as new decisions land — never silently override.
   push directly to `main`. Use draft PRs.
 - **Four games, one engine**: a shared `core/` plus theme packs
   under `games/sengoku/` (Game 1), `games/crystal/` (Game 2),
-  `games/beastfold/` (Game 3), and `games/vessel/` (Game 4).
+  `games/pocketkin/` (Game 3), and `games/datapact/` (Game 4).
   Nothing in `core/` may import from `games/*` — the dependency
   arrow is one-way.
 - **Sequencing**: Game 1 vertical slice ships first. Game 2
@@ -46,7 +46,9 @@ this list as new decisions land — never silently override.
   dragoons) — never as named entities. All summons, deities, cities,
   and characters are original. No Square Enix IP.
 - **Game 3 — FE-foundation creature collection** (working title
-  *Beastfold Tactics*): Fire-Emblem grid tactics combined with a
+  *Pocketkin Tactics* — "Pocket" telegraphs the Pokemon-genre
+  collection theme; "kin" telegraphs the FE-flavored
+  trainer-companion bond): Fire-Emblem grid tactics combined with a
   creature-collection loop — recruitable beasts encountered through
   events, an element triangle that overlays the FE weapon triangle,
   multi-stage promotions for individual creatures, and bonds with
@@ -58,8 +60,10 @@ this list as new decisions land — never silently override.
   trademarked terms as proper nouns. The genre-generic terms
   (capture, recruit, partner, evolve, type advantage) are mechanics,
   not IP, and stay fair game.
-- **Game 4 — FE-foundation partner-bond** (working title *Vessel
-  Pact*): Fire-Emblem grid tactics combined with a partner-bond loop
+- **Game 4 — FE-foundation partner-bond** (working title
+  *Datapact Tactics* — "Data" telegraphs the Digimon-genre
+  *digital monster* theme; "pact" telegraphs the FE-flavored
+  lord-vessel covenant): Fire-Emblem grid tactics combined with a partner-bond loop
   — each lord pairs with one evolving companion that goes through
   multi-stage promotions (neutral terms only: Fledgling → Bonded →
   Sworn → Ascendant or similar) and a heavier narrative arc
@@ -93,8 +97,9 @@ this list as new decisions land — never silently override.
   ads. No pay-to-win, no interstitials, no energy timers, ever.
 - **Trademark**: run any candidate game title through USPTO TESS and
   EUIPO before any marketing. Working titles ("Banner of Ashes",
-  "Crystalfall Tactics", "Beastfold Tactics", "Vessel Pact") are
-  placeholders. Game titles also need brand-clearance for the
-  creature-collection and partner-bond games specifically (because
-  those genres are dominated by entrenched IP — Pokemon and Digimon
-  monitor closely for confusingly similar marks).
+  "Crystalfall Tactics", "Pocketkin Tactics", "Datapact Tactics")
+  are placeholders — all four are slated for a re-brainstorm and
+  formal selection later. Game titles also need brand-clearance for
+  the creature-collection and partner-bond games specifically
+  (because those genres are dominated by entrenched IP — Pokemon
+  and Digimon monitor closely for confusingly similar marks).

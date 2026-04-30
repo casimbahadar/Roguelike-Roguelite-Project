@@ -18,13 +18,13 @@ ceiling shifts, or a marketing channel flips.
   Game 2 walks straight into that gap with a fully original IP.
 - **Creature-collection + true tactics is a thin field.** Pokemon
   itself rarely steps into grid tactics; SMT does, but at a
-  darker, mature register. Game 3 (Beastfold Tactics) targets
+  darker, mature register. Game 3 (*Pocketkin Tactics*) targets
   the gap with a warm expedition tone, FE depth, and an original
-  beast roster.
+  pocketkin roster.
 - **Partner-bond + true tactics is even thinner.** The
   mass-market partner-bond games (Pokemon, Digimon, Yokai
   Watch) are all 1v1 turn-based JRPGs, not grid tactics. Game 4
-  (Vessel Pact) targets tactics-RPG fans who want a deeper
+  (*Datapact Tactics*) targets tactics-RPG fans who want a deeper
   emotional through-line than FE typically delivers.
 - **Four games sharing one engine** lets us 4× the market
   surface for far less than 4× the build cost — combat, run,
@@ -87,12 +87,13 @@ ceiling shifts, or a marketing channel flips.
 ## Risks
 
 - **Trademark.** "Banner of Ashes", "Crystalfall Tactics",
-  "Beastfold Tactics", and "Vessel Pact" are placeholders. Run
-  them and any backups through USPTO TESS and EUIPO before any
-  marketing. Beastfold and Vessel need *heightened* TESS work
-  because Pokemon (Nintendo / Game Freak / Creatures Inc.) and
-  Digimon (Bandai Namco) both monitor their categories
-  aggressively for confusingly similar marks.
+  "Pocketkin Tactics", and "Datapact Tactics" are placeholders
+  — all four are slated for a re-brainstorm and formal selection
+  later. Run finalists and any backups through USPTO TESS and
+  EUIPO before any marketing. Pocketkin and Datapact need
+  *heightened* TESS work because Pokemon (Nintendo / Game Freak
+  / Creatures Inc.) and Digimon (Bandai Namco) both monitor
+  their categories aggressively for confusingly similar marks.
 - **Asset look-alikes.** Art must not visually clone Koei Tecmo,
   Square Enix, Pokemon, or Digimon character designs. No
   Cloud-coded silver-hair + buster-sword silhouettes; no
