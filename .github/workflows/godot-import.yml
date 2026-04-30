@@ -150,3 +150,12 @@ jobs:
             echo "Godot reported errors during branching map smoke test."
             exit 1
           fi
+
+      - name: Smoke test — Event screen bind / choose / resolve flow
+        run: |
+          set -euo pipefail
+          ~/godot/godot --headless --script res://tests/smoke_event_screen.gd 2>&1 | tee smoke_event.log
+          if grep -E "^(SCRIPT ERROR|ERROR:)" smoke_event.log; then
+            echo "Godot reported errors during event screen smoke test."
+            exit 1
+          fi
