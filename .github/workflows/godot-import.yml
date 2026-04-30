@@ -1,0 +1,55 @@
+name: Godot import check
+
+on:
+  push:
+    branches:
+      - main
+      - "claude/**"
+  pull_request:
+
+jobs:
+  import:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    env:
+      GODOT_VERSION: "4.3"
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Cache Godot binary
+        id: cache-godot
+        uses: actions/cache@v4
+        with:
+          path: ~/godot
+          key: godot-${{ env.GODOT_VERSION }}-stable-linux
+
+      - name: Download Godot
+        if: steps.cache-godot.outputs.cache-hit != 'true'
+        run: |
+          set -euo pipefail
+          mkdir -p ~/godot
+          cd ~/godot
+          curl -fsSL -o godot.zip \
+            "https://github.com/godotengine/godot/releases/download/${GODOT_VERSION}-stable/Godot_v${GODOT_VERSION}-stable_linux.x86_64.zip"
+          unzip -q godot.zip
+          mv "Godot_v${GODOT_VERSION}-stable_linux.x86_64" godot
+          chmod +x godot
+
+      - name: Verify Godot binary
+        run: ~/godot/godot --version
+
+      - name: Headless import
+        run: |
+          set -euo pipefail
+          # `--import` runs the asset import pipeline once and exits.
+          # Any parse error in project.godot or .gd scripts will fail this step.
+          ~/godot/godot --headless --import 2>&1 | tee import.log
+          # Fail explicitly on any line that looks like an error.
+          # Godot writes script/parse errors to stdout; --import alone may exit 0.
+          if grep -E "^(SCRIPT ERROR|ERROR:|At:.*\.gd:)" import.log; then
+            echo "Godot reported errors during import."
+            exit 1
+          fi
