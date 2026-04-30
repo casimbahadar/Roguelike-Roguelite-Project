@@ -82,3 +82,12 @@ jobs:
             echo "Godot reported errors during run-loop smoke test."
             exit 1
           fi
+
+      - name: Smoke test — meta save/load + unlock graph
+        run: |
+          set -euo pipefail
+          ~/godot/godot --headless --script res://tests/smoke_meta.gd 2>&1 | tee smoke_meta.log
+          if grep -E "^(SCRIPT ERROR|ERROR:)" smoke_meta.log; then
+            echo "Godot reported errors during meta smoke test."
+            exit 1
+          fi
