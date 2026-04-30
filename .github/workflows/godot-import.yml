@@ -100,3 +100,12 @@ jobs:
             echo "Godot reported errors during hub smoke test."
             exit 1
           fi
+
+      - name: Smoke test — Map screen advances through nodes
+        run: |
+          set -euo pipefail
+          ~/godot/godot --headless --script res://tests/smoke_map_screen.gd 2>&1 | tee smoke_map_screen.log
+          if grep -E "^(SCRIPT ERROR|ERROR:)" smoke_map_screen.log; then
+            echo "Godot reported errors during map screen smoke test."
+            exit 1
+          fi
