@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="AbilityDef" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://core/data/ability_def.gd" id="1_def"]
+
+[resource]
+script = ExtResource("1_def")
+id = &"longshot"
+display_name = "Longshot"
+description = "A measured arrow released from a longer draw than usual. Reaches one tile further than the standard yumi shot, twice per battle."
+range_min = 2
+range_max = 4
+aoe_radius = 0
+kind = "PHYSICAL"
+power = 3
+uses_per_battle = 2
