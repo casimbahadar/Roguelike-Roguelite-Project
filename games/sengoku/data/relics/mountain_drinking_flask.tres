@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="RelicDef" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://core/data/relic_def.gd" id="1_def"]
+
+[resource]
+script = ExtResource("1_def")
+id = &"mountain_drinking_flask"
+display_name = "Mountain Drinking Flask"
+description = "A cedar flask carved with a mountain-pine motif. Whatever water it holds tastes like the spring high above the snowline, regardless of the source. (+2 max hp to every party unit, every battle.)"
+kind = 2
+value = 2
+rarity = 0
+weight = 12
