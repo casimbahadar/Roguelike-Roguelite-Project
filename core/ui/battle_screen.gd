@@ -57,8 +57,10 @@ func _refresh() -> void:
 		_resolve_btn.text = "Resolve battle"
 
 func _populate_unit_list(list: VBoxContainer, units: Array[CombatUnit], bar_color: Color) -> void:
-	for child in list.get_children():
-		child.queue_free()
+	while list.get_child_count() > 0:
+		var stale: Node = list.get_child(0)
+		list.remove_child(stale)
+		stale.queue_free()
 	for u in units:
 		list.add_child(_build_unit_row(u, bar_color))
 

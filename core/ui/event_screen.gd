@@ -47,8 +47,10 @@ func bind_event(p_event: EventDef) -> void:
 	if not _continue_btn.pressed.is_connected(_on_continue_pressed):
 		_continue_btn.pressed.connect(_on_continue_pressed)
 
-	for child in _choices.get_children():
-		child.queue_free()
+	while _choices.get_child_count() > 0:
+		var stale: Node = _choices.get_child(0)
+		_choices.remove_child(stale)
+		stale.queue_free()
 	_choices.visible = true
 	for choice in p_event.choices:
 		var btn: Button = Button.new()

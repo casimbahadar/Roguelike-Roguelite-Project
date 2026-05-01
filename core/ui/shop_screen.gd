@@ -50,8 +50,10 @@ func bind_shop(p_run: RunState, offered: Array[RelicDef]) -> void:
 
 func _render(offered: Array[RelicDef]) -> void:
 	_gold_label.text = "Gold: %d" % _run_state.gold
-	for child in _items.get_children():
-		child.queue_free()
+	while _items.get_child_count() > 0:
+		var stale: Node = _items.get_child(0)
+		_items.remove_child(stale)
+		stale.queue_free()
 	for relic in offered:
 		_items.add_child(_make_item_row(relic))
 

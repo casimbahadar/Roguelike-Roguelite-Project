@@ -25,8 +25,10 @@ func populate(meta: MetaState, run_configs: Array[RunConfig]) -> void:
 	if _list == null:
 		push_error("HubScreen.populate: $Margin/VBox/List not found")
 		return
-	for child in _list.get_children():
-		child.queue_free()
+	while _list.get_child_count() > 0:
+		var stale: Node = _list.get_child(0)
+		_list.remove_child(stale)
+		stale.queue_free()
 
 	var unlocked: Array[RunConfig] = []
 	var locked: Array[RunConfig] = []

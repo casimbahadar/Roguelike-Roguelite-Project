@@ -48,8 +48,16 @@ func _refresh() -> void:
 	_render_choices()
 
 func _render_list() -> void:
-	for child in _list.get_children():
-		child.queue_free()
+	# Synchronous remove_child + queue_free pattern. queue_free
+	# alone is deferred — in a smoke-test SceneTree that never
+	# yields to a frame tick, the old children stay in the tree
+	# and the next get_child(0) hits stale state. remove_child
+	# unparents immediately; queue_free schedules the actual
+	# memory free for whenever the engine next ticks.
+	while _list.get_child_count() > 0:
+		var stale: Node = _list.get_child(0)
+		_list.remove_child(stale)
+		stale.queue_free()
 	for i in run_state.map.size():
 		var node: MapNode = run_state.map[i]
 		var lbl: Label = Label.new()
@@ -69,8 +77,10 @@ func _render_status() -> void:
 	_status_label.text = "Revive tokens: %d   Gold: %d" % [run_state.revive_tokens, run_state.gold]
 
 func _render_choices() -> void:
-	for child in _choices.get_children():
-		child.queue_free()
+	while _choices.get_child_count() > 0:
+		var stale: Node = _choices.get_child(0)
+		_choices.remove_child(stale)
+		stale.queue_free()
 
 	if run_state.is_run_complete():
 		_choices_label.text = "Run complete"
