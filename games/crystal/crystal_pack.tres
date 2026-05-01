@@ -11,6 +11,7 @@ run_config_paths = ["res://games/crystal/data/runs/tutorial.tres", "res://games/
 encounter_pool_path = "res://games/crystal/data/encounters/crystal_pool.tres"
 event_pool_path = "res://games/crystal/data/events/crystal_event_pool.tres"
 relic_pool_path = "res://games/crystal/data/relics/crystal_relic_pool.tres"
+bond_pool_path = "res://games/crystal/data/bonds/crystal_bond_pool.tres"
 player_class_path = "res://games/crystal/data/classes/lord.tres"
 enemy_class_path = "res://games/crystal/data/classes/knight.tres"
 map_paths = ["res://games/crystal/data/maps/crystal_plateau.tres", "res://games/crystal/data/maps/skybridge.tres", "res://games/crystal/data/maps/crystal_grove.tres", "res://games/crystal/data/maps/ridge_pass.tres", "res://games/crystal/data/maps/broken_arch.tres", "res://games/crystal/data/maps/shrine_courtyard.tres"]

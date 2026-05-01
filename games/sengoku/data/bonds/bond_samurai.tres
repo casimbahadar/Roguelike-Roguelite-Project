@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="BondDef" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://core/data/bond_def.gd" id="1_def"]
+[ext_resource type="Resource" path="res://games/sengoku/data/relics/clansworn_blade.tres" id="2_relic"]
+
+[resource]
+script = ExtResource("1_def")
+id = &"bond_samurai"
+display_name = "Sword of the Borrowed Crest"
+description = "A wandering samurai swore one fight too many to a clan that didn't deserve them. Earn this bond by finishing runs as a Samurai; at Sworn rank she leaves you the family blade she finally retired."
+class_id = &"samurai"
+relic_at_max = ExtResource("2_relic")

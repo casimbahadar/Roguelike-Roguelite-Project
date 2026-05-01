@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="BondDef" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://core/data/bond_def.gd" id="1_def"]
+[ext_resource type="Resource" path="res://games/datapact/data/relics/ascendant_oath.tres" id="2_relic"]
+
+[resource]
+script = ExtResource("1_def")
+id = &"bond_datapact_vanguard"
+display_name = "Sworn Vessel"
+description = "A vessel whose Pact with you has weathered three winters and a broken oath-stone. At Sworn rank the Pact reaches its final stage and the small reliquary you carry begins to hum with its full weight."
+class_id = &"datapact_vanguard"
+relic_at_max = ExtResource("2_relic")

@@ -240,3 +240,12 @@ jobs:
             echo "Godot reported errors during kit picker smoke test."
             exit 1
           fi
+
+      - name: Smoke test — Bond rank progression + pool wire-up
+        run: |
+          set -euo pipefail
+          ~/godot/godot --headless --script res://tests/smoke_bonds.gd 2>&1 | tee smoke_bonds.log
+          if grep -E "^(SCRIPT ERROR|ERROR:)" smoke_bonds.log; then
+            echo "Godot reported errors during bonds smoke test."
+            exit 1
+          fi

@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="BondDef" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://core/data/bond_def.gd" id="1_def"]
+[ext_resource type="Resource" path="res://games/datapact/data/relics/covenant_flask.tres" id="2_relic"]
+
+[resource]
+script = ExtResource("1_def")
+id = &"bond_datapact_truthsinger"
+display_name = "Quiet Witness"
+description = "A truthsinger who has stood at every Pact-stone you have renewed. At Sworn rank she presses a small steel covenant flask into your captain's hand."
+class_id = &"datapact_truthsinger"
+relic_at_max = ExtResource("2_relic")

@@ -34,6 +34,7 @@ var _enemy_class: ClassDef
 var _encounter_pool: EncounterPool
 var _event_pool: EventPool
 var _relic_pool: RelicPool
+var _bond_pool: BondPool
 var _maps: Array[MapDef] = []
 var _templates: Array[BattlefieldTemplate] = []
 var _battle_rng: RandomNumberGenerator
@@ -122,6 +123,8 @@ func _load_data() -> void:
 	_encounter_pool = load(_theme_pack.encounter_pool_path)
 	_event_pool = load(_theme_pack.event_pool_path)
 	_relic_pool = load(_theme_pack.relic_pool_path)
+	if _theme_pack.bond_pool_path != "":
+		_bond_pool = load(_theme_pack.bond_pool_path)
 	for p in _theme_pack.map_paths:
 		var m: MapDef = load(p)
 		if m != null:
@@ -165,12 +168,26 @@ func _on_run_format_chosen(format_id: StringName) -> void:
 	var seed: int = _seed_for(config)
 	var party: Array[UnitDef] = [_make_player_unit_def()]
 	_run_state = RunState.new(config, seed, party)
+	_apply_max_rank_bond_relics()
 	_map.bind_run(_run_state)
 	_show_only(_map)
 	# Node 0 is always BATTLE per MapGenerator; trigger the opening
 	# fight so the player isn't given a free pass past it.
 	if _is_combat_kind(_run_state.current_node().kind):
 		_start_battle_for_current_node()
+
+# Walk the theme's bond pool. Any bond at MAX_RANK pre-loads its
+# relic_at_max into the new run's relics array. The same RelicDef
+# machinery applies the buff at battle setup — bonds are just a
+# different source of the same relic objects.
+func _apply_max_rank_bond_relics() -> void:
+	if _bond_pool == null:
+		return
+	for b in _bond_pool.bonds:
+		if b == null or b.relic_at_max == null:
+			continue
+		if _meta.bond_rank(b.id) >= BondDef.MAX_RANK:
+			_run_state.relics.append(b.relic_at_max)
 
 func _on_node_advanced(_idx: int) -> void:
 	var kind: int = _run_state.current_node().kind
@@ -359,9 +376,21 @@ func _finish_run(outcome: ResultScreen.Outcome) -> void:
 	var newly: Array[StringName] = []
 	if outcome == ResultScreen.Outcome.VICTORY:
 		newly = MetaUnlocks.on_run_completed(_meta, _run_state.run_config.id)
+		_advance_bonds_for_player_class()
 	SaveSystem.save(_meta.to_dict())
 	_result.bind_result(outcome, _run_state, newly)
 	_show_only(_result)
+
+# On a successful run, tick every bond whose class_id matches the
+# player's class. Slice has only one party slot so at most one
+# bond ticks; multi-unit parties later will tick a bond per
+# bonded unit on the team.
+func _advance_bonds_for_player_class() -> void:
+	if _bond_pool == null or _player_class == null:
+		return
+	for b in _bond_pool.bonds:
+		if b != null and b.class_id == _player_class.id:
+			_meta.advance_bond(b.id)
 
 func _config_by_id(id: StringName) -> RunConfig:
 	for c in _run_configs:

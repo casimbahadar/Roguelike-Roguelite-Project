@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="BondDef" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://core/data/bond_def.gd" id="1_def"]
+[ext_resource type="Resource" path="res://games/datapact/data/relics/bonded_buckler.tres" id="2_relic"]
+
+[resource]
+script = ExtResource("1_def")
+id = &"bond_datapact_beastform"
+display_name = "First Vessel"
+description = "Your first sworn vessel — a beastform companion who walked the road with you when no-one else would. At Sworn rank it gives you the small parrying shield it grew into the shape of your grip."
+class_id = &"datapact_beastform"
+relic_at_max = ExtResource("2_relic")

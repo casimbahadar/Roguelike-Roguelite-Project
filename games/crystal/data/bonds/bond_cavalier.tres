@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="BondDef" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://core/data/bond_def.gd" id="1_def"]
+[ext_resource type="Resource" path="res://games/crystal/data/relics/shardlight_amulet.tres" id="2_relic"]
+
+[resource]
+script = ExtResource("1_def")
+id = &"bond_crystal_cavalier"
+display_name = "Riding Companion"
+description = "A cavalier who scouts every road ahead of you. At Sworn rank she leaves you a faint glowing amulet that hums when the next ridge is held by friends."
+class_id = &"crystal_cavalier"
+relic_at_max = ExtResource("2_relic")

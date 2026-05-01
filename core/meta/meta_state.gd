@@ -22,6 +22,7 @@ var runs_completed: Dictionary = {}  # run_format_id (String) -> int
 var runs_attempted: Dictionary = {}
 var best_runs: Dictionary = {}       # run_format_id (String) -> { seed, time_seconds, score }
 var cosmetics_owned: Array[StringName] = []
+var bond_ranks: Dictionary = {}      # bond_id (String) -> int (0..BondDef.MAX_RANK)
 
 func to_dict() -> Dictionary:
 	return {
@@ -33,6 +34,7 @@ func to_dict() -> Dictionary:
 		"runs_attempted": runs_attempted,
 		"best_runs": best_runs,
 		"cosmetics_owned": _string_names_to_strings(cosmetics_owned),
+		"bond_ranks": bond_ranks,
 	}
 
 static func from_dict(d: Dictionary) -> MetaState:
@@ -47,7 +49,19 @@ static func from_dict(d: Dictionary) -> MetaState:
 	m.runs_attempted = d.get("runs_attempted", {})
 	m.best_runs = d.get("best_runs", {})
 	m.cosmetics_owned = _strings_to_string_names(d.get("cosmetics_owned", []))
+	m.bond_ranks = d.get("bond_ranks", {})
 	return m
+
+# Tick a bond up by one rank, capped at BondDef.MAX_RANK.
+func advance_bond(bond_id: StringName) -> int:
+	var key: String = String(bond_id)
+	var current: int = int(bond_ranks.get(key, 0))
+	var next_rank: int = mini(current + 1, BondDef.MAX_RANK)
+	bond_ranks[key] = next_rank
+	return next_rank
+
+func bond_rank(bond_id: StringName) -> int:
+	return int(bond_ranks.get(String(bond_id), 0))
 
 func has_run_format(id: StringName) -> bool:
 	return unlocked_run_formats.has(id)
