@@ -231,3 +231,12 @@ jobs:
             echo "Godot reported errors during themes smoke test."
             exit 1
           fi
+
+      - name: Smoke test — Full ability kit picker (signature + extras)
+        run: |
+          set -euo pipefail
+          ~/godot/godot --headless --script res://tests/smoke_kit_picker.gd 2>&1 | tee smoke_kit_picker.log
+          if grep -E "^(SCRIPT ERROR|ERROR:)" smoke_kit_picker.log; then
+            echo "Godot reported errors during kit picker smoke test."
+            exit 1
+          fi

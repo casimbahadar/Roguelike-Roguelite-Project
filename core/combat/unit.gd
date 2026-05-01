@@ -33,16 +33,28 @@ func _init(p_def: UnitDef, p_pos: Vector2i, p_side_override: int = -1) -> void:
 	pos = p_pos
 	_seed_ability_uses()
 
-# Initialize ability use counters from the class's signature
-# ability. Class-level for now; UnitDef-level personal abilities
-# can layer on with the same dict.
+# Initialize ability use counters for the class's full kit —
+# signature + extras. Unlimited (-1) abilities aren't tracked.
 func _seed_ability_uses() -> void:
-	var signature: AbilityDef = unit_def.class_def.signature_ability
-	if signature != null and signature.uses_per_battle > 0:
-		_ability_uses[signature.id] = signature.uses_per_battle
+	for a in abilities():
+		if a != null and a.uses_per_battle > 0:
+			_ability_uses[a.id] = a.uses_per_battle
 
 func signature_ability() -> AbilityDef:
 	return unit_def.class_def.signature_ability
+
+# Full ability kit for this unit: class signature plus class
+# extras. Returns AbilityDefs (skipping nulls) so the AI can scan
+# them. Order is signature-first so AI tie-breakers prefer it.
+func abilities() -> Array[AbilityDef]:
+	var out: Array[AbilityDef] = []
+	var sig: AbilityDef = unit_def.class_def.signature_ability
+	if sig != null:
+		out.append(sig)
+	for a in unit_def.class_def.extra_abilities:
+		if a != null:
+			out.append(a)
+	return out
 
 func ability_uses_remaining(ability: AbilityDef) -> int:
 	if ability == null:

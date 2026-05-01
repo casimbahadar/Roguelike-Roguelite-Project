@@ -31,3 +31,10 @@ extends Resource
 # signature per class; full launch will add personal abilities
 # on top.
 @export var signature_ability: AbilityDef
+
+@export_group("Extra abilities")
+# Class-level secondary kit. Loaded at battle setup alongside the
+# signature; AI picks the best in-range option with remaining uses
+# each turn. Authoring convention: signature is the headline kit
+# entry, extras are flavour and breadth.
+@export var extra_abilities: Array[AbilityDef] = []

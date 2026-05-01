@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="AbilityDef" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://core/data/ability_def.gd" id="1_def"]
+
+[resource]
+script = ExtResource("1_def")
+id = &"stone_root"
+display_name = "Stone Root"
+description = "The Stoneclad sets its hooves and answers a charge with a buried-deep counter. Once per battle, heavy damage at melee range."
+range_min = 1
+range_max = 1
+aoe_radius = 0
+kind = "PHYSICAL"
+power = 6
+uses_per_battle = 1

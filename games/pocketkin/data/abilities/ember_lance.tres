@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="AbilityDef" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://core/data/ability_def.gd" id="1_def"]
+
+[resource]
+script = ExtResource("1_def")
+id = &"ember_lance"
+display_name = "Ember Lance"
+description = "The Emberkit pulls a thin line of fire from its tail-spark and looses it like a thrown spear. Twice per battle, magic damage at near range."
+range_min = 1
+range_max = 2
+aoe_radius = 0
+kind = "MAGICAL"
+power = 4
+uses_per_battle = 2
