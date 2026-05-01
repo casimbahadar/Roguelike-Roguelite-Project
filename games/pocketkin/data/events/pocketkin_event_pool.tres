@@ -1,10 +1,16 @@
-[gd_resource type="Resource" script_class="EventPool" load_steps=4 format=3]
+[gd_resource type="Resource" script_class="EventPool" load_steps=10 format=3]
 
 [ext_resource type="Script" path="res://core/data/event_pool.gd" id="1_pool"]
 [ext_resource type="Resource" path="res://games/pocketkin/data/events/snared_cub.tres" id="2_cub"]
 [ext_resource type="Resource" path="res://games/pocketkin/data/events/migration_path.tres" id="3_migration"]
+[ext_resource type="Resource" path="res://games/pocketkin/data/events/wounded_emberkit.tres" id="4_kit"]
+[ext_resource type="Resource" path="res://games/pocketkin/data/events/trappers_kiln.tres" id="5_kiln"]
+[ext_resource type="Resource" path="res://games/pocketkin/data/events/nest_at_dawn.tres" id="6_nest"]
+[ext_resource type="Resource" path="res://games/pocketkin/data/events/great_migration.tres" id="7_great"]
+[ext_resource type="Resource" path="res://games/pocketkin/data/events/ranger_camp.tres" id="8_camp"]
+[ext_resource type="Resource" path="res://games/pocketkin/data/events/wild_market.tres" id="9_market"]
 
 [resource]
 script = ExtResource("1_pool")
 id = &"pocketkin_events"
-events = [ExtResource("2_cub"), ExtResource("3_migration")]
+events = [ExtResource("2_cub"), ExtResource("3_migration"), ExtResource("4_kit"), ExtResource("5_kiln"), ExtResource("6_nest"), ExtResource("7_great"), ExtResource("8_camp"), ExtResource("9_market")]

@@ -1,0 +1,30 @@
+[gd_resource type="Resource" script_class="EventDef" load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://core/data/event_def.gd" id="1_def"]
+[ext_resource type="Script" path="res://core/data/event_choice.gd" id="2_choice"]
+
+[sub_resource type="Resource" id="ChoiceRest"]
+script = ExtResource("2_choice")
+label = "Pay for a night at the ranger camp"
+outcome_text = "Hot food, dry boots, and a bed-roll. Your party rises in the morning the better for it."
+gold_delta = -5
+meta_currency_delta = 0
+party_hp_delta = 3
+
+[sub_resource type="Resource" id="ChoicePush"]
+script = ExtResource("2_choice")
+label = "Push past on the road"
+outcome_text = "The lights of the camp slip behind you. Your column grumbles. You make four more miles before dark."
+gold_delta = 0
+meta_currency_delta = 0
+party_hp_delta = 0
+
+[resource]
+script = ExtResource("1_def")
+id = &"ranger_camp"
+display_name = "A Ranger Camp"
+body = "A hill-camp of rangers calls to your column from the road. They keep a kettle going year-round. The cost is honest."
+choices = [SubResource("ChoiceRest"), SubResource("ChoicePush")]
+act_min = 0
+act_max = 99
+weight = 10

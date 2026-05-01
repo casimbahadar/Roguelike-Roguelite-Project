@@ -1,0 +1,30 @@
+[gd_resource type="Resource" script_class="EventDef" load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://core/data/event_def.gd" id="1_def"]
+[ext_resource type="Script" path="res://core/data/event_choice.gd" id="2_choice"]
+
+[sub_resource type="Resource" id="ChoiceWelcome"]
+script = ExtResource("2_choice")
+label = "Welcome the vessel for an evening"
+outcome_text = "She walks beside you for a day, gives a name your lord remembers from another life, and slips away in the morning. The road is briefly less long."
+gold_delta = 0
+meta_currency_delta = 4
+party_hp_delta = 1
+
+[sub_resource type="Resource" id="ChoiceSendOn"]
+script = ExtResource("2_choice")
+label = "Send her on her way"
+outcome_text = "She bows once and is gone before your lord can think of a second answer."
+gold_delta = 0
+meta_currency_delta = 0
+party_hp_delta = 0
+
+[resource]
+script = ExtResource("1_def")
+id = &"wandering_vessel"
+display_name = "A Wandering Vessel"
+body = "A vessel without a lord follows your column at a respectful distance for a quarter-mile, then steps forward and asks for an evening's company on the road. Old custom, lightly observed."
+choices = [SubResource("ChoiceWelcome"), SubResource("ChoiceSendOn")]
+act_min = 0
+act_max = 99
+weight = 8

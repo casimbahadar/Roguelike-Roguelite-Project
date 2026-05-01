@@ -1,0 +1,30 @@
+[gd_resource type="Resource" script_class="EventDef" load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://core/data/event_def.gd" id="1_def"]
+[ext_resource type="Script" path="res://core/data/event_choice.gd" id="2_choice"]
+
+[sub_resource type="Resource" id="ChoiceListen"]
+script = ExtResource("2_choice")
+label = "Sit and listen until the song ends"
+outcome_text = "The hum settles something in your party that the road had wound tight. They march on with steadier breath."
+gold_delta = 0
+meta_currency_delta = 2
+party_hp_delta = 1
+
+[sub_resource type="Resource" id="ChoicePush"]
+script = ExtResource("2_choice")
+label = "Push on through the song"
+outcome_text = "The crystal-hum follows you for a mile and then snaps off cleanly. Nothing is gained. Nothing is lost."
+gold_delta = 0
+meta_currency_delta = 0
+party_hp_delta = 0
+
+[resource]
+script = ExtResource("1_def")
+id = &"crystal_song"
+display_name = "A Crystal Song"
+body = "A vein of intact Crystal hums in the cliff-face beside the road, low and steady. It sounds like a shell against an ear."
+choices = [SubResource("ChoiceListen"), SubResource("ChoicePush")]
+act_min = 0
+act_max = 99
+weight = 8

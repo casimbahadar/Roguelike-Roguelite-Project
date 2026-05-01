@@ -1,0 +1,30 @@
+[gd_resource type="Resource" script_class="EventDef" load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://core/data/event_def.gd" id="1_def"]
+[ext_resource type="Script" path="res://core/data/event_choice.gd" id="2_choice"]
+
+[sub_resource type="Resource" id="ChoiceAid"]
+script = ExtResource("2_choice")
+label = "Bind her wounds and share rations"
+outcome_text = "She marks your sigil on a folded letter and presses it into your captain's hand. 'A favour. Spend it.' The seal looks expensive."
+gold_delta = -3
+meta_currency_delta = 5
+party_hp_delta = 0
+
+[sub_resource type="Resource" id="ChoiceWalk"]
+script = ExtResource("2_choice")
+label = "Walk past her"
+outcome_text = "She does not look up as you go. The wind moves the long grass over the road behind you."
+gold_delta = 0
+meta_currency_delta = 0
+party_hp_delta = 0
+
+[resource]
+script = ExtResource("1_def")
+id = &"lone_archer"
+display_name = "A Lone Archer"
+body = "A dust-streaked archer sits with her back against a broken column, her bow across her knees. An arrow has gone clean through her gauntlet."
+choices = [SubResource("ChoiceAid"), SubResource("ChoiceWalk")]
+act_min = 0
+act_max = 99
+weight = 10

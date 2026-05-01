@@ -1,10 +1,16 @@
-[gd_resource type="Resource" script_class="EventPool" load_steps=4 format=3]
+[gd_resource type="Resource" script_class="EventPool" load_steps=10 format=3]
 
 [ext_resource type="Script" path="res://core/data/event_pool.gd" id="1_pool"]
 [ext_resource type="Resource" path="res://games/crystal/data/events/crystal_bearer.tres" id="2_bearer"]
 [ext_resource type="Resource" path="res://games/crystal/data/events/floating_island.tres" id="3_island"]
+[ext_resource type="Resource" path="res://games/crystal/data/events/broken_skybridge.tres" id="4_bridge"]
+[ext_resource type="Resource" path="res://games/crystal/data/events/shard_market.tres" id="5_market"]
+[ext_resource type="Resource" path="res://games/crystal/data/events/drifting_island.tres" id="6_drifting"]
+[ext_resource type="Resource" path="res://games/crystal/data/events/lone_archer.tres" id="7_archer"]
+[ext_resource type="Resource" path="res://games/crystal/data/events/crystal_song.tres" id="8_song"]
+[ext_resource type="Resource" path="res://games/crystal/data/events/floating_relic.tres" id="9_relic"]
 
 [resource]
 script = ExtResource("1_pool")
 id = &"crystal_events"
-events = [ExtResource("2_bearer"), ExtResource("3_island")]
+events = [ExtResource("2_bearer"), ExtResource("3_island"), ExtResource("4_bridge"), ExtResource("5_market"), ExtResource("6_drifting"), ExtResource("7_archer"), ExtResource("8_song"), ExtResource("9_relic")]

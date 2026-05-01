@@ -1,0 +1,30 @@
+[gd_resource type="Resource" script_class="EventDef" load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://core/data/event_def.gd" id="1_def"]
+[ext_resource type="Script" path="res://core/data/event_choice.gd" id="2_choice"]
+
+[sub_resource type="Resource" id="ChoiceBuy"]
+script = ExtResource("2_choice")
+label = "Buy a sealed coin-pouch"
+outcome_text = "You hand over a stack of coin and break the wax. The pouch holds a forgotten promissory note in your favour — worth a great deal more than you paid."
+gold_delta = 6
+meta_currency_delta = 0
+party_hp_delta = 0
+
+[sub_resource type="Resource" id="ChoiceWalk"]
+script = ExtResource("2_choice")
+label = "Walk on without trading"
+outcome_text = "The market boy spits and turns to the next mark. Your column moves on, no coin lost, no coin gained."
+gold_delta = 0
+meta_currency_delta = 0
+party_hp_delta = 0
+
+[resource]
+script = ExtResource("1_def")
+id = &"shard_market"
+display_name = "The Shard Market"
+body = "A boy hawks 'sealed surprise pouches' from a folding table at the road junction. Half the coin in the pouch is real, he swears. The rest is shard-glass."
+choices = [SubResource("ChoiceBuy"), SubResource("ChoiceWalk")]
+act_min = 0
+act_max = 99
+weight = 10
