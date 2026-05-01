@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="EncounterDef" load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://core/data/encounter_def.gd" id="1_def"]
+[ext_resource type="Resource" path="res://games/crystal/data/units/enemies/skybridge_lancer.tres" id="2_lancer"]
+[ext_resource type="Resource" path="res://games/crystal/data/units/enemies/exiled_archer.tres" id="3_archer"]
+[ext_resource type="Resource" path="res://games/crystal/data/units/enemies/lowland_bandit.tres" id="4_bandit"]
+
+[resource]
+script = ExtResource("1_def")
+id = &"skybridge_skirmish"
+display_name = "Skybridge Skirmish"
+encounter_kind = "BATTLE"
+enemies = [ExtResource("2_lancer"), ExtResource("3_archer"), ExtResource("4_bandit")]
+act_min = 0
+act_max = 99
+weight = 15
