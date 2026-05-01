@@ -111,10 +111,10 @@ func _attack(attacker: CombatUnit, defender: CombatUnit) -> void:
 	defender.take_damage(dmg)
 
 # Casts an ability; assumes the caller already verified the
-# target is in range and the attacker has remaining uses. Damage
-# resolution lives in DamageFormula; HEAL / BUFF kinds are no-ops
-# in the slice (their support systems aren't wired yet — they'll
-# fire here once the supporting hooks land).
+# target is in range and the attacker has remaining uses.
+# PHYSICAL / MAGICAL deal damage via DamageFormula. HEAL
+# restores hp on the target (caller picks a friendly target).
+# BUFF stays a no-op until the status-effect system lands.
 func _cast_ability(attacker: CombatUnit, defender: CombatUnit, ability: AbilityDef) -> void:
 	if not attacker.try_consume_ability_use(ability):
 		return
@@ -125,7 +125,14 @@ func _cast_ability(attacker: CombatUnit, defender: CombatUnit, ability: AbilityD
 			ability.kind, ability.power
 		)
 		defender.take_damage(dmg)
-	# HEAL / BUFF intentionally fall through as no-ops for now.
+		return
+	if ability.kind == "HEAL":
+		# HEAL is target-friendly; caller is responsible for
+		# picking a friendly. Restore up to max_hp.
+		defender.hp = mini(defender.max_hp(), defender.hp + ability.power)
+		return
+	# BUFF intentionally falls through as a no-op; status hooks
+	# layer in once supports / morale land.
 
 func _occupied_positions() -> Dictionary:
 	var occ: Dictionary = {}
