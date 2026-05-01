@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="UnitDef" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://core/data/unit_def.gd" id="1_unit_def"]
+[ext_resource type="Resource" path="res://games/pocketkin/data/classes/tidehound.tres" id="2_class"]
+
+[resource]
+script = ExtResource("1_unit_def")
+id = &"feral_tidehound"
+display_name = "Feral Tidehound"
+portrait_path = ""
+class_def = ExtResource("2_class")
+level = 2
+side = 1
+ai_kind = "aggressive"
+hp_growth = 2
+atk_growth = 1
+defense_growth = 1
+speed_growth = 1
