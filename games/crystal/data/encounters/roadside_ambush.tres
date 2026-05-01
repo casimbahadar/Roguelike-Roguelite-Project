@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="EncounterDef" load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://core/data/encounter_def.gd" id="1_def"]
+[ext_resource type="Resource" path="res://games/crystal/data/units/enemies/lowland_bandit.tres" id="2_bandit"]
+[ext_resource type="Resource" path="res://games/crystal/data/units/enemies/mage_initiate.tres" id="3_mage"]
+
+[resource]
+script = ExtResource("1_def")
+id = &"roadside_ambush"
+display_name = "Roadside Ambush"
+encounter_kind = "BATTLE"
+enemies = [ExtResource("2_bandit"), ExtResource("2_bandit"), ExtResource("3_mage")]
+act_min = 0
+act_max = 99
+weight = 15

@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="EncounterPool" load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://core/data/encounter_pool.gd" id="1_pool"]
+[ext_resource type="Resource" path="res://games/crystal/data/encounters/roadside_ambush.tres" id="2_ambush"]
+[ext_resource type="Resource" path="res://games/crystal/data/encounters/crystal_shard_skirmish.tres" id="3_skirmish"]
+[ext_resource type="Resource" path="res://games/crystal/data/encounters/shardholder_rite.tres" id="4_rite"]
+
+[resource]
+script = ExtResource("1_pool")
+id = &"crystal_pool"
+battle_encounters = [ExtResource("2_ambush")]
+elite_encounters = [ExtResource("3_skirmish")]
+boss_encounters = [ExtResource("4_rite")]

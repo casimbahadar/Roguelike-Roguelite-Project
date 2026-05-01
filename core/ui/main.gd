@@ -49,19 +49,42 @@ var _maps: Array[MapDef] = []
 var _templates: Array[BattlefieldTemplate] = []
 var _battle_rng: RandomNumberGenerator
 
-@onready var _hub: HubScreen = $Hub
-@onready var _map: MapScreen = $MapScreen
-@onready var _battle: BattleScreen = $BattleScreen
-@onready var _result: ResultScreen = $ResultScreen
-@onready var _event: EventScreen = $EventScreen
-@onready var _shop: ShopScreen = $ShopScreen
-@onready var _camp: CampScreen = $CampScreen
-@onready var _shrine: ShrineScreen = $ShrineScreen
+var _hub: HubScreen
+var _map: MapScreen
+var _battle: BattleScreen
+var _result: ResultScreen
+var _event: EventScreen
+var _shop: ShopScreen
+var _camp: CampScreen
+var _shrine: ShrineScreen
 
 func _ready() -> void:
+	_ensure_nodes()
 	_load_data()
 	_wire_signals()
 	_show_hub()
+
+# Resolve all child screen references. Idempotent. Same pattern
+# as the individual screens — the UI scripts have learned that
+# @onready can fail to fire in headless smoke harnesses, so the
+# Main glue node uses lazy lookup with a one-shot _ready hook.
+func _ensure_nodes() -> void:
+	if _hub == null:
+		_hub = get_node_or_null("Hub") as HubScreen
+	if _map == null:
+		_map = get_node_or_null("MapScreen") as MapScreen
+	if _battle == null:
+		_battle = get_node_or_null("BattleScreen") as BattleScreen
+	if _result == null:
+		_result = get_node_or_null("ResultScreen") as ResultScreen
+	if _event == null:
+		_event = get_node_or_null("EventScreen") as EventScreen
+	if _shop == null:
+		_shop = get_node_or_null("ShopScreen") as ShopScreen
+	if _camp == null:
+		_camp = get_node_or_null("CampScreen") as CampScreen
+	if _shrine == null:
+		_shrine = get_node_or_null("ShrineScreen") as ShrineScreen
 
 func _load_data() -> void:
 	var save_dict: Dictionary = SaveSystem.load()

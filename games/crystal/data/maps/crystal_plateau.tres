@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="MapDef" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://core/data/map_def.gd" id="1_def"]
+
+[resource]
+script = ExtResource("1_def")
+id = &"crystal_plateau"
+display_name = "Crystal Plateau"
+tile_rows = [".......", "..FHF..", "..HHH..", "...HH..", "..FHF..", ".......", "......."]
+player_spawns = [Vector2i(0, 6), Vector2i(1, 6), Vector2i(2, 6)]
+enemy_spawns = [Vector2i(6, 0), Vector2i(5, 0), Vector2i(4, 0), Vector2i(6, 1)]

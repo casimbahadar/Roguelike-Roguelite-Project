@@ -7,15 +7,21 @@ extends SceneTree
 #   choice on events -> arrive at Result with VICTORY ->
 #   press Result Continue -> back at Hub.
 #
-# The tutorial is used because it has a deterministic scripted
-# layout (BATTLE, EVENT, CAMP, BATTLE, BOSS) — every node kind
-# is covered, the run is short, and the seed is fixed.
+# Uses the tutorial RunConfig — deterministic scripted layout
+# (BATTLE, EVENT, CAMP, BATTLE, BOSS), short, fixed seed.
+#
+# Frame yields: between every screen transition we await one
+# process_frame. Several of the screens use queue_free to clear
+# children, and queue_free is deferred — without yielding to a
+# frame tick, the deletions never complete and stale buttons
+# linger. The yield gives Godot a chance to drain the deletion
+# queue between iterations.
 #
 # Run: godot --headless --script res://tests/smoke_main.gd
 
 const MAIN_SCENE_PATH := "res://core/ui/main.tscn"
 const SAVE_PATH := "user://meta.json"
-const STEP_CAP := 60
+const STEP_CAP := 30
 
 func _initialize() -> void:
 	# Start fresh.
@@ -28,10 +34,16 @@ func _initialize() -> void:
 		return
 
 	var main: Main = scene.instantiate()
-	root.add_child(main)  # triggers _ready -> _load_data -> _show_hub
+	root.add_child(main)
+	# Yield one frame so _ready, @onready resolution, and any
+	# initial layout work all complete before we start poking.
+	await self.process_frame
 
+	if main._hub == null:
+		_fail("main._hub is null after add_child + frame yield")
+		return
 	if not main._hub.visible:
-		_fail("hub should be visible after _ready")
+		_fail("hub should be visible after _ready (got visible=%s)" % str(main._hub.visible))
 		return
 
 	# Find the Tutorial button on the hub.
@@ -41,42 +53,47 @@ func _initialize() -> void:
 		return
 
 	tutorial_btn.emit_signal("pressed")
+	await self.process_frame  # let the screen transition + auto-battle settle
 
-	# Node 0 of the tutorial is BATTLE — auto-trigger.
 	if not main._battle.visible:
-		_fail("battle screen should auto-show on node 0 (BATTLE)")
+		_fail("battle screen should auto-show on node 0 (BATTLE), but visible=%s" % str(main._battle.visible))
 		return
 
-	# Walk the run.
+	# Walk the run. Each iteration drives whichever screen is
+	# currently visible, then awaits a frame so deferred deletions
+	# and visibility flips fully settle before the next iteration.
 	var steps: int = 0
 	while not main._result.visible and steps < STEP_CAP:
 		if main._battle.visible:
 			main._battle._resolve_btn.emit_signal("pressed")
 		elif main._event.visible:
-			# Pick the first choice, then the Continue.
 			var first_choice: Button = _first_button_in(main._event._choices)
 			if first_choice == null:
-				_fail("event has no choice buttons")
+				_fail("event has no choice buttons at step %d" % steps)
 				return
 			first_choice.emit_signal("pressed")
+			await self.process_frame
 			main._event._continue_btn.emit_signal("pressed")
 		elif main._camp.visible:
 			main._camp._rest_btn.emit_signal("pressed")
+			await self.process_frame
 			main._camp._continue_btn.emit_signal("pressed")
 		elif main._shop.visible:
 			main._shop._leave_btn.emit_signal("pressed")
 		elif main._shrine.visible:
 			main._shrine._decline_btn.emit_signal("pressed")
+			await self.process_frame
 			main._shrine._continue_btn.emit_signal("pressed")
 		elif main._map.visible:
 			var first_choice: Button = _first_button_in(main._map._choices)
 			if first_choice == null:
-				_fail("map has no choice buttons at step %d" % steps)
+				_fail("map has no choice buttons at step %d (current node index=%d)" % [steps, main._run_state.current_node_index])
 				return
 			first_choice.emit_signal("pressed")
 		else:
 			_fail("no screen visible at step %d — broken state" % steps)
 			return
+		await self.process_frame
 		steps += 1
 
 	if not main._result.visible:
@@ -85,6 +102,7 @@ func _initialize() -> void:
 
 	# Press Result Continue → back to Hub.
 	main._result._continue_btn.emit_signal("pressed")
+	await self.process_frame
 
 	if not main._hub.visible:
 		_fail("hub should be visible after result continue")
