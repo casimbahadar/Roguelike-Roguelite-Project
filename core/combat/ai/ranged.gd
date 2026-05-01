@@ -10,7 +10,7 @@ static func take_turn(actor: CombatUnit, tm: TurnManager) -> void:
 	var target: CombatUnit = tm._nearest_enemy(actor)
 	if target == null:
 		return
-	var weapon_rng: Vector2i = DamageFormula.weapon_range(actor.weapon_type())
+	var weapon_rng: Vector2i = tm.grid.ranged_clip(DamageFormula.weapon_range(actor.weapon_type()))
 	var has_offensive_kit: bool = false
 	for a in actor.abilities():
 		if a != null and (a.kind == "PHYSICAL" or a.kind == "MAGICAL"):

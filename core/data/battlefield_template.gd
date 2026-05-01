@@ -26,10 +26,17 @@ extends Resource
 # arena open between the two sides.
 @export var spawn_inset: int = 0
 
+@export_group("Weather")
+# Per-template weather. Engine reads this when building the grid;
+# combat AI consults grid.weather (e.g. FOG clips ranged max-range
+# by 1). 0 = CLEAR, 1 = FOG, 2 = RAIN.
+@export var weather: int = 0
+
 # Build a CombatGrid from this template. spawn rows are kept
 # free of terrain so unit placement always succeeds.
 func build_grid(rng: RandomNumberGenerator) -> CombatGrid:
 	var grid: CombatGrid = CombatGrid.new(width, height)
+	grid.weather = weather
 	var safe_top: int = spawn_inset
 	var safe_bottom: int = height - 1 - spawn_inset
 

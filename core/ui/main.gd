@@ -256,6 +256,7 @@ func _on_event_resolved(chosen: EventChoice) -> void:
 	_meta.meta_currency += chosen.meta_currency_delta
 	if _meta.meta_currency < 0:
 		_meta.meta_currency = 0
+	_run_state.honor += chosen.honor_delta
 	# party_hp_delta is a future hook (party isn't yet a persistent
 	# CombatUnit roster across nodes); apply it once that lands.
 	_show_only(_map)

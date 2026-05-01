@@ -15,6 +15,11 @@ var party: Array[UnitDef] = []
 var revive_tokens: int = 0
 var gold: int = 0
 var relics: Array[RelicDef] = []
+# Honor / Dishonor meter — generic engine-level integer. G1 events
+# shift it via EventChoice.honor_delta; later phases gate content
+# on thresholds. Other themes can leave it at zero or repurpose
+# it (G3 reputation, G4 oath integrity, etc.).
+var honor: int = 0
 
 func _init(p_config: RunConfig, p_seed: int, p_party: Array[UnitDef]) -> void:
 	run_config = p_config

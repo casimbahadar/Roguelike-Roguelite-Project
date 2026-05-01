@@ -249,3 +249,12 @@ jobs:
             echo "Godot reported errors during bonds smoke test."
             exit 1
           fi
+
+      - name: Smoke test — Honor meter + weather (FOG clips ranged)
+        run: |
+          set -euo pipefail
+          ~/godot/godot --headless --script res://tests/smoke_honor_weather.gd 2>&1 | tee smoke_honor_weather.log
+          if grep -E "^(SCRIPT ERROR|ERROR:)" smoke_honor_weather.log; then
+            echo "Godot reported errors during honor/weather smoke test."
+            exit 1
+          fi
