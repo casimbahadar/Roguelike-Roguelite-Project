@@ -10,7 +10,12 @@ on:
 jobs:
   import:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    # Bumped from 10 to 30 to absorb chronic GitHub Actions
+    # runner-capacity slowness. Healthy runners finish this
+    # workflow in ~30s; slow runners (which we've been hitting
+    # all session) need the headroom to complete instead of
+    # being killed by the timeout.
+    timeout-minutes: 30
 
     env:
       GODOT_VERSION: "4.3"
