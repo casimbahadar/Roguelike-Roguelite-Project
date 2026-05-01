@@ -19,12 +19,26 @@ const REST_GOLD_BONUS: int = 3
 var _run_state: RunState
 var _used: bool = false
 
-@onready var _gold_label: Label = $Margin/VBox/Gold
-@onready var _rest_btn: Button = $Margin/VBox/RestBtn
-@onready var _outcome: Label = $Margin/VBox/Outcome
-@onready var _continue_btn: Button = $Margin/VBox/ContinueBtn
+var _gold_label: Label
+var _rest_btn: Button
+var _outcome: Label
+var _continue_btn: Button
+
+func _ready() -> void:
+	_ensure_nodes()
+
+func _ensure_nodes() -> void:
+	if _gold_label == null:
+		_gold_label = get_node_or_null("Margin/VBox/Gold") as Label
+	if _rest_btn == null:
+		_rest_btn = get_node_or_null("Margin/VBox/RestBtn") as Button
+	if _outcome == null:
+		_outcome = get_node_or_null("Margin/VBox/Outcome") as Label
+	if _continue_btn == null:
+		_continue_btn = get_node_or_null("Margin/VBox/ContinueBtn") as Button
 
 func bind_camp(p_run: RunState) -> void:
+	_ensure_nodes()
 	_run_state = p_run
 	_used = false
 	_outcome.text = ""

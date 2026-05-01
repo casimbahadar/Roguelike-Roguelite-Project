@@ -26,11 +26,23 @@ const PRICES: Dictionary = {
 
 var _run_state: RunState
 
-@onready var _gold_label: Label = $Margin/VBox/Gold
-@onready var _items: VBoxContainer = $Margin/VBox/Items
-@onready var _leave_btn: Button = $Margin/VBox/LeaveBtn
+var _gold_label: Label
+var _items: VBoxContainer
+var _leave_btn: Button
+
+func _ready() -> void:
+	_ensure_nodes()
+
+func _ensure_nodes() -> void:
+	if _gold_label == null:
+		_gold_label = get_node_or_null("Margin/VBox/Gold") as Label
+	if _items == null:
+		_items = get_node_or_null("Margin/VBox/Items") as VBoxContainer
+	if _leave_btn == null:
+		_leave_btn = get_node_or_null("Margin/VBox/LeaveBtn") as Button
 
 func bind_shop(p_run: RunState, offered: Array[RelicDef]) -> void:
+	_ensure_nodes()
 	_run_state = p_run
 	if not _leave_btn.pressed.is_connected(_on_leave_pressed):
 		_leave_btn.pressed.connect(_on_leave_pressed)

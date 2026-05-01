@@ -13,12 +13,26 @@ var _player_units: Array[CombatUnit] = []
 var _enemy_units: Array[CombatUnit] = []
 var _resolved: bool = false
 
-@onready var _player_list: VBoxContainer = $Margin/VBox/HBox/PlayerSide/List
-@onready var _enemy_list: VBoxContainer = $Margin/VBox/HBox/EnemySide/List
-@onready var _resolve_btn: Button = $Margin/VBox/ResolveBtn
-@onready var _result_label: Label = $Margin/VBox/Result
+var _player_list: VBoxContainer
+var _enemy_list: VBoxContainer
+var _resolve_btn: Button
+var _result_label: Label
+
+func _ready() -> void:
+	_ensure_nodes()
+
+func _ensure_nodes() -> void:
+	if _player_list == null:
+		_player_list = get_node_or_null("Margin/VBox/HBox/PlayerSide/List") as VBoxContainer
+	if _enemy_list == null:
+		_enemy_list = get_node_or_null("Margin/VBox/HBox/EnemySide/List") as VBoxContainer
+	if _resolve_btn == null:
+		_resolve_btn = get_node_or_null("Margin/VBox/ResolveBtn") as Button
+	if _result_label == null:
+		_result_label = get_node_or_null("Margin/VBox/Result") as Label
 
 func bind_battle(grid: CombatGrid, player_units: Array[CombatUnit], enemy_units: Array[CombatUnit]) -> void:
+	_ensure_nodes()
 	_grid = grid
 	_player_units = player_units
 	_enemy_units = enemy_units

@@ -13,16 +13,36 @@ signal run_complete
 
 var run_state: RunState
 
-@onready var _list: VBoxContainer = $Margin/VBox/Scroll/List
-@onready var _choices: VBoxContainer = $Margin/VBox/Choices
-@onready var _choices_label: Label = $Margin/VBox/ChoicesLabel
-@onready var _status_label: Label = $Margin/VBox/Status
+var _list: VBoxContainer
+var _choices: VBoxContainer
+var _choices_label: Label
+var _status_label: Label
+
+func _ready() -> void:
+	_ensure_nodes()
+
+# Resolves all child node references. Idempotent. Called from
+# _ready and from the top of every public method so timing
+# differences in headless smoke-test environments (where
+# @onready can resolve later than expected) never leave a
+# null field at access time.
+func _ensure_nodes() -> void:
+	if _list == null:
+		_list = get_node_or_null("Margin/VBox/Scroll/List") as VBoxContainer
+	if _choices == null:
+		_choices = get_node_or_null("Margin/VBox/Choices") as VBoxContainer
+	if _choices_label == null:
+		_choices_label = get_node_or_null("Margin/VBox/ChoicesLabel") as Label
+	if _status_label == null:
+		_status_label = get_node_or_null("Margin/VBox/Status") as Label
 
 func bind_run(p_run: RunState) -> void:
+	_ensure_nodes()
 	run_state = p_run
 	_refresh()
 
 func _refresh() -> void:
+	_ensure_nodes()
 	_render_list()
 	_render_status()
 	_render_choices()

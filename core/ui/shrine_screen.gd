@@ -20,14 +20,32 @@ var _run_state: RunState
 var _offered: RelicDef
 var _resolved: bool = false
 
-@onready var _gold_label: Label = $Margin/VBox/Gold
-@onready var _offer_label: Label = $Margin/VBox/Offer
-@onready var _accept_btn: Button = $Margin/VBox/AcceptBtn
-@onready var _decline_btn: Button = $Margin/VBox/DeclineBtn
-@onready var _outcome: Label = $Margin/VBox/Outcome
-@onready var _continue_btn: Button = $Margin/VBox/ContinueBtn
+var _gold_label: Label
+var _offer_label: Label
+var _accept_btn: Button
+var _decline_btn: Button
+var _outcome: Label
+var _continue_btn: Button
+
+func _ready() -> void:
+	_ensure_nodes()
+
+func _ensure_nodes() -> void:
+	if _gold_label == null:
+		_gold_label = get_node_or_null("Margin/VBox/Gold") as Label
+	if _offer_label == null:
+		_offer_label = get_node_or_null("Margin/VBox/Offer") as Label
+	if _accept_btn == null:
+		_accept_btn = get_node_or_null("Margin/VBox/AcceptBtn") as Button
+	if _decline_btn == null:
+		_decline_btn = get_node_or_null("Margin/VBox/DeclineBtn") as Button
+	if _outcome == null:
+		_outcome = get_node_or_null("Margin/VBox/Outcome") as Label
+	if _continue_btn == null:
+		_continue_btn = get_node_or_null("Margin/VBox/ContinueBtn") as Button
 
 func bind_shrine(p_run: RunState, p_offered: RelicDef) -> void:
+	_ensure_nodes()
 	_run_state = p_run
 	_offered = p_offered
 	_resolved = false

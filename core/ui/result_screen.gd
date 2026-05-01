@@ -15,11 +15,23 @@ const VICTORY_COLOR := Color(0.55, 0.90, 0.60)
 const DEFEAT_COLOR := Color(0.95, 0.45, 0.45)
 const ABANDONED_COLOR := Color(0.78, 0.78, 0.78)
 
-@onready var _outcome_label: Label = $Margin/VBox/Outcome
-@onready var _details_label: Label = $Margin/VBox/Details
-@onready var _continue_btn: Button = $Margin/VBox/ContinueBtn
+var _outcome_label: Label
+var _details_label: Label
+var _continue_btn: Button
+
+func _ready() -> void:
+	_ensure_nodes()
+
+func _ensure_nodes() -> void:
+	if _outcome_label == null:
+		_outcome_label = get_node_or_null("Margin/VBox/Outcome") as Label
+	if _details_label == null:
+		_details_label = get_node_or_null("Margin/VBox/Details") as Label
+	if _continue_btn == null:
+		_continue_btn = get_node_or_null("Margin/VBox/ContinueBtn") as Button
 
 func bind_result(outcome: Outcome, run_state: RunState, newly_unlocked: Array[StringName]) -> void:
+	_ensure_nodes()
 	_outcome_label.text = _outcome_text(outcome)
 	_outcome_label.modulate = _outcome_color(outcome)
 	_details_label.text = _build_details(run_state, newly_unlocked)
