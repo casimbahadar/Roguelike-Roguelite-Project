@@ -98,6 +98,17 @@ this list as new decisions land — never silently override.
 - **Monetization**: Steam = premium one-time purchase. Mobile =
   premium with **only cosmetic** IAP and **only optional rewarded**
   ads. No pay-to-win, no interstitials, no energy timers, ever.
+- **Release strategy**: the four games ship as **four separate
+  products** — each with its own Steam page, App Store listing, Google
+  Play listing, price, trailer, screenshots, icon, age rating, and
+  marketing copy. There is no multi-game hub product sold to players
+  and no umbrella name customers see. The shipped binary for each
+  product bundles exactly one theme pack via a Godot custom feature
+  tag (`sengoku` / `crystal` / `pocketkin` / `datapact`) on its export
+  preset; `core/ui/main.gd` reads the tag at boot and loads the
+  matching `ThemePack`. The four-theme title screen is dev-only — it
+  must never appear in a shipped build. Full details in
+  `docs/design/release_strategy.md`.
 - **Trademark**: run any candidate game title through USPTO TESS and
   EUIPO before any marketing. Working titles ("Banner of Ashes",
   "Crystalfall Tactics", "Pocketkin Tactics", "Datapact Tactics")

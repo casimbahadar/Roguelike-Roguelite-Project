@@ -7,11 +7,22 @@ extends Node
 # whichever child is visible is the active screen.
 #
 # Theme-aware: Main reads all per-game content paths from a
-# ThemePack Resource set via set_theme_pack() before _ready, or
-# from DEFAULT_THEME_PACK if none is set (falls back to Sengoku
-# so direct main.tscn launch still works without a title screen).
+# ThemePack Resource. Three ways the pack can be set, in priority
+# order:
+#   1. Test/harness code calls set_theme_pack() before add_child.
+#   2. The build has a feature tag matching one of FEATURE_TAG_TO_PACK
+#      (the four shipped products each export with one such tag).
+#   3. Neither — show the dev title screen so the developer can pick.
+#
+# The title screen is a dev-only harness; shipped builds always boot
+# straight to their tagged pack and never see it.
 
-const DEFAULT_THEME_PACK := "res://games/sengoku/sengoku_pack.tres"
+const FEATURE_TAG_TO_PACK := {
+	"sengoku": "res://games/sengoku/sengoku_pack.tres",
+	"crystal": "res://games/crystal/crystal_pack.tres",
+	"pocketkin": "res://games/pocketkin/pocketkin_pack.tres",
+	"datapact": "res://games/datapact/datapact_pack.tres",
+}
 
 var _theme_pack: ThemePack
 
@@ -46,10 +57,22 @@ func set_theme_pack(pack: ThemePack) -> void:
 func _ready() -> void:
 	_ensure_nodes()
 	_title.theme_chosen.connect(_on_theme_chosen)
+	if _theme_pack == null:
+		_theme_pack = _resolve_pack_from_feature_tags()
 	if _theme_pack != null:
 		_boot_with_theme()
 	else:
 		_show_only(_title)
+
+# Shipped builds export with exactly one of the four feature tags
+# (sengoku/crystal/pocketkin/datapact), each in its own export
+# preset. Dev/editor builds have none, which is how the title screen
+# stays reachable for in-engine testing.
+func _resolve_pack_from_feature_tags() -> ThemePack:
+	for tag in FEATURE_TAG_TO_PACK:
+		if OS.has_feature(tag):
+			return load(FEATURE_TAG_TO_PACK[tag])
+	return null
 
 func _on_theme_chosen(pack: ThemePack) -> void:
 	_theme_pack = pack
