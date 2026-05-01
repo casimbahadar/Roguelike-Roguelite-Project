@@ -267,3 +267,12 @@ jobs:
             echo "Godot reported errors during jobs/shards smoke test."
             exit 1
           fi
+
+      - name: Smoke test — Element triangle + capture/recruit data
+        run: |
+          set -euo pipefail
+          ~/godot/godot --headless --script res://tests/smoke_capture_elements.gd 2>&1 | tee smoke_capture_elements.log
+          if grep -E "^(SCRIPT ERROR|ERROR:)" smoke_capture_elements.log; then
+            echo "Godot reported errors during capture/elements smoke test."
+            exit 1
+          fi

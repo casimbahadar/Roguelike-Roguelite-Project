@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="RelicDef" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://core/data/relic_def.gd" id="1_def"]
+
+[resource]
+script = ExtResource("1_def")
+id = &"tamed_stoneclad"
+display_name = "Tamed Stoneclad"
+description = "A stoneclad you spared in a fair fight ambles alongside the column. Its presence settles spooked horses and steadies green wardens. (+2 defense to every party unit, every battle.)"
+kind = 1
+value = 2
+rarity = 1
+weight = 0

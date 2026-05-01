@@ -359,6 +359,7 @@ func _on_battle_resolved(winning_side: int) -> void:
 	for r in _run_state.relics:
 		if r.kind == RelicDef.Kind.GOLD_PER_VICTORY:
 			_run_state.gold += r.value
+	_roll_capture_for_defeated_enemies()
 	# Boss victory: pull a fresh relic into the run before
 	# resolving the screen so the player feels the upgrade
 	# immediately if they hit a follow-up battle. Each boss kill
@@ -384,6 +385,21 @@ func _finish_run(outcome: ResultScreen.Outcome) -> void:
 	SaveSystem.save(_meta.to_dict())
 	_result.bind_result(outcome, _run_state, newly)
 	_show_only(_result)
+
+# Walk defeated enemies for the just-resolved battle and roll the
+# G3 capture/recruit chance on each that ships a recruit_on_defeat
+# relic. Successful captures add the relic to the run's relics
+# array so the existing relic-buff machinery picks them up at the
+# next battle. Theme-agnostic: enemies in G1/G2/G4 leave
+# recruit_on_defeat null and this is a no-op for them.
+func _roll_capture_for_defeated_enemies() -> void:
+	if _battle == null:
+		return
+	for d in _battle.defeated_enemy_defs():
+		if d == null or d.recruit_on_defeat == null:
+			continue
+		if _battle_rng.randf() < d.recruit_chance:
+			_run_state.relics.append(d.recruit_on_defeat)
 
 # On a successful run, tick every bond whose class_id matches the
 # player's class. Slice has only one party slot so at most one

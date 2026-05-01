@@ -26,6 +26,23 @@ extends Resource
 # later; the engine credits +1 atk / +1 defense today.
 @export var job_class: ClassDef
 
+# Element triangle (G3-flavoured creature collection hook). Layered
+# on top of the weapon triangle in DamageFormula. NEUTRAL is the
+# default and applies no bonus. Element advantage chart:
+#   FIRE  beats WIND
+#   WIND  beats EARTH
+#   EARTH beats WATER
+#   WATER beats FIRE
+#   LIGHT beats NEUTRAL and DARK
+#   DARK  beats NEUTRAL and LIGHT
+@export_enum("NEUTRAL", "FIRE", "WATER", "WIND", "EARTH", "LIGHT", "DARK") var element: String = "NEUTRAL"
+
+# Optional recruit-on-defeat relic (G3 capture/recruit hook). When
+# the player KOs this UnitDef in battle, the engine rolls a small
+# chance to add this relic to the run. Other themes leave null.
+@export var recruit_on_defeat: RelicDef
+@export_range(0.0, 1.0) var recruit_chance: float = 0.25
+
 @export_group("Per-level growths (added per level past 1)")
 @export var hp_growth: int = 2
 @export var atk_growth: int = 1
