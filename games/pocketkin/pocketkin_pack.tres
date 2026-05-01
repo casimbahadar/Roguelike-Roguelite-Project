@@ -13,5 +13,5 @@ event_pool_path = "res://games/pocketkin/data/events/pocketkin_event_pool.tres"
 relic_pool_path = "res://games/pocketkin/data/relics/pocketkin_relic_pool.tres"
 player_class_path = "res://games/pocketkin/data/classes/beastrider.tres"
 enemy_class_path = "res://games/pocketkin/data/classes/tidehound.tres"
-map_paths = ["res://games/pocketkin/data/maps/forest_clearing.tres"]
+map_paths = ["res://games/pocketkin/data/maps/forest_clearing.tres", "res://games/pocketkin/data/maps/river_glade.tres", "res://games/pocketkin/data/maps/dense_thicket.tres", "res://games/pocketkin/data/maps/open_meadow.tres", "res://games/pocketkin/data/maps/cliff_path.tres", "res://games/pocketkin/data/maps/trapper_camp.tres"]
 template_paths = ["res://games/pocketkin/data/maps/template_meadow.tres", "res://games/pocketkin/data/maps/template_thicket.tres", "res://games/pocketkin/data/maps/template_marshland.tres"]

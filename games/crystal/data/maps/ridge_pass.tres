@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="MapDef" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://core/data/map_def.gd" id="1_def"]
+
+[resource]
+script = ExtResource("1_def")
+id = &"ridge_pass"
+display_name = "The Ridge Pass"
+tile_rows = ["HH...HH", "HH.R.HH", ".H.R.H.", "..RRR..", ".H.R.H.", "HH.R.HH", "HH...HH"]
+player_spawns = [Vector2i(2, 6), Vector2i(3, 6), Vector2i(4, 6)]
+enemy_spawns = [Vector2i(2, 0), Vector2i(3, 0), Vector2i(4, 0), Vector2i(3, 1)]

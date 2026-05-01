@@ -13,5 +13,5 @@ event_pool_path = "res://games/datapact/data/events/datapact_event_pool.tres"
 relic_pool_path = "res://games/datapact/data/relics/datapact_relic_pool.tres"
 player_class_path = "res://games/datapact/data/classes/vanguard.tres"
 enemy_class_path = "res://games/datapact/data/classes/warden.tres"
-map_paths = ["res://games/datapact/data/maps/oath_road.tres"]
+map_paths = ["res://games/datapact/data/maps/oath_road.tres", "res://games/datapact/data/maps/ruined_shrine.tres", "res://games/datapact/data/maps/moor_path.tres", "res://games/datapact/data/maps/severance_pillars.tres", "res://games/datapact/data/maps/forsaken_grove.tres", "res://games/datapact/data/maps/mist_riverbank.tres"]
 template_paths = ["res://games/datapact/data/maps/template_cairn.tres", "res://games/datapact/data/maps/template_oathwood.tres", "res://games/datapact/data/maps/template_severance.tres"]
