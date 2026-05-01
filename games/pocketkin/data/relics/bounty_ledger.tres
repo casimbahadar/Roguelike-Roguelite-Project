@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="RelicDef" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://core/data/relic_def.gd" id="1_def"]
+
+[resource]
+script = ExtResource("1_def")
+id = &"bounty_ledger"
+display_name = "Bounty Ledger"
+description = "A small leather-bound book of poacher bounties, kept by every working warden. The names crossed out have been profitable. (+5 gold per battle won.)"
+kind = 3
+value = 5
+rarity = 0
+weight = 12

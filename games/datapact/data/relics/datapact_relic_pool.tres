@@ -1,11 +1,18 @@
-[gd_resource type="Resource" script_class="RelicPool" load_steps=5 format=3]
+[gd_resource type="Resource" script_class="RelicPool" load_steps=12 format=3]
 
 [ext_resource type="Script" path="res://core/data/relic_pool.gd" id="1_pool"]
 [ext_resource type="Resource" path="res://games/datapact/data/relics/oath_cord.tres" id="2_cord"]
 [ext_resource type="Resource" path="res://games/datapact/data/relics/wardens_pendant.tres" id="3_pendant"]
 [ext_resource type="Resource" path="res://games/datapact/data/relics/pact_stone.tres" id="4_stone"]
+[ext_resource type="Resource" path="res://games/datapact/data/relics/fledgling_charm.tres" id="5_fledgling"]
+[ext_resource type="Resource" path="res://games/datapact/data/relics/ascendant_oath.tres" id="6_ascendant"]
+[ext_resource type="Resource" path="res://games/datapact/data/relics/bonded_buckler.tres" id="7_buckler"]
+[ext_resource type="Resource" path="res://games/datapact/data/relics/sworn_aegis.tres" id="8_aegis"]
+[ext_resource type="Resource" path="res://games/datapact/data/relics/covenant_flask.tres" id="9_flask"]
+[ext_resource type="Resource" path="res://games/datapact/data/relics/tribute_purse.tres" id="10_purse"]
+[ext_resource type="Resource" path="res://games/datapact/data/relics/lord_seal.tres" id="11_seal"]
 
 [resource]
 script = ExtResource("1_pool")
 id = &"datapact_relics"
-relics = [ExtResource("2_cord"), ExtResource("3_pendant"), ExtResource("4_stone")]
+relics = [ExtResource("2_cord"), ExtResource("3_pendant"), ExtResource("4_stone"), ExtResource("5_fledgling"), ExtResource("6_ascendant"), ExtResource("7_buckler"), ExtResource("8_aegis"), ExtResource("9_flask"), ExtResource("10_purse"), ExtResource("11_seal")]

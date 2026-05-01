@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="RelicDef" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://core/data/relic_def.gd" id="1_def"]
+
+[resource]
+script = ExtResource("1_def")
+id = &"alpha_fang"
+display_name = "Alpha Fang"
+description = "The curved canine of a Stoneclad alpha, taken in fair combat and worn with grave respect. Pocketkin nearby flatten their ears in attention. (+4 atk to every party unit, every battle.)"
+kind = 0
+value = 4
+rarity = 3
+weight = 4
