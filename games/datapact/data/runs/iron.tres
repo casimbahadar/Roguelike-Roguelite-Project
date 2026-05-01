@@ -5,10 +5,11 @@
 [resource]
 script = ExtResource("1_run_config")
 id = &"datapact_iron"
-display_name = "Iron Run"
+display_name = "Iron Run (Permabond)"
 act_count = 3
 nodes_per_act = Vector2i(7, 8)
 revive_policy = 0
 seed_source = 0
 fixed_seed = 0
 leaderboard_key = &"datapact_iron_global"
+vessel_mortality = 1

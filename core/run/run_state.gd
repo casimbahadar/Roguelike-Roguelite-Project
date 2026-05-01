@@ -66,12 +66,19 @@ func is_run_complete() -> bool:
 	return n.kind == MapNode.Kind.BOSS and n.act == run_config.act_count - 1 and n.next_indices.is_empty()
 
 static func _initial_revive_tokens(c: RunConfig) -> int:
+	var base: int = 0
 	match c.revive_policy:
 		RunConfig.RevivePolicy.NONE:
-			return 0
+			base = 0
 		RunConfig.RevivePolicy.ONE_PER_RUN:
-			return 1
+			base = 1
 		RunConfig.RevivePolicy.ONE_PER_ACT:
-			return 1  # refilled on act change in advance_to()
+			base = 1  # refilled on act change in advance_to()
 		_:
-			return 0
+			base = 0
+	# Restored Pact mode (G4 default; theme-agnostic field) grants
+	# a softening +1 token on top of the policy. Permabond stays
+	# strict.
+	if c.vessel_mortality == RunConfig.VesselMortality.RESTORED_PACT:
+		base += 1
+	return base
