@@ -33,6 +33,12 @@ static func build(config: RunConfig, seed: int) -> Array[MapNode]:
 	var rng: RandomNumberGenerator = RandomNumberGenerator.new()
 	rng.seed = seed
 
+	# Scripted-layout shortcut: a single-act linear chain matching
+	# the exact kind sequence the RunConfig declared. Used by the
+	# tutorial. No branching, no randomness.
+	if not config.scripted_node_kinds.is_empty():
+		return _build_scripted(config.scripted_node_kinds)
+
 	var map: Array[MapNode] = []
 	var act_starts: Array[int] = []
 
@@ -141,6 +147,14 @@ static func _wire_row_edges(
 				max_used = max(max_used, secondary)
 
 		min_allowed_col = max_used
+
+static func _build_scripted(kinds: Array[int]) -> Array[MapNode]:
+	var map: Array[MapNode] = []
+	for d in kinds.size():
+		map.append(MapNode.new(kinds[d], 0, d, 0))
+	for i in range(kinds.size() - 1):
+		map[i].next_indices.append(i + 1)
+	return map
 
 static func _pick_weighted(rng: RandomNumberGenerator) -> MapNode.Kind:
 	var total: int = 0

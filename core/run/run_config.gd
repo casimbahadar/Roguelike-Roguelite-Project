@@ -35,3 +35,11 @@ enum SeedSource {
 @export var seed_source: SeedSource = SeedSource.RANDOM
 @export var fixed_seed: int = 0  # consulted only when seed_source == FIXED
 @export var leaderboard_key: StringName  # empty = no leaderboard
+
+@export_group("Scripted layout (optional)")
+# When non-empty, MapGenerator builds a single linear act using
+# this exact sequence of MapNode.Kind ints (one node per entry,
+# in order). Used for the tutorial to guarantee a hand-authored
+# beat order. act_count and nodes_per_act are ignored when set;
+# the entire layout is exactly len(scripted_node_kinds) nodes.
+@export var scripted_node_kinds: Array[int] = []

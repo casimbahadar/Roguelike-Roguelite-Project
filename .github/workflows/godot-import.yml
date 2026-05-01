@@ -213,3 +213,12 @@ jobs:
             echo "Godot reported errors during maps smoke test."
             exit 1
           fi
+
+      - name: Smoke test — Tutorial scripted layout walks to boss
+        run: |
+          set -euo pipefail
+          ~/godot/godot --headless --script res://tests/smoke_tutorial.gd 2>&1 | tee smoke_tutorial.log
+          if grep -E "^(SCRIPT ERROR|ERROR:)" smoke_tutorial.log; then
+            echo "Godot reported errors during tutorial smoke test."
+            exit 1
+          fi

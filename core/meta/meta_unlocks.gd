@@ -16,7 +16,7 @@ extends RefCounted
 #   daily      -> always (it's the meta-hub draw card)
 #   iron       -> clear standard 1+ time
 
-const ALWAYS_OPEN: Array[StringName] = [&"skirmish", &"daily"]
+const ALWAYS_OPEN: Array[StringName] = [&"tutorial", &"skirmish", &"daily"]
 
 const PREREQUISITES: Dictionary = {
 	&"standard":  &"skirmish",

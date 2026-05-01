@@ -11,6 +11,7 @@ extends Node
 # get their own UI when content authoring lands.
 
 const RUN_CONFIG_PATHS: Array[String] = [
+	"res://games/sengoku/data/runs/tutorial.tres",
 	"res://games/sengoku/data/runs/skirmish.tres",
 	"res://games/sengoku/data/runs/standard.tres",
 	"res://games/sengoku/data/runs/long.tres",
