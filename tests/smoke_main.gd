@@ -1,16 +1,21 @@
 extends SceneTree
 
 # End-to-end smoke test for the Main glue scene. Walks:
-#   delete prior save -> instance Main -> press Skirmish on the Hub
-#   -> walk the run alternating battle Resolve and map Continue
-#   presses -> arrive at Result with VICTORY -> press Result Continue
-#   -> back at Hub with Standard now unlocked.
+#   delete prior save -> instance Main -> press Tutorial on
+#   the Hub -> walk the run, pressing Resolve on battles,
+#   first choice on map, the rest button on camp, the first
+#   choice on events -> arrive at Result with VICTORY ->
+#   press Result Continue -> back at Hub.
+#
+# The tutorial is used because it has a deterministic scripted
+# layout (BATTLE, EVENT, CAMP, BATTLE, BOSS) — every node kind
+# is covered, the run is short, and the seed is fixed.
 #
 # Run: godot --headless --script res://tests/smoke_main.gd
 
 const MAIN_SCENE_PATH := "res://core/ui/main.tscn"
 const SAVE_PATH := "user://meta.json"
-const STEP_CAP := 200
+const STEP_CAP := 60
 
 func _initialize() -> void:
 	# Start fresh.
@@ -29,19 +34,15 @@ func _initialize() -> void:
 		_fail("hub should be visible after _ready")
 		return
 
-	# Find the Skirmish button on the hub.
-	var skirmish_btn: Button = null
-	for child in main._hub._list.get_children():
-		if child is Button and child.text == "Skirmish":
-			skirmish_btn = child
-			break
-	if skirmish_btn == null:
-		_fail("Skirmish button not found on hub")
+	# Find the Tutorial button on the hub.
+	var tutorial_btn: Button = _find_hub_button(main, "Tutorial: First March")
+	if tutorial_btn == null:
+		_fail("Tutorial button not found on hub")
 		return
 
-	skirmish_btn.emit_signal("pressed")
+	tutorial_btn.emit_signal("pressed")
 
-	# Node 0 should auto-trigger a battle.
+	# Node 0 of the tutorial is BATTLE — auto-trigger.
 	if not main._battle.visible:
 		_fail("battle screen should auto-show on node 0 (BATTLE)")
 		return
@@ -51,11 +52,28 @@ func _initialize() -> void:
 	while not main._result.visible and steps < STEP_CAP:
 		if main._battle.visible:
 			main._battle._resolve_btn.emit_signal("pressed")
-		elif main._map.visible:
-			if main._map._continue_btn.disabled:
-				_fail("map Continue is disabled but no result/battle showing — stuck")
+		elif main._event.visible:
+			# Pick the first choice, then the Continue.
+			var first_choice: Button = _first_button_in(main._event._choices)
+			if first_choice == null:
+				_fail("event has no choice buttons")
 				return
-			main._map._continue_btn.emit_signal("pressed")
+			first_choice.emit_signal("pressed")
+			main._event._continue_btn.emit_signal("pressed")
+		elif main._camp.visible:
+			main._camp._rest_btn.emit_signal("pressed")
+			main._camp._continue_btn.emit_signal("pressed")
+		elif main._shop.visible:
+			main._shop._leave_btn.emit_signal("pressed")
+		elif main._shrine.visible:
+			main._shrine._decline_btn.emit_signal("pressed")
+			main._shrine._continue_btn.emit_signal("pressed")
+		elif main._map.visible:
+			var first_choice: Button = _first_button_in(main._map._choices)
+			if first_choice == null:
+				_fail("map has no choice buttons at step %d" % steps)
+				return
+			first_choice.emit_signal("pressed")
 		else:
 			_fail("no screen visible at step %d — broken state" % steps)
 			return
@@ -72,17 +90,24 @@ func _initialize() -> void:
 		_fail("hub should be visible after result continue")
 		return
 
-	# After clearing skirmish, standard must be unlocked.
-	if not main._meta.has_run_format(&"standard"):
-		_fail("standard should be unlocked after winning skirmish; got %s" % str(main._meta.unlocked_run_formats))
-		return
-
 	# Cleanup.
 	if FileAccess.file_exists(SAVE_PATH):
 		DirAccess.remove_absolute(ProjectSettings.globalize_path(SAVE_PATH))
 
-	print("smoke_main: completed full hub -> map -> battle -> result -> hub loop. steps=%d" % steps)
+	print("smoke_main: completed full hub -> map -> battle -> event -> camp -> result -> hub loop. steps=%d" % steps)
 	quit(0)
+
+func _find_hub_button(main: Main, text: String) -> Button:
+	for child in main._hub._list.get_children():
+		if child is Button and child.text == text:
+			return child
+	return null
+
+func _first_button_in(container: Node) -> Button:
+	for child in container.get_children():
+		if child is Button:
+			return child
+	return null
 
 func _fail(msg: String) -> void:
 	push_error("smoke_main: %s" % msg)

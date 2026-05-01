@@ -119,19 +119,14 @@ jobs:
             exit 1
           fi
 
-      # Smoke test — Main glue scene end-to-end loop is temporarily
-      # disabled while we diagnose a CI hang. Tests 1-7 cover
-      # individual screens + RunState + meta save/unlock, so engine
-      # regressions still get caught. The Main glue layer is small and
-      # readable; restore this step once we understand the hang.
-      # - name: Smoke test — Main glue scene full hub→map→battle→result loop
-      #   run: |
-      #     set -euo pipefail
-      #     ~/godot/godot --headless --script res://tests/smoke_main.gd 2>&1 | tee smoke_main.log
-      #     if grep -E "^(SCRIPT ERROR|ERROR:)" smoke_main.log; then
-      #       echo "Godot reported errors during Main glue scene smoke test."
-      #       exit 1
-      #     fi
+      - name: Smoke test — Main glue scene full hub→map→battle→result loop
+        run: |
+          set -euo pipefail
+          ~/godot/godot --headless --script res://tests/smoke_main.gd 2>&1 | tee smoke_main.log
+          if grep -E "^(SCRIPT ERROR|ERROR:)" smoke_main.log; then
+            echo "Godot reported errors during Main glue scene smoke test."
+            exit 1
+          fi
 
       - name: Smoke test — Platform IAP and Ads stub contracts
         run: |
