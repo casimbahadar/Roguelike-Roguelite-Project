@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="AbilityDef" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://core/data/ability_def.gd" id="1_def"]
+
+[resource]
+script = ExtResource("1_def")
+id = &"exhortation"
+display_name = "Exhortation"
+description = "The Tactician shouts a battle plan from behind the line. Allies hold a touch longer, fight a touch harder. Buff hook: applied as a no-op in the slice; status-effect plumbing lands when supports do."
+range_min = 1
+range_max = 3
+aoe_radius = 0
+kind = "BUFF"
+power = 0
+uses_per_battle = 2

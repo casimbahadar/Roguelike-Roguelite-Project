@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="AbilityDef" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://core/data/ability_def.gd" id="1_def"]
+
+[resource]
+script = ExtResource("1_def")
+id = &"naginata_sweep"
+display_name = "Naginata Sweep"
+description = "A long polearm arc from temple training. Slower than a katana cut but lands harder. Twice per battle."
+range_min = 1
+range_max = 1
+aoe_radius = 0
+kind = "PHYSICAL"
+power = 4
+uses_per_battle = 2

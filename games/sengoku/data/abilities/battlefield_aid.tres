@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="AbilityDef" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://core/data/ability_def.gd" id="1_def"]
+
+[resource]
+script = ExtResource("1_def")
+id = &"battlefield_aid"
+display_name = "Battlefield Aid"
+description = "A field-dressing and a tot of rice wine. The Tactician's only direct combat contribution: a single-target heal, range 1, twice per fight."
+range_min = 1
+range_max = 1
+aoe_radius = 0
+kind = "HEAL"
+power = 6
+uses_per_battle = 2

@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="AbilityDef" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://core/data/ability_def.gd" id="1_def"]
+
+[resource]
+script = ExtResource("1_def")
+id = &"shadow_strike"
+display_name = "Shadow Strike"
+description = "A blade-tip hit aimed at the gap between plates. Deceptively heavy — twice per fight, the shinobi's signature edge."
+range_min = 1
+range_max = 1
+aoe_radius = 0
+kind = "PHYSICAL"
+power = 5
+uses_per_battle = 2
