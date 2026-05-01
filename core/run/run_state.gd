@@ -20,6 +20,10 @@ var relics: Array[RelicDef] = []
 # on thresholds. Other themes can leave it at zero or repurpose
 # it (G3 reputation, G4 oath integrity, etc.).
 var honor: int = 0
+# Crystal shards — generic engine-level run currency (G2 hook).
+# BOSS victories add 1; SHRINE / oracle nodes can spend them on
+# act-altering effects. Other themes can leave at 0.
+var crystal_shards: int = 0
 
 func _init(p_config: RunConfig, p_seed: int, p_party: Array[UnitDef]) -> void:
 	run_config = p_config
@@ -48,6 +52,12 @@ func advance_to(idx: int) -> bool:
 	current_node_index = idx
 	if run_config.revive_policy == RunConfig.RevivePolicy.ONE_PER_ACT and current_act() != prev_act:
 		revive_tokens += 1
+	return true
+
+func spend_crystal_shards(cost: int) -> bool:
+	if cost <= 0 or crystal_shards < cost:
+		return false
+	crystal_shards -= cost
 	return true
 
 # True once we've arrived at the final-act boss with no further nodes.

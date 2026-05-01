@@ -361,11 +361,14 @@ func _on_battle_resolved(winning_side: int) -> void:
 			_run_state.gold += r.value
 	# Boss victory: pull a fresh relic into the run before
 	# resolving the screen so the player feels the upgrade
-	# immediately if they hit a follow-up battle.
-	if _run_state.current_node().kind == MapNode.Kind.BOSS and _relic_pool != null:
-		var picked: RelicDef = _relic_pool.pick(_battle_rng)
-		if picked != null:
-			_run_state.relics.append(picked)
+	# immediately if they hit a follow-up battle. Each boss kill
+	# also awards 1 crystal shard for G2's spend-at-shrine flow.
+	if _run_state.current_node().kind == MapNode.Kind.BOSS:
+		_run_state.crystal_shards += 1
+		if _relic_pool != null:
+			var picked: RelicDef = _relic_pool.pick(_battle_rng)
+			if picked != null:
+				_run_state.relics.append(picked)
 	# If that was the final-act boss, finish the run.
 	if _run_state.is_run_complete():
 		_finish_run(ResultScreen.Outcome.VICTORY)
