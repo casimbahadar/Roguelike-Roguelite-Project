@@ -222,3 +222,12 @@ jobs:
             echo "Godot reported errors during tutorial smoke test."
             exit 1
           fi
+
+      - name: Smoke test — All four ThemePacks load + boot to hub
+        run: |
+          set -euo pipefail
+          ~/godot/godot --headless --script res://tests/smoke_themes.gd 2>&1 | tee smoke_themes.log
+          if grep -E "^(SCRIPT ERROR|ERROR:)" smoke_themes.log; then
+            echo "Godot reported errors during themes smoke test."
+            exit 1
+          fi

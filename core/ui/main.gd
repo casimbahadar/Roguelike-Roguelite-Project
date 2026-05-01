@@ -6,36 +6,14 @@ extends Node
 # Map, Battle, and Result screens. One scene tree at a time —
 # whichever child is visible is the active screen.
 #
-# Battle resolution at non-battle nodes is intentionally a no-op
-# in the slice: SHOP / CAMP / EVENT / SHRINE auto-advance. They
-# get their own UI when content authoring lands.
+# Theme-aware: Main reads all per-game content paths from a
+# ThemePack Resource set via set_theme_pack() before _ready, or
+# from DEFAULT_THEME_PACK if none is set (falls back to Sengoku
+# so direct main.tscn launch still works without a title screen).
 
-const RUN_CONFIG_PATHS: Array[String] = [
-	"res://games/sengoku/data/runs/tutorial.tres",
-	"res://games/sengoku/data/runs/skirmish.tres",
-	"res://games/sengoku/data/runs/standard.tres",
-	"res://games/sengoku/data/runs/long.tres",
-	"res://games/sengoku/data/runs/iron.tres",
-]
-const PLAYER_CLASS_PATH := "res://games/sengoku/data/classes/samurai.tres"
-const ENEMY_CLASS_PATH := "res://games/sengoku/data/classes/ashigaru.tres"
-const ENCOUNTER_POOL_PATH := "res://games/sengoku/data/encounters/sengoku_pool.tres"
-const EVENT_POOL_PATH := "res://games/sengoku/data/events/sengoku_event_pool.tres"
-const RELIC_POOL_PATH := "res://games/sengoku/data/relics/sengoku_relic_pool.tres"
+const DEFAULT_THEME_PACK := "res://games/sengoku/sengoku_pack.tres"
 
-const MAP_PATHS: Array[String] = [
-	"res://games/sengoku/data/maps/forest_road.tres",
-	"res://games/sengoku/data/maps/river_crossing.tres",
-	"res://games/sengoku/data/maps/hill_redoubt.tres",
-	"res://games/sengoku/data/maps/ruined_temple.tres",
-	"res://games/sengoku/data/maps/open_plain.tres",
-	"res://games/sengoku/data/maps/mountain_pass.tres",
-]
-const TEMPLATE_PATHS: Array[String] = [
-	"res://games/sengoku/data/maps/template_open.tres",
-	"res://games/sengoku/data/maps/template_dense.tres",
-	"res://games/sengoku/data/maps/template_choke.tres",
-]
+var _theme_pack: ThemePack
 
 var _meta: MetaState
 var _run_configs: Array[RunConfig] = []
@@ -49,6 +27,7 @@ var _maps: Array[MapDef] = []
 var _templates: Array[BattlefieldTemplate] = []
 var _battle_rng: RandomNumberGenerator
 
+var _title: TitleScreen
 var _hub: HubScreen
 var _map: MapScreen
 var _battle: BattleScreen
@@ -58,8 +37,25 @@ var _shop: ShopScreen
 var _camp: CampScreen
 var _shrine: ShrineScreen
 
+# Harness/test code can call this before add_child to skip the
+# title screen and boot directly into the chosen theme. If unset,
+# _ready shows the title screen and waits for the player to pick.
+func set_theme_pack(pack: ThemePack) -> void:
+	_theme_pack = pack
+
 func _ready() -> void:
 	_ensure_nodes()
+	_title.theme_chosen.connect(_on_theme_chosen)
+	if _theme_pack != null:
+		_boot_with_theme()
+	else:
+		_show_only(_title)
+
+func _on_theme_chosen(pack: ThemePack) -> void:
+	_theme_pack = pack
+	_boot_with_theme()
+
+func _boot_with_theme() -> void:
 	_load_data()
 	_wire_signals()
 	_show_hub()
@@ -69,6 +65,8 @@ func _ready() -> void:
 # @onready can fail to fire in headless smoke harnesses, so the
 # Main glue node uses lazy lookup with a one-shot _ready hook.
 func _ensure_nodes() -> void:
+	if _title == null:
+		_title = get_node_or_null("TitleScreen") as TitleScreen
 	if _hub == null:
 		_hub = get_node_or_null("Hub") as HubScreen
 	if _map == null:
@@ -91,21 +89,21 @@ func _load_data() -> void:
 	_meta = MetaState.from_dict(save_dict)
 	MetaUnlocks.recompute_unlocks(_meta)
 
-	for path in RUN_CONFIG_PATHS:
+	for path in _theme_pack.run_config_paths:
 		var cfg: RunConfig = load(path)
 		if cfg != null:
 			_run_configs.append(cfg)
 
-	_player_class = load(PLAYER_CLASS_PATH)
-	_enemy_class = load(ENEMY_CLASS_PATH)
-	_encounter_pool = load(ENCOUNTER_POOL_PATH)
-	_event_pool = load(EVENT_POOL_PATH)
-	_relic_pool = load(RELIC_POOL_PATH)
-	for p in MAP_PATHS:
+	_player_class = load(_theme_pack.player_class_path)
+	_enemy_class = load(_theme_pack.enemy_class_path)
+	_encounter_pool = load(_theme_pack.encounter_pool_path)
+	_event_pool = load(_theme_pack.event_pool_path)
+	_relic_pool = load(_theme_pack.relic_pool_path)
+	for p in _theme_pack.map_paths:
 		var m: MapDef = load(p)
 		if m != null:
 			_maps.append(m)
-	for p in TEMPLATE_PATHS:
+	for p in _theme_pack.template_paths:
 		var t: BattlefieldTemplate = load(p)
 		if t != null:
 			_templates.append(t)
@@ -129,7 +127,7 @@ func _wire_signals() -> void:
 	_result.continue_pressed.connect(_show_hub)
 
 func _show_only(node: Control) -> void:
-	for child in [_hub, _map, _battle, _result, _event, _shop, _camp, _shrine]:
+	for child in [_title, _hub, _map, _battle, _result, _event, _shop, _camp, _shrine]:
 		child.visible = (child == node)
 
 func _show_hub() -> void:

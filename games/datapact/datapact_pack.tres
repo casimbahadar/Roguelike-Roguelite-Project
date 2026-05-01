@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="ThemePack" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://core/data/theme_pack.gd" id="1_pack"]
+
+[resource]
+script = ExtResource("1_pack")
+id = &"datapact"
+display_name = "Datapact Tactics"
+tagline = "FE-foundation partner-bond. Each lord pairs with one evolving vessel that grows through Fledgling, Bonded, Sworn, and Ascendant stages."
+run_config_paths = ["res://games/datapact/data/runs/skirmish.tres"]
+encounter_pool_path = "res://games/datapact/data/encounters/datapact_pool.tres"
+event_pool_path = "res://games/datapact/data/events/datapact_event_pool.tres"
+relic_pool_path = "res://games/datapact/data/relics/datapact_relic_pool.tres"
+player_class_path = "res://games/datapact/data/classes/vanguard.tres"
+enemy_class_path = "res://games/datapact/data/classes/warden.tres"
+map_paths = ["res://games/datapact/data/maps/oath_road.tres"]
+template_paths = []

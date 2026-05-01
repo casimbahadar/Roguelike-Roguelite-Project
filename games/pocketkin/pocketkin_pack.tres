@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="ThemePack" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://core/data/theme_pack.gd" id="1_pack"]
+
+[resource]
+script = ExtResource("1_pack")
+id = &"pocketkin"
+display_name = "Pocketkin Tactics"
+tagline = "FE-foundation creature collection. Wardens track migratory pocketkin across an open continent; the recruits become party."
+run_config_paths = ["res://games/pocketkin/data/runs/skirmish.tres"]
+encounter_pool_path = "res://games/pocketkin/data/encounters/pocketkin_pool.tres"
+event_pool_path = "res://games/pocketkin/data/events/pocketkin_event_pool.tres"
+relic_pool_path = "res://games/pocketkin/data/relics/pocketkin_relic_pool.tres"
+player_class_path = "res://games/pocketkin/data/classes/beastrider.tres"
+enemy_class_path = "res://games/pocketkin/data/classes/tidehound.tres"
+map_paths = ["res://games/pocketkin/data/maps/forest_clearing.tres"]
+template_paths = []
