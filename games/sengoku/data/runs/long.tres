@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="RunConfig" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://core/run/run_config.gd" id="1_run_config"]
+
+[resource]
+script = ExtResource("1_run_config")
+id = &"long"
+display_name = "Long Campaign"
+act_count = 5
+nodes_per_act = Vector2i(8, 10)
+revive_policy = 2
+seed_source = 0
+fixed_seed = 0
+leaderboard_key = &""

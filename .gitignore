@@ -1,0 +1,27 @@
+# Godot 4 ignores
+.godot/
+.import/
+export.cfg
+export_presets.cfg.bak
+*.translation
+
+# Build artifacts
+build/
+exports/
+*.pck
+*.zip
+*.apk
+*.aab
+*.ipa
+
+# Editor / OS
+.vscode/
+.idea/
+*.swp
+.DS_Store
+Thumbs.db
+
+# Secrets
+.env
+.env.*
+!.env.example

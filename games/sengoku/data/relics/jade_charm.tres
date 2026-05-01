@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="RelicDef" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://core/data/relic_def.gd" id="1_def"]
+
+[resource]
+script = ExtResource("1_def")
+id = &"jade_charm"
+display_name = "Jade Charm"
+description = "A small jade fish on a leather thong. Cool to the touch even in summer. The bearer flinches less from the steel of strangers. (+1 defense to every party unit, every battle.)"
+kind = 1
+value = 1
+rarity = 0
+weight = 14

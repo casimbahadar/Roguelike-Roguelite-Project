@@ -1,0 +1,24 @@
+; Godot 4 project file. Minimal — grow as code needs it (per CLAUDE.md).
+
+config_version=5
+
+[application]
+
+config/name="Roguelike Roguelite Project"
+config/description="Two FE-inspired tactics roguelites sharing a Godot 4 core: Game 1 Sengoku, Game 2 FE-foundation high fantasy."
+config/features=PackedStringArray("4.3", "Forward Plus")
+config/icon="res://icon.svg"
+run/main_scene="res://core/ui/main.tscn"
+
+[display]
+
+window/size/viewport_width=1280
+window/size/viewport_height=720
+window/stretch/mode="canvas_items"
+window/stretch/aspect="expand"
+window/handheld/orientation=1
+
+[rendering]
+
+renderer/rendering_method="forward_plus"
+renderer/rendering_method.mobile="mobile"

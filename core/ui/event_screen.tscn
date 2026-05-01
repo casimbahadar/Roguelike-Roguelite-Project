@@ -1,0 +1,44 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://core/ui/event_screen.gd" id="1_event"]
+
+[node name="EventScreen" type="Control"]
+script = ExtResource("1_event")
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Margin" type="MarginContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 24
+
+[node name="VBox" type="VBoxContainer" parent="Margin"]
+
+[node name="Title" type="Label" parent="Margin/VBox"]
+text = ""
+theme_override_font_sizes/font_size = 24
+
+[node name="Spacer1" type="Control" parent="Margin/VBox"]
+custom_minimum_size = Vector2(0, 8)
+
+[node name="Body" type="Label" parent="Margin/VBox"]
+text = ""
+autowrap_mode = 2
+
+[node name="Spacer2" type="Control" parent="Margin/VBox"]
+custom_minimum_size = Vector2(0, 16)
+
+[node name="Choices" type="VBoxContainer" parent="Margin/VBox"]
+
+[node name="Outcome" type="Label" parent="Margin/VBox"]
+text = ""
+autowrap_mode = 2
+visible = false
+
+[node name="ContinueBtn" type="Button" parent="Margin/VBox"]
+text = "Continue"
+custom_minimum_size = Vector2(0, 56)
+visible = false

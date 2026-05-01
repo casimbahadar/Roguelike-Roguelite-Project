@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="RelicPool" load_steps=12 format=3]
+
+[ext_resource type="Script" path="res://core/data/relic_pool.gd" id="1_pool"]
+[ext_resource type="Resource" path="res://games/sengoku/data/relics/banner_of_ash.tres" id="2_banner"]
+[ext_resource type="Resource" path="res://games/sengoku/data/relics/iron_haori.tres" id="3_haori"]
+[ext_resource type="Resource" path="res://games/sengoku/data/relics/comets_resin.tres" id="4_resin"]
+[ext_resource type="Resource" path="res://games/sengoku/data/relics/quartermasters_seal.tres" id="5_seal"]
+[ext_resource type="Resource" path="res://games/sengoku/data/relics/clansworn_blade.tres" id="6_clansworn"]
+[ext_resource type="Resource" path="res://games/sengoku/data/relics/jade_charm.tres" id="7_jade"]
+[ext_resource type="Resource" path="res://games/sengoku/data/relics/mountain_drinking_flask.tres" id="8_flask"]
+[ext_resource type="Resource" path="res://games/sengoku/data/relics/dragons_breath_pendant.tres" id="9_dragon"]
+[ext_resource type="Resource" path="res://games/sengoku/data/relics/silvered_armor_plate.tres" id="10_plate"]
+[ext_resource type="Resource" path="res://games/sengoku/data/relics/abacus_of_the_dead.tres" id="11_abacus"]
+
+[resource]
+script = ExtResource("1_pool")
+id = &"sengoku_relics"
+relics = [ExtResource("2_banner"), ExtResource("3_haori"), ExtResource("4_resin"), ExtResource("5_seal"), ExtResource("6_clansworn"), ExtResource("7_jade"), ExtResource("8_flask"), ExtResource("9_dragon"), ExtResource("10_plate"), ExtResource("11_abacus")]

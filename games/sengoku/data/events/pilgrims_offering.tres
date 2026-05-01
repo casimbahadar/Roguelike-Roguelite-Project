@@ -1,0 +1,38 @@
+[gd_resource type="Resource" script_class="EventDef" load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://core/data/event_def.gd" id="1_def"]
+[ext_resource type="Script" path="res://core/data/event_choice.gd" id="2_choice"]
+
+[sub_resource type="Resource" id="ChoiceLargeOffering"]
+script = ExtResource("2_choice")
+label = "Make a large offering"
+outcome_text = "The bell rings clean and long. Your column hears it for three turns of the road. Something has been heard, and answers."
+gold_delta = -10
+meta_currency_delta = 12
+party_hp_delta = 0
+
+[sub_resource type="Resource" id="ChoiceSmallOffering"]
+script = ExtResource("2_choice")
+label = "Leave a token"
+outcome_text = "The bell rings, briefly. The pilgrims nod once, and turn back to their road."
+gold_delta = -2
+meta_currency_delta = 3
+party_hp_delta = 0
+
+[sub_resource type="Resource" id="ChoiceWalkPast3"]
+script = ExtResource("2_choice")
+label = "Walk past"
+outcome_text = "You will pass this way again perhaps. Or you will not."
+gold_delta = 0
+meta_currency_delta = 0
+party_hp_delta = 0
+
+[resource]
+script = ExtResource("1_def")
+id = &"pilgrims_offering"
+display_name = "Pilgrims at the Bell"
+body = "A small column of pilgrims has stopped at a roadside bell. They are barefoot, their kasa worn through, and they look at your retainers with the calm of people who have stopped fearing their own deaths. The bell is for the comet that fractured the sky."
+choices = [SubResource("ChoiceLargeOffering"), SubResource("ChoiceSmallOffering"), SubResource("ChoiceWalkPast3")]
+act_min = 1
+act_max = 99
+weight = 6

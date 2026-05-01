@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="RelicDef" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://core/data/relic_def.gd" id="1_def"]
+
+[resource]
+script = ExtResource("1_def")
+id = &"comets_resin"
+display_name = "Comet's Resin"
+description = "A sliver of the cursed comet's tail-fall, set in lacquered wood. The men who carry it bleed slower, breathe deeper. (+3 max hp to every party unit, every battle.)"
+kind = 2
+value = 3
+rarity = 2
+weight = 5

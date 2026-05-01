@@ -1,0 +1,30 @@
+[gd_resource type="Resource" script_class="EventDef" load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://core/data/event_def.gd" id="1_def"]
+[ext_resource type="Script" path="res://core/data/event_choice.gd" id="2_choice"]
+
+[sub_resource type="Resource" id="ChoiceSiftSoil"]
+script = ExtResource("2_choice")
+label = "Sift the soil"
+outcome_text = "Your retainers come up with three coin-purses, an enamel sake-cup, and a mouthful of caltrops. Two of them limp."
+gold_delta = 10
+meta_currency_delta = 0
+party_hp_delta = -3
+
+[sub_resource type="Resource" id="ChoicePrayAndPass"]
+script = ExtResource("2_choice")
+label = "Pray and move on"
+outcome_text = "You lay one stone upon another and march. The crows do not lift."
+gold_delta = 0
+meta_currency_delta = 1
+party_hp_delta = 0
+
+[resource]
+script = ExtResource("1_def")
+id = &"old_battlefield"
+display_name = "An Old Battlefield"
+body = "Crow-flecked banners snap above shallow graves. The earth here is brittle with old steel — and someone, very recently, has dug here."
+choices = [SubResource("ChoiceSiftSoil"), SubResource("ChoicePrayAndPass")]
+act_min = 0
+act_max = 99
+weight = 10

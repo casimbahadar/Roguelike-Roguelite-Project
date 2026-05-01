@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="RelicDef" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://core/data/relic_def.gd" id="1_def"]
+
+[resource]
+script = ExtResource("1_def")
+id = &"iron_haori"
+display_name = "Iron-Threaded Haori"
+description = "An overcoat woven through with thin iron wire — heavier than it looks, and quietly stubborn against a blade. (+2 defense to every party unit, every battle.)"
+kind = 1
+value = 2
+rarity = 1
+weight = 8

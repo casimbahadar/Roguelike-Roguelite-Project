@@ -1,0 +1,51 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://core/ui/battle_screen.gd" id="1_battle"]
+
+[node name="BattleScreen" type="Control"]
+script = ExtResource("1_battle")
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Margin" type="MarginContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 24
+
+[node name="VBox" type="VBoxContainer" parent="Margin"]
+
+[node name="Title" type="Label" parent="Margin/VBox"]
+text = "Battle"
+theme_override_font_sizes/font_size = 24
+
+[node name="HBox" type="HBoxContainer" parent="Margin/VBox"]
+size_flags_vertical = 3
+
+[node name="PlayerSide" type="VBoxContainer" parent="Margin/VBox/HBox"]
+size_flags_horizontal = 3
+
+[node name="PlayerHeader" type="Label" parent="Margin/VBox/HBox/PlayerSide"]
+text = "Player"
+theme_override_font_sizes/font_size = 18
+
+[node name="List" type="VBoxContainer" parent="Margin/VBox/HBox/PlayerSide"]
+
+[node name="EnemySide" type="VBoxContainer" parent="Margin/VBox/HBox"]
+size_flags_horizontal = 3
+
+[node name="EnemyHeader" type="Label" parent="Margin/VBox/HBox/EnemySide"]
+text = "Enemy"
+theme_override_font_sizes/font_size = 18
+
+[node name="List" type="VBoxContainer" parent="Margin/VBox/HBox/EnemySide"]
+
+[node name="Result" type="Label" parent="Margin/VBox"]
+text = ""
+theme_override_font_sizes/font_size = 20
+
+[node name="ResolveBtn" type="Button" parent="Margin/VBox"]
+text = "Resolve battle"
+custom_minimum_size = Vector2(0, 56)

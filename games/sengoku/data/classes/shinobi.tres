@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="ClassDef" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://core/data/class_def.gd" id="1_class_def"]
+[ext_resource type="Resource" path="res://games/sengoku/data/abilities/shadow_strike.tres" id="2_ability"]
+
+[resource]
+script = ExtResource("1_class_def")
+id = &"shinobi"
+display_name = "Shinobi"
+theme = &"sengoku"
+movement_type = "foot"
+move_range = 6
+weapon_type = "SWORD"
+base_hp = 16
+base_atk = 6
+base_defense = 2
+base_speed = 9
+signature_ability = ExtResource("2_ability")

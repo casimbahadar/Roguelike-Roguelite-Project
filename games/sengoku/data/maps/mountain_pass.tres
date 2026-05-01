@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="MapDef" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://core/data/map_def.gd" id="1_def"]
+
+[resource]
+script = ExtResource("1_def")
+id = &"mountain_pass"
+display_name = "The Narrow Pass"
+tile_rows = ["XHH...", "XHHH..", "X..H..", "....H.", "..HHHX", ".HHHHX"]
+player_spawns = [Vector2i(0, 5), Vector2i(1, 5), Vector2i(0, 4)]
+enemy_spawns = [Vector2i(5, 0), Vector2i(4, 0), Vector2i(5, 1), Vector2i(3, 0)]

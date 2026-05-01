@@ -1,0 +1,38 @@
+[gd_resource type="Resource" script_class="EventDef" load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://core/data/event_def.gd" id="1_def"]
+[ext_resource type="Script" path="res://core/data/event_choice.gd" id="2_choice"]
+
+[sub_resource type="Resource" id="ChoiceBelieve"]
+script = ExtResource("2_choice")
+label = "Believe him"
+outcome_text = "His message is genuine. The friendly clan sends a token of gratitude — a folded cloth heavy with coin."
+gold_delta = 8
+meta_currency_delta = 0
+party_hp_delta = 0
+
+[sub_resource type="Resource" id="ChoiceQuestion"]
+script = ExtResource("2_choice")
+label = "Question him under duress"
+outcome_text = "He breaks. Three names. A safehouse. He also names the false brotherhood on the next ridge — who learn of his capture and ambush you."
+gold_delta = 0
+meta_currency_delta = 4
+party_hp_delta = -4
+
+[sub_resource type="Resource" id="ChoiceRelease"]
+script = ExtResource("2_choice")
+label = "Release him without question"
+outcome_text = "He bows once and is gone. You may regret this."
+gold_delta = 0
+meta_currency_delta = 0
+party_hp_delta = 0
+
+[resource]
+script = ExtResource("1_def")
+id = &"captured_scout"
+display_name = "Captured Scout"
+body = "Your patrol drags forward a bound scout. He claims to bear word from a friendly clan. His story is precise — too precise — and he meets your captain's eye without flinching."
+choices = [SubResource("ChoiceBelieve"), SubResource("ChoiceQuestion"), SubResource("ChoiceRelease")]
+act_min = 0
+act_max = 99
+weight = 8

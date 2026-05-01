@@ -1,0 +1,37 @@
+[gd_scene load_steps=10 format=3]
+
+[ext_resource type="Script" path="res://core/ui/main.gd" id="1_main"]
+[ext_resource type="PackedScene" path="res://core/ui/hub.tscn" id="2_hub"]
+[ext_resource type="PackedScene" path="res://core/ui/map_screen.tscn" id="3_map"]
+[ext_resource type="PackedScene" path="res://core/ui/battle_screen.tscn" id="4_battle"]
+[ext_resource type="PackedScene" path="res://core/ui/result_screen.tscn" id="5_result"]
+[ext_resource type="PackedScene" path="res://core/ui/event_screen.tscn" id="6_event"]
+[ext_resource type="PackedScene" path="res://core/ui/shop_screen.tscn" id="7_shop"]
+[ext_resource type="PackedScene" path="res://core/ui/camp_screen.tscn" id="8_camp"]
+[ext_resource type="PackedScene" path="res://core/ui/shrine_screen.tscn" id="9_shrine"]
+
+[node name="Main" type="Node"]
+script = ExtResource("1_main")
+
+[node name="Hub" parent="." instance=ExtResource("2_hub")]
+
+[node name="MapScreen" parent="." instance=ExtResource("3_map")]
+visible = false
+
+[node name="BattleScreen" parent="." instance=ExtResource("4_battle")]
+visible = false
+
+[node name="ResultScreen" parent="." instance=ExtResource("5_result")]
+visible = false
+
+[node name="EventScreen" parent="." instance=ExtResource("6_event")]
+visible = false
+
+[node name="ShopScreen" parent="." instance=ExtResource("7_shop")]
+visible = false
+
+[node name="CampScreen" parent="." instance=ExtResource("8_camp")]
+visible = false
+
+[node name="ShrineScreen" parent="." instance=ExtResource("9_shrine")]
+visible = false

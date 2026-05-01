@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="AbilityDef" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://core/data/ability_def.gd" id="1_def"]
+
+[resource]
+script = ExtResource("1_def")
+id = &"lance_break"
+display_name = "Lance-Break"
+description = "A practiced parry-and-jab against a charging spear. Cavalry's worst nightmare — bonus damage versus mounted units (bonus not yet wired; deals base ability damage in the slice)."
+range_min = 1
+range_max = 1
+aoe_radius = 0
+kind = "PHYSICAL"
+power = 3
+uses_per_battle = 2

@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="ClassDef" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://core/data/class_def.gd" id="1_class_def"]
+[ext_resource type="Resource" path="res://games/sengoku/data/abilities/yari_thrust.tres" id="2_ability"]
+
+[resource]
+script = ExtResource("1_class_def")
+id = &"ashigaru"
+display_name = "Ashigaru"
+theme = &"sengoku"
+movement_type = "foot"
+move_range = 4
+weapon_type = "LANCE"
+base_hp = 16
+base_atk = 4
+base_defense = 3
+base_speed = 4
+signature_ability = ExtResource("2_ability")

@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="EventPool" load_steps=10 format=3]
+
+[ext_resource type="Script" path="res://core/data/event_pool.gd" id="1_pool"]
+[ext_resource type="Resource" path="res://games/sengoku/data/events/wandering_monk.tres" id="2_monk"]
+[ext_resource type="Resource" path="res://games/sengoku/data/events/old_battlefield.tres" id="3_battle"]
+[ext_resource type="Resource" path="res://games/sengoku/data/events/captured_scout.tres" id="4_scout"]
+[ext_resource type="Resource" path="res://games/sengoku/data/events/crossroads_beggar.tres" id="5_beggar"]
+[ext_resource type="Resource" path="res://games/sengoku/data/events/starving_farmer.tres" id="6_farmer"]
+[ext_resource type="Resource" path="res://games/sengoku/data/events/battlefield_priestess.tres" id="7_priestess"]
+[ext_resource type="Resource" path="res://games/sengoku/data/events/sparrow_omen.tres" id="8_sparrow"]
+[ext_resource type="Resource" path="res://games/sengoku/data/events/pilgrims_offering.tres" id="9_pilgrims"]
+
+[resource]
+script = ExtResource("1_pool")
+id = &"sengoku_events"
+events = [ExtResource("2_monk"), ExtResource("3_battle"), ExtResource("4_scout"), ExtResource("5_beggar"), ExtResource("6_farmer"), ExtResource("7_priestess"), ExtResource("8_sparrow"), ExtResource("9_pilgrims")]

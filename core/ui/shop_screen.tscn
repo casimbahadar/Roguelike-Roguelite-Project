@@ -1,0 +1,36 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://core/ui/shop_screen.gd" id="1_shop"]
+
+[node name="ShopScreen" type="Control"]
+script = ExtResource("1_shop")
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Margin" type="MarginContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 24
+
+[node name="VBox" type="VBoxContainer" parent="Margin"]
+
+[node name="Title" type="Label" parent="Margin/VBox"]
+text = "The Quartermaster's Stall"
+theme_override_font_sizes/font_size = 24
+
+[node name="Gold" type="Label" parent="Margin/VBox"]
+text = "Gold: 0"
+theme_override_font_sizes/font_size = 16
+
+[node name="Spacer" type="Control" parent="Margin/VBox"]
+custom_minimum_size = Vector2(0, 12)
+
+[node name="Items" type="VBoxContainer" parent="Margin/VBox"]
+size_flags_vertical = 3
+
+[node name="LeaveBtn" type="Button" parent="Margin/VBox"]
+text = "Leave shop"
+custom_minimum_size = Vector2(0, 56)

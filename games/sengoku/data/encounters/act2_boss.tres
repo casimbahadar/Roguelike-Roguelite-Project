@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="EncounterDef" load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://core/data/encounter_def.gd" id="1_def"]
+[ext_resource type="Resource" path="res://games/sengoku/data/units/enemies/daimyo_avenger.tres" id="2_daimyo"]
+[ext_resource type="Resource" path="res://games/sengoku/data/units/enemies/hatamoto_guardian.tres" id="3_hatamoto"]
+[ext_resource type="Resource" path="res://games/sengoku/data/units/enemies/oni_touched_fanatic.tres" id="4_oni"]
+
+[resource]
+script = ExtResource("1_def")
+id = &"boss_daimyo_avenger"
+display_name = "The Daimyo's Last Stand"
+encounter_kind = "BOSS"
+enemies = [ExtResource("2_daimyo"), ExtResource("3_hatamoto"), ExtResource("3_hatamoto"), ExtResource("4_oni")]
+act_min = 1
+act_max = 99
+weight = 10
