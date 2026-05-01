@@ -12,4 +12,5 @@ revive_policy = 1
 seed_source = 2
 fixed_seed = 42
 leaderboard_key = &""
+vessel_mortality = 0
 scripted_node_kinds = [0, 2, 4, 0, 6]

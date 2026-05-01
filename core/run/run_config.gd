@@ -46,7 +46,10 @@ enum VesselMortality {
 @export var seed_source: SeedSource = SeedSource.RANDOM
 @export var fixed_seed: int = 0  # consulted only when seed_source == FIXED
 @export var leaderboard_key: StringName  # empty = no leaderboard
-@export var vessel_mortality: VesselMortality = VesselMortality.RESTORED_PACT
+# Default PERMABOND keeps non-G4 run formats at their old revive
+# semantics. G4 opts each non-iron config in to RESTORED_PACT
+# explicitly via .tres so the design intent is visible in data.
+@export var vessel_mortality: VesselMortality = VesselMortality.PERMABOND
 
 @export_group("Scripted layout (optional)")
 # When non-empty, MapGenerator builds a single linear act using

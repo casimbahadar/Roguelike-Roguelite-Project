@@ -12,3 +12,4 @@ revive_policy = 1
 seed_source = 0
 fixed_seed = 0
 leaderboard_key = &""
+vessel_mortality = 0
