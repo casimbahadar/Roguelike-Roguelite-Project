@@ -14,6 +14,10 @@ added below as the design firms up.
 - **Analyze for bugs while coding, not after.** Read each change as
   you write it: edge cases, off-by-ones, error paths, type
   mismatches. Don't defer correctness to a later review pass.
+- **Confirm CI green after every push.** Don't wait for a failure
+  ping. After every `git push`, fetch the PR's check runs and
+  state the result. If anything is still in progress, poll until
+  it lands rather than moving on assuming success.
 
 ## Project rules (locked)
 
