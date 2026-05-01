@@ -36,6 +36,10 @@ func _initialize() -> void:
 	root.add_child(hub)
 	hub.populate(meta, configs)
 
+	if hub._list == null:
+		_fail("hub._list is null after populate (scene path Margin/VBox/List didn't resolve)")
+		return
+
 	# Buttons should appear only for unlocked formats. With a fresh
 	# MetaState the only unlocked one in our config list is Skirmish.
 	var buttons: Array[Button] = []

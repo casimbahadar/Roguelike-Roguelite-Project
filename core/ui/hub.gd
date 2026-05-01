@@ -9,9 +9,22 @@ extends Control
 
 signal run_format_chosen(format_id: StringName)
 
-@onready var _list: VBoxContainer = $Margin/VBox/List
+var _list: VBoxContainer
+
+func _ready() -> void:
+	_list = get_node_or_null("Margin/VBox/List") as VBoxContainer
+	if _list == null:
+		push_error("HubScreen._ready: $Margin/VBox/List not found")
 
 func populate(meta: MetaState, run_configs: Array[RunConfig]) -> void:
+	# Defensive: if _ready hasn't fired yet (possible in some
+	# headless smoke harnesses where add_child + populate can
+	# fall before _ready in unusual cases), resolve _list now.
+	if _list == null:
+		_list = get_node_or_null("Margin/VBox/List") as VBoxContainer
+	if _list == null:
+		push_error("HubScreen.populate: $Margin/VBox/List not found")
+		return
 	for child in _list.get_children():
 		child.queue_free()
 
