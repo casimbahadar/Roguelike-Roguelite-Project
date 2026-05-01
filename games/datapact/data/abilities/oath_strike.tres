@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="AbilityDef" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://core/data/ability_def.gd" id="1_def"]
+
+[resource]
+script = ExtResource("1_def")
+id = &"oath_strike"
+display_name = "Oath-Strike"
+description = "The Vanguard's blade carries the weight of the Pact behind it. The bond hums; the strike lands cleaner than it should. Twice per battle."
+range_min = 1
+range_max = 1
+aoe_radius = 0
+kind = "PHYSICAL"
+power = 5
+uses_per_battle = 2

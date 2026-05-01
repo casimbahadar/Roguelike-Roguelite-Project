@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="EncounterPool" load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://core/data/encounter_pool.gd" id="1_pool"]
+[ext_resource type="Resource" path="res://games/pocketkin/data/encounters/wild_pack.tres" id="2_pack"]
+[ext_resource type="Resource" path="res://games/pocketkin/data/encounters/witchwood_brood.tres" id="3_brood"]
+[ext_resource type="Resource" path="res://games/pocketkin/data/encounters/elder_grove.tres" id="4_elder"]
+
+[resource]
+script = ExtResource("1_pool")
+id = &"pocketkin_pool"
+battle_encounters = [ExtResource("2_pack")]
+elite_encounters = [ExtResource("3_brood")]
+boss_encounters = [ExtResource("4_elder")]

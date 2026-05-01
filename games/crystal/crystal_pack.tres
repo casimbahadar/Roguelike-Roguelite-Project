@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="ThemePack" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://core/data/theme_pack.gd" id="1_pack"]
+
+[resource]
+script = ExtResource("1_pack")
+id = &"crystal"
+display_name = "Crystalfall Tactics"
+tagline = "FE-foundation high fantasy. The world's last Crystal is shattering; tactics squads chase shards across floating islands."
+run_config_paths = ["res://games/crystal/data/runs/skirmish.tres"]
+encounter_pool_path = "res://games/crystal/data/encounters/crystal_pool.tres"
+event_pool_path = "res://games/crystal/data/events/crystal_event_pool.tres"
+relic_pool_path = "res://games/crystal/data/relics/crystal_relic_pool.tres"
+player_class_path = "res://games/crystal/data/classes/lord.tres"
+enemy_class_path = "res://games/crystal/data/classes/knight.tres"
+map_paths = ["res://games/crystal/data/maps/crystal_plateau.tres", "res://games/crystal/data/maps/skybridge.tres"]
+template_paths = []

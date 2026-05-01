@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="EncounterDef" load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://core/data/encounter_def.gd" id="1_def"]
+[ext_resource type="Resource" path="res://games/pocketkin/data/units/enemies/marsh_stinger.tres" id="2_stinger"]
+[ext_resource type="Resource" path="res://games/pocketkin/data/units/enemies/forest_wisp.tres" id="3_wisp"]
+
+[resource]
+script = ExtResource("1_def")
+id = &"witchwood_brood"
+display_name = "Witchwood Brood"
+encounter_kind = "ELITE"
+enemies = [ExtResource("2_stinger"), ExtResource("3_wisp"), ExtResource("3_wisp")]
+act_min = 0
+act_max = 99
+weight = 10

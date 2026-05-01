@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="ThemePack" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://core/data/theme_pack.gd" id="1_pack"]
+
+[resource]
+script = ExtResource("1_pack")
+id = &"sengoku"
+display_name = "Banner of Ashes"
+tagline = "Tactics-roguelite in an alternate Sengoku Japan, where a cursed comet has fractured time."
+run_config_paths = ["res://games/sengoku/data/runs/tutorial.tres", "res://games/sengoku/data/runs/skirmish.tres", "res://games/sengoku/data/runs/standard.tres", "res://games/sengoku/data/runs/long.tres", "res://games/sengoku/data/runs/iron.tres"]
+encounter_pool_path = "res://games/sengoku/data/encounters/sengoku_pool.tres"
+event_pool_path = "res://games/sengoku/data/events/sengoku_event_pool.tres"
+relic_pool_path = "res://games/sengoku/data/relics/sengoku_relic_pool.tres"
+player_class_path = "res://games/sengoku/data/classes/samurai.tres"
+enemy_class_path = "res://games/sengoku/data/classes/ashigaru.tres"
+map_paths = ["res://games/sengoku/data/maps/forest_road.tres", "res://games/sengoku/data/maps/river_crossing.tres", "res://games/sengoku/data/maps/hill_redoubt.tres", "res://games/sengoku/data/maps/ruined_temple.tres", "res://games/sengoku/data/maps/open_plain.tres", "res://games/sengoku/data/maps/mountain_pass.tres"]
+template_paths = ["res://games/sengoku/data/maps/template_open.tres", "res://games/sengoku/data/maps/template_dense.tres", "res://games/sengoku/data/maps/template_choke.tres"]

@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="EncounterDef" load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://core/data/encounter_def.gd" id="1_def"]
+[ext_resource type="Resource" path="res://games/pocketkin/data/units/enemies/forest_wisp.tres" id="2_wisp"]
+[ext_resource type="Resource" path="res://games/pocketkin/data/units/enemies/wild_boarcat.tres" id="3_boarcat"]
+[ext_resource type="Resource" path="res://games/pocketkin/data/units/enemies/marsh_stinger.tres" id="4_stinger"]
+
+[resource]
+script = ExtResource("1_def")
+id = &"elder_grove"
+display_name = "The Elder of the Grove"
+encounter_kind = "BOSS"
+enemies = [ExtResource("2_wisp"), ExtResource("3_boarcat"), ExtResource("3_boarcat"), ExtResource("4_stinger")]
+act_min = 0
+act_max = 99
+weight = 10

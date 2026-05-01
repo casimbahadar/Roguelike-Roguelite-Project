@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="RelicPool" load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://core/data/relic_pool.gd" id="1_pool"]
+[ext_resource type="Resource" path="res://games/pocketkin/data/relics/beast_bone_ward.tres" id="2_ward"]
+[ext_resource type="Resource" path="res://games/pocketkin/data/relics/sapling_brooch.tres" id="3_brooch"]
+[ext_resource type="Resource" path="res://games/pocketkin/data/relics/migration_charm.tres" id="4_charm"]
+
+[resource]
+script = ExtResource("1_pool")
+id = &"pocketkin_relics"
+relics = [ExtResource("2_ward"), ExtResource("3_brooch"), ExtResource("4_charm")]

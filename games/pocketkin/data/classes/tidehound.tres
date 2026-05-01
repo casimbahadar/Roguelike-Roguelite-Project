@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="ClassDef" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://core/data/class_def.gd" id="1_class_def"]
+[ext_resource type="Resource" path="res://games/pocketkin/data/abilities/tide_lash.tres" id="2_ability"]
+
+[resource]
+script = ExtResource("1_class_def")
+id = &"pocketkin_tidehound"
+display_name = "Tidehound"
+theme = &"pocketkin"
+movement_type = "foot"
+move_range = 5
+weapon_type = "MAGIC"
+base_hp = 22
+base_atk = 5
+base_defense = 5
+base_speed = 5
+signature_ability = ExtResource("2_ability")

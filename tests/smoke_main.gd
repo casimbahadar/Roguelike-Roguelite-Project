@@ -33,7 +33,16 @@ func _initialize() -> void:
 		_fail("could not load main.tscn")
 		return
 
+	var pack: ThemePack = load("res://games/sengoku/sengoku_pack.tres")
+	if pack == null:
+		_fail("could not load sengoku_pack.tres")
+		return
+
 	var main: Main = scene.instantiate()
+	# Set the theme BEFORE add_child so _ready boots straight to
+	# the hub, skipping the title screen. End-to-end sengoku walk
+	# is what this test exercises.
+	main.set_theme_pack(pack)
 	root.add_child(main)
 	# Yield one frame so _ready, @onready resolution, and any
 	# initial layout work all complete before we start poking.

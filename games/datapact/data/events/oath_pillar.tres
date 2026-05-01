@@ -1,0 +1,30 @@
+[gd_resource type="Resource" script_class="EventDef" load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://core/data/event_def.gd" id="1_def"]
+[ext_resource type="Script" path="res://core/data/event_choice.gd" id="2_choice"]
+
+[sub_resource type="Resource" id="ChoiceRenew"]
+script = ExtResource("2_choice")
+label = "Renew the oath"
+outcome_text = "The pillar's runes catch a moment's light. The vessel and the lord stand a little straighter; the campaign feels, briefly, possible."
+gold_delta = -3
+meta_currency_delta = 6
+party_hp_delta = 0
+
+[sub_resource type="Resource" id="ChoiceTakeStone"]
+script = ExtResource("2_choice")
+label = "Pry loose a Pact-Stone"
+outcome_text = "The runes flicker out. You walk on with a fragment that will eventually pay for something — but the pillar is dark behind you, and the wind has changed."
+gold_delta = 6
+meta_currency_delta = -4
+party_hp_delta = 0
+
+[resource]
+script = ExtResource("1_def")
+id = &"oath_pillar"
+display_name = "An Oath-Pillar"
+body = "A weathered stone pillar leans by the roadside. Its surface is carved with names and dates — Pacts once sworn, lords and vessels both. A small hollow in the base holds an unset Pact-Stone."
+choices = [SubResource("ChoiceRenew"), SubResource("ChoiceTakeStone")]
+act_min = 0
+act_max = 99
+weight = 8
