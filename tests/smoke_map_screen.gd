@@ -32,6 +32,19 @@ func _initialize() -> void:
 	root.add_child(screen)
 	screen.bind_run(run)
 
+	# Defensive null checks make failures explicit instead of letting
+	# Godot's null-method-call SCRIPT ERROR keep the SceneTree alive.
+	if screen._list == null:
+		_fail("screen._list is null after bind_run (Margin/VBox/Scroll/List didn't resolve)")
+		return
+	if screen._choices == null:
+		_fail("screen._choices is null after bind_run (Margin/VBox/Choices didn't resolve)")
+		return
+
+	print("smoke_map_screen: list children=%d, expected=%d, choices=%d" % [
+		screen._list.get_child_count(), run.map.size(), screen._choices.get_child_count(),
+	])
+
 	if screen._list.get_child_count() != run.map.size():
 		_fail("expected %d list rows, got %d" % [run.map.size(), screen._list.get_child_count()])
 		return
