@@ -1,0 +1,30 @@
+[gd_resource type="Resource" script_class="EventDef" load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://core/data/event_def.gd" id="1_def"]
+[ext_resource type="Script" path="res://core/data/event_choice.gd" id="2_choice"]
+
+[sub_resource type="Resource" id="ChoiceCross"]
+script = ExtResource("2_choice")
+label = "Take the wind-bridge"
+outcome_text = "The wind holds. Two retainers slip and recover; one does not. You make the far side richer in coin and lighter in column."
+gold_delta = 8
+meta_currency_delta = 0
+party_hp_delta = -3
+
+[sub_resource type="Resource" id="ChoiceWaitForFerry"]
+script = ExtResource("2_choice")
+label = "Wait for the next sky-ferry"
+outcome_text = "Hours pass. The ferry comes. The price is fair, the crossing dull. Nothing is gained but the day."
+gold_delta = -2
+meta_currency_delta = 0
+party_hp_delta = 0
+
+[resource]
+script = ExtResource("1_def")
+id = &"floating_island"
+display_name = "A Floating Island"
+body = "The road ends at the edge of an island that floats above the next valley. Wind-bridges sway. A sky-ferry's whistle echoes from somewhere below. Either path crosses; only one of them costs nothing in steel."
+choices = [SubResource("ChoiceCross"), SubResource("ChoiceWaitForFerry")]
+act_min = 0
+act_max = 99
+weight = 8
