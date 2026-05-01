@@ -195,3 +195,12 @@ jobs:
             echo "Godot reported errors during shrine smoke test."
             exit 1
           fi
+
+      - name: Smoke test — Grid terrain bonuses + blocked tiles
+        run: |
+          set -euo pipefail
+          ~/godot/godot --headless --script res://tests/smoke_terrain.gd 2>&1 | tee smoke_terrain.log
+          if grep -E "^(SCRIPT ERROR|ERROR:)" smoke_terrain.log; then
+            echo "Godot reported errors during terrain smoke test."
+            exit 1
+          fi

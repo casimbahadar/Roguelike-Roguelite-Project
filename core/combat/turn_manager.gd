@@ -104,9 +104,10 @@ func _step_away(actor: CombatUnit, target_pos: Vector2i) -> void:
 	actor.pos = best_pos
 
 func _attack(attacker: CombatUnit, defender: CombatUnit) -> void:
+	var terrain_bonus: int = grid.defense_bonus_at(defender.pos)
 	var dmg: int = DamageFormula.resolve_damage(
 		attacker.atk(), attacker.weapon_type(),
-		defender.defense(), defender.weapon_type()
+		defender.defense() + terrain_bonus, defender.weapon_type()
 	)
 	defender.take_damage(dmg)
 
@@ -119,9 +120,10 @@ func _cast_ability(attacker: CombatUnit, defender: CombatUnit, ability: AbilityD
 	if not attacker.try_consume_ability_use(ability):
 		return
 	if ability.kind == "PHYSICAL" or ability.kind == "MAGICAL":
+		var terrain_bonus: int = grid.defense_bonus_at(defender.pos)
 		var dmg: int = DamageFormula.resolve_ability_damage(
 			attacker.atk(), attacker.weapon_type(),
-			defender.defense(), defender.weapon_type(),
+			defender.defense() + terrain_bonus, defender.weapon_type(),
 			ability.kind, ability.power
 		)
 		defender.take_damage(dmg)
