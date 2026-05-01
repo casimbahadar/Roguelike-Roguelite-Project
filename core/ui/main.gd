@@ -22,6 +22,20 @@ const ENCOUNTER_POOL_PATH := "res://games/sengoku/data/encounters/sengoku_pool.t
 const EVENT_POOL_PATH := "res://games/sengoku/data/events/sengoku_event_pool.tres"
 const RELIC_POOL_PATH := "res://games/sengoku/data/relics/sengoku_relic_pool.tres"
 
+const MAP_PATHS: Array[String] = [
+	"res://games/sengoku/data/maps/forest_road.tres",
+	"res://games/sengoku/data/maps/river_crossing.tres",
+	"res://games/sengoku/data/maps/hill_redoubt.tres",
+	"res://games/sengoku/data/maps/ruined_temple.tres",
+	"res://games/sengoku/data/maps/open_plain.tres",
+	"res://games/sengoku/data/maps/mountain_pass.tres",
+]
+const TEMPLATE_PATHS: Array[String] = [
+	"res://games/sengoku/data/maps/template_open.tres",
+	"res://games/sengoku/data/maps/template_dense.tres",
+	"res://games/sengoku/data/maps/template_choke.tres",
+]
+
 var _meta: MetaState
 var _run_configs: Array[RunConfig] = []
 var _run_state: RunState
@@ -30,6 +44,8 @@ var _enemy_class: ClassDef
 var _encounter_pool: EncounterPool
 var _event_pool: EventPool
 var _relic_pool: RelicPool
+var _maps: Array[MapDef] = []
+var _templates: Array[BattlefieldTemplate] = []
 var _battle_rng: RandomNumberGenerator
 
 @onready var _hub: HubScreen = $Hub
@@ -61,6 +77,14 @@ func _load_data() -> void:
 	_encounter_pool = load(ENCOUNTER_POOL_PATH)
 	_event_pool = load(EVENT_POOL_PATH)
 	_relic_pool = load(RELIC_POOL_PATH)
+	for p in MAP_PATHS:
+		var m: MapDef = load(p)
+		if m != null:
+			_maps.append(m)
+	for p in TEMPLATE_PATHS:
+		var t: BattlefieldTemplate = load(p)
+		if t != null:
+			_templates.append(t)
 	_battle_rng = RandomNumberGenerator.new()
 	_battle_rng.randomize()
 
@@ -179,13 +203,51 @@ func _is_combat_kind(k: int) -> bool:
 	return k == MapNode.Kind.BATTLE or k == MapNode.Kind.ELITE or k == MapNode.Kind.BOSS
 
 func _start_battle_for_current_node() -> void:
-	var grid: CombatGrid = CombatGrid.new(6, 6)
-	var hero: CombatUnit = CombatUnit.new(_make_player_unit_def(), Vector2i(0, 0))
+	var setup: Dictionary = _build_battlefield_for_current_node()
+	var grid: CombatGrid = setup["grid"]
+	var hero: CombatUnit = CombatUnit.new(_make_player_unit_def(), setup["player_pos"])
 	_apply_relic_buffs(hero)
 	var players: Array[CombatUnit] = [hero]
-	var enemies: Array[CombatUnit] = _spawn_enemies_for_current_node()
+	var enemies: Array[CombatUnit] = _spawn_enemies_for_current_node(setup["enemy_positions"])
 	_battle.bind_battle(grid, players, enemies)
 	_show_only(_battle)
+
+# Returns { grid, player_pos, enemy_positions } picked from
+# either a hand-crafted MapDef or a procedural BattlefieldTemplate.
+# 60% chance to use a hand-crafted map, 40% procedural — keeps
+# the slice feeling authored without making every battle the
+# same six layouts.
+func _build_battlefield_for_current_node() -> Dictionary:
+	var use_handcrafted: bool = (not _maps.is_empty()) and (_templates.is_empty() or _battle_rng.randf() < 0.6)
+	if use_handcrafted:
+		var m: MapDef = _maps[_battle_rng.randi() % _maps.size()]
+		var grid: CombatGrid = m.build_grid()
+		var player_pos: Vector2i = Vector2i(0, grid.height - 1)
+		if not m.player_spawns.is_empty():
+			player_pos = m.player_spawns[0]
+		return {
+			"grid": grid,
+			"player_pos": player_pos,
+			"enemy_positions": m.enemy_spawns.duplicate(),
+		}
+	# Procedural path.
+	if _templates.is_empty():
+		# No templates loaded — fall back to a blank grid.
+		var grid: CombatGrid = CombatGrid.new(6, 6)
+		return {
+			"grid": grid,
+			"player_pos": Vector2i(0, 5),
+			"enemy_positions": [Vector2i(5, 0), Vector2i(4, 0), Vector2i(5, 1), Vector2i(3, 0)],
+		}
+	var t: BattlefieldTemplate = _templates[_battle_rng.randi() % _templates.size()]
+	var grid: CombatGrid = t.build_grid(_battle_rng)
+	var p_spawns: Array[Vector2i] = t.default_player_spawns(1)
+	var e_spawns: Array[Vector2i] = t.default_enemy_spawns(4)
+	return {
+		"grid": grid,
+		"player_pos": p_spawns[0] if not p_spawns.is_empty() else Vector2i(0, t.height - 1),
+		"enemy_positions": e_spawns,
+	}
 
 func _apply_relic_buffs(unit: CombatUnit) -> void:
 	var atk_b: int = 0
@@ -202,7 +264,7 @@ func _apply_relic_buffs(unit: CombatUnit) -> void:
 			# GOLD_PER_VICTORY is applied at battle end, not here.
 	unit.apply_buffs(atk_b, def_b, hp_b)
 
-func _spawn_enemies_for_current_node() -> Array[CombatUnit]:
+func _spawn_enemies_for_current_node(positions: Array) -> Array[CombatUnit]:
 	var enemies: Array[CombatUnit] = []
 	var encounter: EncounterDef = null
 	if _encounter_pool != null:
@@ -211,12 +273,18 @@ func _spawn_enemies_for_current_node() -> Array[CombatUnit]:
 		# Fallback: a single ashigaru-class bandit so the run never hits a
 		# dead battle node. Designers should add encounters covering every
 		# combat kind for every act.
-		enemies.append(CombatUnit.new(_make_enemy_unit_def(), Vector2i(5, 5)))
+		var fallback_pos: Vector2i = positions[0] if not positions.is_empty() else Vector2i(5, 5)
+		enemies.append(CombatUnit.new(_make_enemy_unit_def(), fallback_pos))
 		return enemies
-	# Spread enemies across the right column so they don't pile on one tile.
-	var positions: Array[Vector2i] = [Vector2i(5, 5), Vector2i(5, 4), Vector2i(5, 3), Vector2i(4, 5)]
+	# Use the map's enemy_spawns where possible; fall back to a generic right-column
+	# spread when the encounter has more enemies than the map declared spawns for.
+	var generic_positions: Array[Vector2i] = [Vector2i(5, 5), Vector2i(5, 4), Vector2i(5, 3), Vector2i(4, 5)]
 	for i in encounter.enemies.size():
-		var pos: Vector2i = positions[i % positions.size()]
+		var pos: Vector2i
+		if i < positions.size():
+			pos = positions[i]
+		else:
+			pos = generic_positions[(i - positions.size()) % generic_positions.size()]
 		enemies.append(CombatUnit.new(encounter.enemies[i], pos))
 	return enemies
 
