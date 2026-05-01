@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="EncounterDef" load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://core/data/encounter_def.gd" id="1_def"]
+[ext_resource type="Resource" path="res://games/datapact/data/units/enemies/broken_oathkeeper.tres" id="2_keeper"]
+[ext_resource type="Resource" path="res://games/datapact/data/units/enemies/forsworn_ronin.tres" id="3_ronin"]
+[ext_resource type="Resource" path="res://games/datapact/data/units/enemies/wraith_attendant.tres" id="4_wraith"]
+
+[resource]
+script = ExtResource("1_def")
+id = &"the_unbound"
+display_name = "The Unbound"
+encounter_kind = "BOSS"
+enemies = [ExtResource("2_keeper"), ExtResource("3_ronin"), ExtResource("3_ronin"), ExtResource("4_wraith")]
+act_min = 0
+act_max = 99
+weight = 10

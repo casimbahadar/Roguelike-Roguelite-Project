@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="RelicDef" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://core/data/relic_def.gd" id="1_def"]
+
+[resource]
+script = ExtResource("1_def")
+id = &"beast_bone_ward"
+display_name = "Beast-Bone Ward"
+description = "A small carved talisman of a long-dead pocketkin's vertebra. Wardens carry these on long walks; the wild reads them as kin. (+2 atk to every party unit, every battle.)"
+kind = 0
+value = 2
+rarity = 1
+weight = 10

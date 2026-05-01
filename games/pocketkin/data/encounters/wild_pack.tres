@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="EncounterDef" load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://core/data/encounter_def.gd" id="1_def"]
+[ext_resource type="Resource" path="res://games/pocketkin/data/units/enemies/wild_boarcat.tres" id="2_boarcat"]
+[ext_resource type="Resource" path="res://games/pocketkin/data/units/enemies/marsh_stinger.tres" id="3_stinger"]
+
+[resource]
+script = ExtResource("1_def")
+id = &"wild_pack"
+display_name = "Wild Pack"
+encounter_kind = "BATTLE"
+enemies = [ExtResource("2_boarcat"), ExtResource("2_boarcat"), ExtResource("3_stinger")]
+act_min = 0
+act_max = 99
+weight = 15

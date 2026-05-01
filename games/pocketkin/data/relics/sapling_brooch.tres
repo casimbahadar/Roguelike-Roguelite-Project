@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="RelicDef" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://core/data/relic_def.gd" id="1_def"]
+
+[resource]
+script = ExtResource("1_def")
+id = &"sapling_brooch"
+display_name = "Sapling Brooch"
+description = "A bronze brooch shaped like a young oak leaf. Druids press one of these into a captain's collar before any expedition. (+1 defense to every party unit, every battle.)"
+kind = 1
+value = 1
+rarity = 0
+weight = 12

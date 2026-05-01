@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="RelicPool" load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://core/data/relic_pool.gd" id="1_pool"]
+[ext_resource type="Resource" path="res://games/datapact/data/relics/oath_cord.tres" id="2_cord"]
+[ext_resource type="Resource" path="res://games/datapact/data/relics/wardens_pendant.tres" id="3_pendant"]
+[ext_resource type="Resource" path="res://games/datapact/data/relics/pact_stone.tres" id="4_stone"]
+
+[resource]
+script = ExtResource("1_pool")
+id = &"datapact_relics"
+relics = [ExtResource("2_cord"), ExtResource("3_pendant"), ExtResource("4_stone")]

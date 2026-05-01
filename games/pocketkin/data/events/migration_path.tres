@@ -1,0 +1,30 @@
+[gd_resource type="Resource" script_class="EventDef" load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://core/data/event_def.gd" id="1_def"]
+[ext_resource type="Script" path="res://core/data/event_choice.gd" id="2_choice"]
+
+[sub_resource type="Resource" id="ChoiceWaitOut"]
+script = ExtResource("2_choice")
+label = "Wait for the herd to pass"
+outcome_text = "Two hours of crouching in the brush. The herd flows past, indifferent. You learn three new tracks."
+gold_delta = 0
+meta_currency_delta = 4
+party_hp_delta = 0
+
+[sub_resource type="Resource" id="ChoicePushThrough"]
+script = ExtResource("2_choice")
+label = "Push through"
+outcome_text = "Two retainers come away with bruised ribs. The column is half a day faster than it would have been."
+gold_delta = 5
+meta_currency_delta = 0
+party_hp_delta = -2
+
+[resource]
+script = ExtResource("1_def")
+id = &"migration_path"
+display_name = "Migration Path"
+body = "The road crosses a wide migration corridor. A herd of pocketkin — none of them solitary, all of them very large — is moving across the path. Wait it out, or push through?"
+choices = [SubResource("ChoiceWaitOut"), SubResource("ChoicePushThrough")]
+act_min = 0
+act_max = 99
+weight = 8

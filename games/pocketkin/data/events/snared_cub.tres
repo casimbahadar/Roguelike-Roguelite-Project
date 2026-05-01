@@ -1,0 +1,38 @@
+[gd_resource type="Resource" script_class="EventDef" load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://core/data/event_def.gd" id="1_def"]
+[ext_resource type="Script" path="res://core/data/event_choice.gd" id="2_choice"]
+
+[sub_resource type="Resource" id="ChoiceFreeIt"]
+script = ExtResource("2_choice")
+label = "Cut the snare"
+outcome_text = "The cub blinks at your captain once and is gone in a flash of grey. The trapper's voice carries from somewhere uphill, but no one moves."
+gold_delta = 0
+meta_currency_delta = 5
+party_hp_delta = 0
+
+[sub_resource type="Resource" id="ChoiceTakeIt"]
+script = ExtResource("2_choice")
+label = "Take it for the column"
+outcome_text = "The cub does not stop crying for the rest of the day. Your foragers eat better tonight than they have in a week."
+gold_delta = 4
+meta_currency_delta = -3
+party_hp_delta = 0
+
+[sub_resource type="Resource" id="ChoicePass"]
+script = ExtResource("2_choice")
+label = "Walk past"
+outcome_text = "Someone will claim it, or no one will. The road takes you on."
+gold_delta = 0
+meta_currency_delta = 0
+party_hp_delta = 0
+
+[resource]
+script = ExtResource("1_def")
+id = &"snared_cub"
+display_name = "A Snared Cub"
+body = "A young pocketkin — barely the size of a forager's pack — is tangled in a wire snare beside the road. It does not snarl. It watches you with the steady patience of something that has been hurt before."
+choices = [SubResource("ChoiceFreeIt"), SubResource("ChoiceTakeIt"), SubResource("ChoicePass")]
+act_min = 0
+act_max = 99
+weight = 10

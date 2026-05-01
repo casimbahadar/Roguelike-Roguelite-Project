@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="AbilityDef" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://core/data/ability_def.gd" id="1_def"]
+
+[resource]
+script = ExtResource("1_def")
+id = &"spritelight"
+display_name = "Sprite-Light"
+description = "The Sprite cups its hands and a small ball of pact-light leaps to a wounded ally. Range 1, twice per battle."
+range_min = 1
+range_max = 1
+aoe_radius = 0
+kind = "HEAL"
+power = 5
+uses_per_battle = 2
