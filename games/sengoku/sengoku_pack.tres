@@ -11,6 +11,7 @@ run_config_paths = ["res://games/sengoku/data/runs/tutorial.tres", "res://games/
 encounter_pool_path = "res://games/sengoku/data/encounters/sengoku_pool.tres"
 event_pool_path = "res://games/sengoku/data/events/sengoku_event_pool.tres"
 relic_pool_path = "res://games/sengoku/data/relics/sengoku_relic_pool.tres"
+bond_pool_path = "res://games/sengoku/data/bonds/sengoku_bond_pool.tres"
 player_class_path = "res://games/sengoku/data/classes/samurai.tres"
 enemy_class_path = "res://games/sengoku/data/classes/ashigaru.tres"
 map_paths = ["res://games/sengoku/data/maps/forest_road.tres", "res://games/sengoku/data/maps/river_crossing.tres", "res://games/sengoku/data/maps/hill_redoubt.tres", "res://games/sengoku/data/maps/ruined_temple.tres", "res://games/sengoku/data/maps/open_plain.tres", "res://games/sengoku/data/maps/mountain_pass.tres"]

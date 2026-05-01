@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="AbilityDef" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://core/data/ability_def.gd" id="1_def"]
+
+[resource]
+script = ExtResource("1_def")
+id = &"snapshot"
+display_name = "Snap Shot"
+description = "The Tracker looses a quick shot on instinct alone. Twice per battle, light damage at very near range."
+range_min = 1
+range_max = 2
+aoe_radius = 0
+kind = "PHYSICAL"
+power = 3
+uses_per_battle = 2

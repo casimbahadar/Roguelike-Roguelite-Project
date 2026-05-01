@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="EncounterDef" load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://core/data/encounter_def.gd" id="1_def"]
+[ext_resource type="Resource" path="res://games/pocketkin/data/units/enemies/crag_stoneclad.tres" id="2_stoneclad"]
+[ext_resource type="Resource" path="res://games/pocketkin/data/units/enemies/feral_tidehound.tres" id="3_hound"]
+[ext_resource type="Resource" path="res://games/pocketkin/data/units/enemies/tideborn_skirmisher.tres" id="4_tideborn"]
+
+[resource]
+script = ExtResource("1_def")
+id = &"stoneclad_alpha_boss"
+display_name = "The Stoneclad Alpha"
+encounter_kind = "BOSS"
+enemies = [ExtResource("2_stoneclad"), ExtResource("3_hound"), ExtResource("4_tideborn")]
+act_min = 0
+act_max = 99
+weight = 10

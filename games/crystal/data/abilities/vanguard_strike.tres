@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="AbilityDef" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://core/data/ability_def.gd" id="1_def"]
+
+[resource]
+script = ExtResource("1_def")
+id = &"vanguard_strike"
+display_name = "Vanguard Strike"
+description = "A two-handed downward cut the Lord trains a thousand times. Once per battle, sharp damage to a single enemy at melee range."
+range_min = 1
+range_max = 1
+aoe_radius = 0
+kind = "PHYSICAL"
+power = 7
+uses_per_battle = 1

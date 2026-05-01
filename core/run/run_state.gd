@@ -15,6 +15,15 @@ var party: Array[UnitDef] = []
 var revive_tokens: int = 0
 var gold: int = 0
 var relics: Array[RelicDef] = []
+# Honor / Dishonor meter — generic engine-level integer. G1 events
+# shift it via EventChoice.honor_delta; later phases gate content
+# on thresholds. Other themes can leave it at zero or repurpose
+# it (G3 reputation, G4 oath integrity, etc.).
+var honor: int = 0
+# Crystal shards — generic engine-level run currency (G2 hook).
+# BOSS victories add 1; SHRINE / oracle nodes can spend them on
+# act-altering effects. Other themes can leave at 0.
+var crystal_shards: int = 0
 
 func _init(p_config: RunConfig, p_seed: int, p_party: Array[UnitDef]) -> void:
 	run_config = p_config
@@ -45,18 +54,31 @@ func advance_to(idx: int) -> bool:
 		revive_tokens += 1
 	return true
 
+func spend_crystal_shards(cost: int) -> bool:
+	if cost <= 0 or crystal_shards < cost:
+		return false
+	crystal_shards -= cost
+	return true
+
 # True once we've arrived at the final-act boss with no further nodes.
 func is_run_complete() -> bool:
 	var n: MapNode = current_node()
 	return n.kind == MapNode.Kind.BOSS and n.act == run_config.act_count - 1 and n.next_indices.is_empty()
 
 static func _initial_revive_tokens(c: RunConfig) -> int:
+	var base: int = 0
 	match c.revive_policy:
 		RunConfig.RevivePolicy.NONE:
-			return 0
+			base = 0
 		RunConfig.RevivePolicy.ONE_PER_RUN:
-			return 1
+			base = 1
 		RunConfig.RevivePolicy.ONE_PER_ACT:
-			return 1  # refilled on act change in advance_to()
+			base = 1  # refilled on act change in advance_to()
 		_:
-			return 0
+			base = 0
+	# Restored Pact mode (G4 default; theme-agnostic field) grants
+	# a softening +1 token on top of the policy. Permabond stays
+	# strict.
+	if c.vessel_mortality == RunConfig.VesselMortality.RESTORED_PACT:
+		base += 1
+	return base

@@ -27,6 +27,9 @@ extends Resource
 @export var tile_rows: Array[String] = []
 @export var player_spawns: Array[Vector2i] = []
 @export var enemy_spawns: Array[Vector2i] = []
+# Per-map weather. Same enum values as CombatGrid.Weather and
+# BattlefieldTemplate.weather: 0 = CLEAR, 1 = FOG, 2 = RAIN.
+@export var weather: int = 0
 
 func width() -> int:
 	if tile_rows.is_empty():
@@ -40,6 +43,7 @@ func build_grid() -> CombatGrid:
 	var w: int = width()
 	var h: int = height()
 	var grid: CombatGrid = CombatGrid.new(w, h)
+	grid.weather = weather
 	for y in h:
 		var row: String = tile_rows[y]
 		for x in row.length():

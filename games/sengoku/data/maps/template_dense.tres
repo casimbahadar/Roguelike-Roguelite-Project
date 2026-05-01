@@ -13,3 +13,4 @@ hill_density = 0.15
 water_density = 0.0
 wall_density = 0.0
 spawn_inset = 0
+weather = 1

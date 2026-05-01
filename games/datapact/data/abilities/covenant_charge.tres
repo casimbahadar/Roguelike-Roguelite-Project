@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="AbilityDef" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://core/data/ability_def.gd" id="1_def"]
+
+[resource]
+script = ExtResource("1_def")
+id = &"covenant_charge"
+display_name = "Covenant Charge"
+description = "The Pactrider braces against the saddle and rides on a vow's edge. Twice per battle, sharp damage on a melee strike."
+range_min = 1
+range_max = 1
+aoe_radius = 0
+kind = "PHYSICAL"
+power = 5
+uses_per_battle = 2

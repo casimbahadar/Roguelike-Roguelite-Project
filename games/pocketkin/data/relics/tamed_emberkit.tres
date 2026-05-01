@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="RelicDef" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://core/data/relic_def.gd" id="1_def"]
+
+[resource]
+script = ExtResource("1_def")
+id = &"tamed_emberkit"
+display_name = "Tamed Emberkit"
+description = "An emberkit you spared in a clean fight follows your column at a polite distance. It carries small kindlings to your party at every camp. (+2 atk to every party unit, every battle.)"
+kind = 0
+value = 2
+rarity = 1
+weight = 0

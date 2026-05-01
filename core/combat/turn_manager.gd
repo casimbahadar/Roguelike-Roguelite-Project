@@ -107,7 +107,8 @@ func _attack(attacker: CombatUnit, defender: CombatUnit) -> void:
 	var terrain_bonus: int = grid.defense_bonus_at(defender.pos)
 	var dmg: int = DamageFormula.resolve_damage(
 		attacker.atk(), attacker.weapon_type(),
-		defender.defense() + terrain_bonus, defender.weapon_type()
+		defender.defense() + terrain_bonus, defender.weapon_type(),
+		attacker.unit_def.element, defender.unit_def.element
 	)
 	defender.take_damage(dmg)
 
@@ -124,7 +125,8 @@ func _cast_ability(attacker: CombatUnit, defender: CombatUnit, ability: AbilityD
 		var dmg: int = DamageFormula.resolve_ability_damage(
 			attacker.atk(), attacker.weapon_type(),
 			defender.defense() + terrain_bonus, defender.weapon_type(),
-			ability.kind, ability.power
+			ability.kind, ability.power,
+			attacker.unit_def.element, defender.unit_def.element
 		)
 		defender.take_damage(dmg)
 		return

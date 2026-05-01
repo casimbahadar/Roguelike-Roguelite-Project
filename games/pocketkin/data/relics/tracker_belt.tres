@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="RelicDef" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://core/data/relic_def.gd" id="1_def"]
+
+[resource]
+script = ExtResource("1_def")
+id = &"tracker_belt"
+display_name = "Tracker's Belt"
+description = "A wide leather belt with twelve loops, each holding a different scent-flask. Wardens know what's coming a beat before it bites. (+2 defense to every party unit, every battle.)"
+kind = 1
+value = 2
+rarity = 1
+weight = 10

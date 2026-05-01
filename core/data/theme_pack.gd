@@ -22,6 +22,9 @@ extends Resource
 @export var encounter_pool_path: String
 @export var event_pool_path: String
 @export var relic_pool_path: String
+# Optional. When present, max-rank bonds grant their relic_at_max
+# at run start, and run completion ticks the matching class's bond.
+@export var bond_pool_path: String
 
 @export_group("Default classes")
 # The class loaded for the player when no Lord/UnitDef has been

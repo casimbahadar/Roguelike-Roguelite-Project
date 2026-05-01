@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="AbilityDef" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://core/data/ability_def.gd" id="1_def"]
+
+[resource]
+script = ExtResource("1_def")
+id = &"blessing"
+display_name = "Blessing"
+description = "A short prayer pressed against an ally's wound. Single-target heal, range 1, twice per battle."
+range_min = 1
+range_max = 1
+aoe_radius = 0
+kind = "HEAL"
+power = 6
+uses_per_battle = 2

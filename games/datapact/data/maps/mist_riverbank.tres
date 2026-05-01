@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="MapDef" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://core/data/map_def.gd" id="1_def"]
+
+[resource]
+script = ExtResource("1_def")
+id = &"mist_riverbank"
+display_name = "The Mist Riverbank"
+tile_rows = ["WW...WW", "W.....W", "..R.R..", "...R...", "..R.R..", "W.....W", "WW...WW"]
+player_spawns = [Vector2i(2, 6), Vector2i(3, 6), Vector2i(4, 6)]
+enemy_spawns = [Vector2i(2, 0), Vector2i(3, 0), Vector2i(4, 0), Vector2i(3, 1)]

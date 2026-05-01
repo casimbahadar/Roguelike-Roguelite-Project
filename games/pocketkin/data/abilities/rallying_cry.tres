@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="AbilityDef" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://core/data/ability_def.gd" id="1_def"]
+
+[resource]
+script = ExtResource("1_def")
+id = &"rallying_cry"
+display_name = "Rallying Cry"
+description = "The Beastrider whistles a long bright note that lifts every pocketkin head in the line. Buff hook: applied as a no-op in the slice; status-effect plumbing lands when supports do."
+range_min = 1
+range_max = 3
+aoe_radius = 0
+kind = "BUFF"
+power = 0
+uses_per_battle = 2

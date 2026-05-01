@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="RunConfig" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://core/run/run_config.gd" id="1_run_config"]
+
+[resource]
+script = ExtResource("1_run_config")
+id = &"datapact_tutorial"
+display_name = "Tutorial: First March"
+act_count = 1
+nodes_per_act = Vector2i(5, 5)
+revive_policy = 1
+seed_source = 2
+fixed_seed = 42
+leaderboard_key = &""
+vessel_mortality = 0
+scripted_node_kinds = [0, 2, 4, 0, 6]

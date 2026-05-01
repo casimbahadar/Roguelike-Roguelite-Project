@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="AbilityDef" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://core/data/ability_def.gd" id="1_def"]
+
+[resource]
+script = ExtResource("1_def")
+id = &"molten_breath"
+display_name = "Molten Breath"
+description = "The Wyrmling pulls a long thread of low fire from its throat and lets it fall on a wide angle. Twice per battle, magic damage at near range."
+range_min = 1
+range_max = 2
+aoe_radius = 0
+kind = "MAGICAL"
+power = 5
+uses_per_battle = 2

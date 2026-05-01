@@ -1,13 +1,17 @@
-[gd_resource type="Resource" script_class="EncounterPool" load_steps=5 format=3]
+[gd_resource type="Resource" script_class="EncounterPool" load_steps=9 format=3]
 
 [ext_resource type="Script" path="res://core/data/encounter_pool.gd" id="1_pool"]
 [ext_resource type="Resource" path="res://games/datapact/data/encounters/severed_pact.tres" id="2_severed"]
-[ext_resource type="Resource" path="res://games/datapact/data/encounters/oathkeepers_lament.tres" id="3_lament"]
-[ext_resource type="Resource" path="res://games/datapact/data/encounters/the_unbound.tres" id="4_unbound"]
+[ext_resource type="Resource" path="res://games/datapact/data/encounters/oath_breakers.tres" id="3_breakers"]
+[ext_resource type="Resource" path="res://games/datapact/data/encounters/severed_chorus.tres" id="4_chorus"]
+[ext_resource type="Resource" path="res://games/datapact/data/encounters/oathkeepers_lament.tres" id="5_lament"]
+[ext_resource type="Resource" path="res://games/datapact/data/encounters/feral_pack.tres" id="6_pack"]
+[ext_resource type="Resource" path="res://games/datapact/data/encounters/the_unbound.tres" id="7_unbound"]
+[ext_resource type="Resource" path="res://games/datapact/data/encounters/ascendant_apostate.tres" id="8_apostate"]
 
 [resource]
 script = ExtResource("1_pool")
 id = &"datapact_pool"
-battle_encounters = [ExtResource("2_severed")]
-elite_encounters = [ExtResource("3_lament")]
-boss_encounters = [ExtResource("4_unbound")]
+battle_encounters = [ExtResource("2_severed"), ExtResource("3_breakers"), ExtResource("4_chorus")]
+elite_encounters = [ExtResource("5_lament"), ExtResource("6_pack")]
+boss_encounters = [ExtResource("7_unbound"), ExtResource("8_apostate")]

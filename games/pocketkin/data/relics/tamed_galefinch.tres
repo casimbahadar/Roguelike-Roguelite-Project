@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="RelicDef" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://core/data/relic_def.gd" id="1_def"]
+
+[resource]
+script = ExtResource("1_def")
+id = &"tamed_galefinch"
+display_name = "Tamed Galefinch"
+description = "A galefinch perches on your captain's pauldron between marches and rides updrafts ahead of the column to scout. (+2 max hp to every party unit, every battle.)"
+kind = 2
+value = 2
+rarity = 1
+weight = 0

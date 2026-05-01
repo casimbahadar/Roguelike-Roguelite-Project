@@ -39,8 +39,15 @@ const MOVE_COST: Dictionary = {
 	TileType.WALL: 99,
 }
 
+enum Weather {
+	CLEAR,  # default; no modifiers
+	FOG,    # ranged max-range -1; archers and mages can't see far
+	RAIN,   # placeholder for matchlock-disable; mechanically CLEAR until guns land
+}
+
 var width: int
 var height: int
+var weather: int = Weather.CLEAR
 var _tiles: Dictionary = {}    # Vector2i -> TileType (PLAIN if missing)
 var _blocked: Dictionary = {}  # Vector2i -> true (legacy/manual block)
 
@@ -90,3 +97,12 @@ func neighbors(p: Vector2i) -> Array[Vector2i]:
 
 func distance(a: Vector2i, b: Vector2i) -> int:
 	return absi(a.x - b.x) + absi(a.y - b.y)
+
+# Apply weather to a (min, max) attack range. FOG clips max by 1
+# (clamped to >= min so the band doesn't invert). CLEAR/RAIN
+# return the original range. Centralised here so AI archetypes
+# don't reach into the weather enum themselves.
+func ranged_clip(rng: Vector2i) -> Vector2i:
+	if weather == Weather.FOG:
+		return Vector2i(rng.x, maxi(rng.x, rng.y - 1))
+	return rng

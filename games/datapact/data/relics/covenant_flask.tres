@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="RelicDef" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://core/data/relic_def.gd" id="1_def"]
+
+[resource]
+script = ExtResource("1_def")
+id = &"covenant_flask"
+display_name = "Covenant Flask"
+description = "A small steel flask of consecrated water shared between lord and vessel each morning. The shared draught quiets a long road. (+2 max hp to every party unit, every battle.)"
+kind = 2
+value = 2
+rarity = 0
+weight = 12

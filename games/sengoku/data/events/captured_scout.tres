@@ -10,6 +10,7 @@ outcome_text = "His message is genuine. The friendly clan sends a token of grati
 gold_delta = 8
 meta_currency_delta = 0
 party_hp_delta = 0
+honor_delta = 1
 
 [sub_resource type="Resource" id="ChoiceQuestion"]
 script = ExtResource("2_choice")
@@ -18,6 +19,7 @@ outcome_text = "He breaks. Three names. A safehouse. He also names the false bro
 gold_delta = 0
 meta_currency_delta = 4
 party_hp_delta = -4
+honor_delta = -3
 
 [sub_resource type="Resource" id="ChoiceRelease"]
 script = ExtResource("2_choice")
@@ -26,6 +28,7 @@ outcome_text = "He bows once and is gone. You may regret this."
 gold_delta = 0
 meta_currency_delta = 0
 party_hp_delta = 0
+honor_delta = 2
 
 [resource]
 script = ExtResource("1_def")

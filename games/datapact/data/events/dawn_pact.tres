@@ -1,0 +1,30 @@
+[gd_resource type="Resource" script_class="EventDef" load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://core/data/event_def.gd" id="1_def"]
+[ext_resource type="Script" path="res://core/data/event_choice.gd" id="2_choice"]
+
+[sub_resource type="Resource" id="ChoiceRenew"]
+script = ExtResource("2_choice")
+label = "Speak the renewal aloud"
+outcome_text = "You renew the Pact at the dawn-stone with the words your lord taught you. The vessel breathes easier afterward, and so do you."
+gold_delta = 0
+meta_currency_delta = 4
+party_hp_delta = 2
+
+[sub_resource type="Resource" id="ChoicePass"]
+script = ExtResource("2_choice")
+label = "Save the words for the road"
+outcome_text = "Some Pacts are not refilled at every milestone. Your lord lets the dawn-stone pass without ceremony."
+gold_delta = 0
+meta_currency_delta = 0
+party_hp_delta = 0
+
+[resource]
+script = ExtResource("1_def")
+id = &"dawn_pact"
+display_name = "The Dawn Pact"
+body = "A Pact-stone the size of a kneeling man stands in a clearing where the road bends. By custom, lord and vessel renew their pact aloud here. By custom, the renewal can also be saved."
+choices = [SubResource("ChoiceRenew"), SubResource("ChoicePass")]
+act_min = 0
+act_max = 99
+weight = 10

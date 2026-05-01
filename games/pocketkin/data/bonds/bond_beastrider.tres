@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="BondDef" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://core/data/bond_def.gd" id="1_def"]
+[ext_resource type="Resource" path="res://games/pocketkin/data/relics/alpha_fang.tres" id="2_relic"]
+
+[resource]
+script = ExtResource("1_def")
+id = &"bond_pocketkin_beastrider"
+display_name = "Pack Elder"
+description = "An old warden who has been tracking pocketkin migrations longer than you've been alive. At Sworn rank she hands you a curved canine taken from a stoneclad alpha — won fairly, kept respectfully."
+class_id = &"pocketkin_beastrider"
+relic_at_max = ExtResource("2_relic")

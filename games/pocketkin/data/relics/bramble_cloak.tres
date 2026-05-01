@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="RelicDef" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://core/data/relic_def.gd" id="1_def"]
+
+[resource]
+script = ExtResource("1_def")
+id = &"bramble_cloak"
+display_name = "Bramble Cloak"
+description = "A long cloak woven from living thornvine, kept supple by a druid-knot at the throat. Catches on enemy blades with a mind of its own. (+3 defense to every party unit, every battle.)"
+kind = 1
+value = 3
+rarity = 2
+weight = 6

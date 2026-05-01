@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="AbilityDef" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://core/data/ability_def.gd" id="1_def"]
+
+[resource]
+script = ExtResource("1_def")
+id = &"wall_brace"
+display_name = "Wall-Brace"
+description = "The Knight plants the lance, sets the shoulder, and rides out a hit on his own terms. Twice per battle, solid damage at melee range."
+range_min = 1
+range_max = 1
+aoe_radius = 0
+kind = "PHYSICAL"
+power = 4
+uses_per_battle = 2

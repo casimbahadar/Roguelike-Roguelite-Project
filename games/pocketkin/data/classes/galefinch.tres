@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="ClassDef" load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://core/data/class_def.gd" id="1_class_def"]
+[ext_resource type="Resource" path="res://games/pocketkin/data/abilities/galeburst.tres" id="2_ability"]
+[ext_resource type="Resource" path="res://games/pocketkin/data/abilities/downdraft.tres" id="3_extra"]
+
+[resource]
+script = ExtResource("1_class_def")
+id = &"pocketkin_galefinch"
+display_name = "Galefinch"
+theme = &"pocketkin"
+movement_type = "flying"
+move_range = 7
+weapon_type = "MAGIC"
+base_hp = 14
+base_atk = 5
+base_defense = 2
+base_speed = 9
+signature_ability = ExtResource("2_ability")
+extra_abilities = [ExtResource("3_extra")]

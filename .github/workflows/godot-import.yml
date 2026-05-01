@@ -231,3 +231,57 @@ jobs:
             echo "Godot reported errors during themes smoke test."
             exit 1
           fi
+
+      - name: Smoke test — Full ability kit picker (signature + extras)
+        run: |
+          set -euo pipefail
+          ~/godot/godot --headless --script res://tests/smoke_kit_picker.gd 2>&1 | tee smoke_kit_picker.log
+          if grep -E "^(SCRIPT ERROR|ERROR:)" smoke_kit_picker.log; then
+            echo "Godot reported errors during kit picker smoke test."
+            exit 1
+          fi
+
+      - name: Smoke test — Bond rank progression + pool wire-up
+        run: |
+          set -euo pipefail
+          ~/godot/godot --headless --script res://tests/smoke_bonds.gd 2>&1 | tee smoke_bonds.log
+          if grep -E "^(SCRIPT ERROR|ERROR:)" smoke_bonds.log; then
+            echo "Godot reported errors during bonds smoke test."
+            exit 1
+          fi
+
+      - name: Smoke test — Honor meter + weather (FOG clips ranged)
+        run: |
+          set -euo pipefail
+          ~/godot/godot --headless --script res://tests/smoke_honor_weather.gd 2>&1 | tee smoke_honor_weather.log
+          if grep -E "^(SCRIPT ERROR|ERROR:)" smoke_honor_weather.log; then
+            echo "Godot reported errors during honor/weather smoke test."
+            exit 1
+          fi
+
+      - name: Smoke test — Job system bonus + crystal shard spend
+        run: |
+          set -euo pipefail
+          ~/godot/godot --headless --script res://tests/smoke_jobs_shards.gd 2>&1 | tee smoke_jobs_shards.log
+          if grep -E "^(SCRIPT ERROR|ERROR:)" smoke_jobs_shards.log; then
+            echo "Godot reported errors during jobs/shards smoke test."
+            exit 1
+          fi
+
+      - name: Smoke test — Element triangle + capture/recruit data
+        run: |
+          set -euo pipefail
+          ~/godot/godot --headless --script res://tests/smoke_capture_elements.gd 2>&1 | tee smoke_capture_elements.log
+          if grep -E "^(SCRIPT ERROR|ERROR:)" smoke_capture_elements.log; then
+            echo "Godot reported errors during capture/elements smoke test."
+            exit 1
+          fi
+
+      - name: Smoke test — Restored Pact vs Permabond run toggle
+        run: |
+          set -euo pipefail
+          ~/godot/godot --headless --script res://tests/smoke_pact_toggle.gd 2>&1 | tee smoke_pact_toggle.log
+          if grep -E "^(SCRIPT ERROR|ERROR:)" smoke_pact_toggle.log; then
+            echo "Godot reported errors during pact toggle smoke test."
+            exit 1
+          fi

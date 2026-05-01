@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="EncounterDef" load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://core/data/encounter_def.gd" id="1_def"]
+[ext_resource type="Resource" path="res://games/pocketkin/data/units/enemies/rogue_beastrider.tres" id="2_rider"]
+[ext_resource type="Resource" path="res://games/pocketkin/data/units/enemies/wild_emberkit.tres" id="3_kit"]
+[ext_resource type="Resource" path="res://games/pocketkin/data/units/enemies/forest_wisp.tres" id="4_wisp"]
+
+[resource]
+script = ExtResource("1_def")
+id = &"meadow_chase"
+display_name = "Meadow Chase"
+encounter_kind = "BATTLE"
+enemies = [ExtResource("2_rider"), ExtResource("3_kit"), ExtResource("4_wisp")]
+act_min = 0
+act_max = 99
+weight = 15

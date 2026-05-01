@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="BondDef" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://core/data/bond_def.gd" id="1_def"]
+[ext_resource type="Resource" path="res://games/crystal/data/relics/starforged_shield.tres" id="2_relic"]
+
+[resource]
+script = ExtResource("1_def")
+id = &"bond_crystal_knight"
+display_name = "Old Bulwark"
+description = "A retired knight has watched five lords ride out on this road. At Sworn rank he hands you the shield he was awarded after Carthil; the dings on its face are old and proud."
+class_id = &"crystal_knight"
+relic_at_max = ExtResource("2_relic")

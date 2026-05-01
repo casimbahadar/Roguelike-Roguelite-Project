@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="RelicDef" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://core/data/relic_def.gd" id="1_def"]
+
+[resource]
+script = ExtResource("1_def")
+id = &"honeyflask"
+display_name = "Honeyflask"
+description = "A clay flask of wild-meadow honey, sealed with beeswax stamped by a forest druid. A spoonful at dawn settles a long march. (+2 max hp to every party unit, every battle.)"
+kind = 2
+value = 2
+rarity = 0
+weight = 12

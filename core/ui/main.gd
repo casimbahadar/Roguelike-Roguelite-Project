@@ -7,11 +7,22 @@ extends Node
 # whichever child is visible is the active screen.
 #
 # Theme-aware: Main reads all per-game content paths from a
-# ThemePack Resource set via set_theme_pack() before _ready, or
-# from DEFAULT_THEME_PACK if none is set (falls back to Sengoku
-# so direct main.tscn launch still works without a title screen).
+# ThemePack Resource. Three ways the pack can be set, in priority
+# order:
+#   1. Test/harness code calls set_theme_pack() before add_child.
+#   2. The build has a feature tag matching one of FEATURE_TAG_TO_PACK
+#      (the four shipped products each export with one such tag).
+#   3. Neither — show the dev title screen so the developer can pick.
+#
+# The title screen is a dev-only harness; shipped builds always boot
+# straight to their tagged pack and never see it.
 
-const DEFAULT_THEME_PACK := "res://games/sengoku/sengoku_pack.tres"
+const FEATURE_TAG_TO_PACK := {
+	"sengoku": "res://games/sengoku/sengoku_pack.tres",
+	"crystal": "res://games/crystal/crystal_pack.tres",
+	"pocketkin": "res://games/pocketkin/pocketkin_pack.tres",
+	"datapact": "res://games/datapact/datapact_pack.tres",
+}
 
 var _theme_pack: ThemePack
 
@@ -23,6 +34,7 @@ var _enemy_class: ClassDef
 var _encounter_pool: EncounterPool
 var _event_pool: EventPool
 var _relic_pool: RelicPool
+var _bond_pool: BondPool
 var _maps: Array[MapDef] = []
 var _templates: Array[BattlefieldTemplate] = []
 var _battle_rng: RandomNumberGenerator
@@ -46,10 +58,22 @@ func set_theme_pack(pack: ThemePack) -> void:
 func _ready() -> void:
 	_ensure_nodes()
 	_title.theme_chosen.connect(_on_theme_chosen)
+	if _theme_pack == null:
+		_theme_pack = _resolve_pack_from_feature_tags()
 	if _theme_pack != null:
 		_boot_with_theme()
 	else:
 		_show_only(_title)
+
+# Shipped builds export with exactly one of the four feature tags
+# (sengoku/crystal/pocketkin/datapact), each in its own export
+# preset. Dev/editor builds have none, which is how the title screen
+# stays reachable for in-engine testing.
+func _resolve_pack_from_feature_tags() -> ThemePack:
+	for tag in FEATURE_TAG_TO_PACK:
+		if OS.has_feature(tag):
+			return load(FEATURE_TAG_TO_PACK[tag])
+	return null
 
 func _on_theme_chosen(pack: ThemePack) -> void:
 	_theme_pack = pack
@@ -99,6 +123,8 @@ func _load_data() -> void:
 	_encounter_pool = load(_theme_pack.encounter_pool_path)
 	_event_pool = load(_theme_pack.event_pool_path)
 	_relic_pool = load(_theme_pack.relic_pool_path)
+	if _theme_pack.bond_pool_path != "":
+		_bond_pool = load(_theme_pack.bond_pool_path)
 	for p in _theme_pack.map_paths:
 		var m: MapDef = load(p)
 		if m != null:
@@ -142,12 +168,26 @@ func _on_run_format_chosen(format_id: StringName) -> void:
 	var seed: int = _seed_for(config)
 	var party: Array[UnitDef] = [_make_player_unit_def()]
 	_run_state = RunState.new(config, seed, party)
+	_apply_max_rank_bond_relics()
 	_map.bind_run(_run_state)
 	_show_only(_map)
 	# Node 0 is always BATTLE per MapGenerator; trigger the opening
 	# fight so the player isn't given a free pass past it.
 	if _is_combat_kind(_run_state.current_node().kind):
 		_start_battle_for_current_node()
+
+# Walk the theme's bond pool. Any bond at MAX_RANK pre-loads its
+# relic_at_max into the new run's relics array. The same RelicDef
+# machinery applies the buff at battle setup — bonds are just a
+# different source of the same relic objects.
+func _apply_max_rank_bond_relics() -> void:
+	if _bond_pool == null:
+		return
+	for b in _bond_pool.bonds:
+		if b == null or b.relic_at_max == null:
+			continue
+		if _meta.bond_rank(b.id) >= BondDef.MAX_RANK:
+			_run_state.relics.append(b.relic_at_max)
 
 func _on_node_advanced(_idx: int) -> void:
 	var kind: int = _run_state.current_node().kind
@@ -216,6 +256,7 @@ func _on_event_resolved(chosen: EventChoice) -> void:
 	_meta.meta_currency += chosen.meta_currency_delta
 	if _meta.meta_currency < 0:
 		_meta.meta_currency = 0
+	_run_state.honor += chosen.honor_delta
 	# party_hp_delta is a future hook (party isn't yet a persistent
 	# CombatUnit roster across nodes); apply it once that lands.
 	_show_only(_map)
@@ -318,13 +359,17 @@ func _on_battle_resolved(winning_side: int) -> void:
 	for r in _run_state.relics:
 		if r.kind == RelicDef.Kind.GOLD_PER_VICTORY:
 			_run_state.gold += r.value
+	_roll_capture_for_defeated_enemies()
 	# Boss victory: pull a fresh relic into the run before
 	# resolving the screen so the player feels the upgrade
-	# immediately if they hit a follow-up battle.
-	if _run_state.current_node().kind == MapNode.Kind.BOSS and _relic_pool != null:
-		var picked: RelicDef = _relic_pool.pick(_battle_rng)
-		if picked != null:
-			_run_state.relics.append(picked)
+	# immediately if they hit a follow-up battle. Each boss kill
+	# also awards 1 crystal shard for G2's spend-at-shrine flow.
+	if _run_state.current_node().kind == MapNode.Kind.BOSS:
+		_run_state.crystal_shards += 1
+		if _relic_pool != null:
+			var picked: RelicDef = _relic_pool.pick(_battle_rng)
+			if picked != null:
+				_run_state.relics.append(picked)
 	# If that was the final-act boss, finish the run.
 	if _run_state.is_run_complete():
 		_finish_run(ResultScreen.Outcome.VICTORY)
@@ -336,9 +381,36 @@ func _finish_run(outcome: ResultScreen.Outcome) -> void:
 	var newly: Array[StringName] = []
 	if outcome == ResultScreen.Outcome.VICTORY:
 		newly = MetaUnlocks.on_run_completed(_meta, _run_state.run_config.id)
+		_advance_bonds_for_player_class()
 	SaveSystem.save(_meta.to_dict())
 	_result.bind_result(outcome, _run_state, newly)
 	_show_only(_result)
+
+# Walk defeated enemies for the just-resolved battle and roll the
+# G3 capture/recruit chance on each that ships a recruit_on_defeat
+# relic. Successful captures add the relic to the run's relics
+# array so the existing relic-buff machinery picks them up at the
+# next battle. Theme-agnostic: enemies in G1/G2/G4 leave
+# recruit_on_defeat null and this is a no-op for them.
+func _roll_capture_for_defeated_enemies() -> void:
+	if _battle == null:
+		return
+	for d in _battle.defeated_enemy_defs():
+		if d == null or d.recruit_on_defeat == null:
+			continue
+		if _battle_rng.randf() < d.recruit_chance:
+			_run_state.relics.append(d.recruit_on_defeat)
+
+# On a successful run, tick every bond whose class_id matches the
+# player's class. Slice has only one party slot so at most one
+# bond ticks; multi-unit parties later will tick a bond per
+# bonded unit on the team.
+func _advance_bonds_for_player_class() -> void:
+	if _bond_pool == null or _player_class == null:
+		return
+	for b in _bond_pool.bonds:
+		if b != null and b.class_id == _player_class.id:
+			_meta.advance_bond(b.id)
 
 func _config_by_id(id: StringName) -> RunConfig:
 	for c in _run_configs:

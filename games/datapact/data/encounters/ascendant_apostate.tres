@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="EncounterDef" load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://core/data/encounter_def.gd" id="1_def"]
+[ext_resource type="Resource" path="res://games/datapact/data/units/enemies/covenant_breaker.tres" id="2_breaker"]
+[ext_resource type="Resource" path="res://games/datapact/data/units/enemies/oathshade.tres" id="3_shade"]
+[ext_resource type="Resource" path="res://games/datapact/data/units/enemies/severed_warden.tres" id="4_warden"]
+
+[resource]
+script = ExtResource("1_def")
+id = &"ascendant_apostate_boss"
+display_name = "The Ascendant Apostate"
+encounter_kind = "BOSS"
+enemies = [ExtResource("2_breaker"), ExtResource("3_shade"), ExtResource("4_warden")]
+act_min = 0
+act_max = 99
+weight = 10

@@ -1,0 +1,30 @@
+[gd_resource type="Resource" script_class="EventDef" load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://core/data/event_def.gd" id="1_def"]
+[ext_resource type="Script" path="res://core/data/event_choice.gd" id="2_choice"]
+
+[sub_resource type="Resource" id="ChoiceBarter"]
+script = ExtResource("2_choice")
+label = "Barter the camp's offered cache"
+outcome_text = "They take your coin without speaking and slide a small box across the firelight. Inside, two charms in good repair and one in better."
+gold_delta = -5
+meta_currency_delta = 5
+party_hp_delta = 0
+
+[sub_resource type="Resource" id="ChoicePass"]
+script = ExtResource("2_choice")
+label = "Walk past the camp"
+outcome_text = "The chorus does not look up. The road keeps going and so do you."
+gold_delta = 0
+meta_currency_delta = 0
+party_hp_delta = 0
+
+[resource]
+script = ExtResource("1_def")
+id = &"severed_chorus_camp"
+display_name = "A Severed-Chorus Camp"
+body = "A small camp of severed truthsingers — vessels whose lords have died or vanished — keep a fire by the road. They trade quietly. They sing not at all."
+choices = [SubResource("ChoiceBarter"), SubResource("ChoicePass")]
+act_min = 0
+act_max = 99
+weight = 9

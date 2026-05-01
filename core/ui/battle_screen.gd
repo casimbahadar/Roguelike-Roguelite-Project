@@ -114,6 +114,16 @@ func _on_resolve_pressed() -> void:
 	_refresh()
 	battle_resolved.emit(winning_side)
 
+# Public accessor used by Main after a victory to read which
+# enemy UnitDefs were defeated. Lets G3 capture/recruit roll for
+# each KO'd beast without battle_screen owning the recruit logic.
+func defeated_enemy_defs() -> Array[UnitDef]:
+	var out: Array[UnitDef] = []
+	for u in _enemy_units:
+		if not u.is_alive():
+			out.append(u.unit_def)
+	return out
+
 func _format_outcome(winning_side: int) -> String:
 	match winning_side:
 		0:

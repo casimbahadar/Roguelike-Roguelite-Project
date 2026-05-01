@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="BondDef" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://core/data/bond_def.gd" id="1_def"]
+[ext_resource type="Resource" path="res://games/crystal/data/relics/greater_shard.tres" id="2_relic"]
+
+[resource]
+script = ExtResource("1_def")
+id = &"bond_crystal_lord"
+display_name = "Sworn Captain"
+description = "A captain who served the lord's house since both were children. Earn this bond by finishing runs as a Lord; at Sworn rank she gives you a fragment of the breaking Crystal she has guarded for years."
+class_id = &"crystal_lord"
+relic_at_max = ExtResource("2_relic")

@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="BondDef" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://core/data/bond_def.gd" id="1_def"]
+[ext_resource type="Resource" path="res://games/sengoku/data/relics/jade_charm.tres" id="2_relic"]
+
+[resource]
+script = ExtResource("1_def")
+id = &"bond_ashigaru"
+display_name = "Spear of the Long Road"
+description = "An old ashigaru remembers every captain who let her eat first. Earn this bond by finishing runs as an Ashigaru. At Sworn rank she gives you a small jade charm she's carried since her first march."
+class_id = &"ashigaru"
+relic_at_max = ExtResource("2_relic")

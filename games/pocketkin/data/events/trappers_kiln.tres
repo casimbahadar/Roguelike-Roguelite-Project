@@ -1,0 +1,30 @@
+[gd_resource type="Resource" script_class="EventDef" load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://core/data/event_def.gd" id="1_def"]
+[ext_resource type="Script" path="res://core/data/event_choice.gd" id="2_choice"]
+
+[sub_resource type="Resource" id="ChoiceBarter"]
+script = ExtResource("2_choice")
+label = "Barter for a smoked stash"
+outcome_text = "The trapper hands over a tied bundle of dried meat and a small leather wallet. 'Worth more on the road than under my floorboards.'"
+gold_delta = -4
+meta_currency_delta = 4
+party_hp_delta = 0
+
+[sub_resource type="Resource" id="ChoicePass"]
+script = ExtResource("2_choice")
+label = "Pass without trading"
+outcome_text = "The trapper shrugs and turns back to her smoke-rack. The smell follows you for a half-mile."
+gold_delta = 0
+meta_currency_delta = 0
+party_hp_delta = 0
+
+[resource]
+script = ExtResource("1_def")
+id = &"trappers_kiln"
+display_name = "The Trapper's Kiln"
+body = "An old trapper tends a smoke-kiln just off the road. She has goods to trade and the eyes of someone who's seen a lot of wardens come and go."
+choices = [SubResource("ChoiceBarter"), SubResource("ChoicePass")]
+act_min = 0
+act_max = 99
+weight = 10

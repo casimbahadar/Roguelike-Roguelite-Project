@@ -16,3 +16,4 @@ extends Resource
 @export var gold_delta: int = 0           # added to RunState.gold
 @export var meta_currency_delta: int = 0  # added to MetaState.meta_currency
 @export var party_hp_delta: int = 0       # applied to every alive party UnitDef hp ratio (clamped)
+@export var honor_delta: int = 0          # added to RunState.honor (G1 hook)

@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="EncounterDef" load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://core/data/encounter_def.gd" id="1_def"]
+[ext_resource type="Resource" path="res://games/crystal/data/units/enemies/shardbound_knight.tres" id="2_knight"]
+[ext_resource type="Resource" path="res://games/crystal/data/units/enemies/fallen_cleric.tres" id="3_cleric"]
+[ext_resource type="Resource" path="res://games/crystal/data/units/enemies/plate_sentinel.tres" id="4_sentinel"]
+
+[resource]
+script = ExtResource("1_def")
+id = &"shardbound_warden_boss"
+display_name = "The Shardbound Warden"
+encounter_kind = "BOSS"
+enemies = [ExtResource("2_knight"), ExtResource("3_cleric"), ExtResource("4_sentinel")]
+act_min = 0
+act_max = 99
+weight = 10
